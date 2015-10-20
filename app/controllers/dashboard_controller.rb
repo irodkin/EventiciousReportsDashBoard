@@ -4,6 +4,7 @@ class DashboardController < ApplicationController
     @branches = self.by_branch
     @platforms = self.by_platform
     @suites = self.by_suite
+    @total_count = Report.all.count
   end
   def by_branch
     Report.group(:branch).count
