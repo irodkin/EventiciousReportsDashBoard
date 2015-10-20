@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>EventiciousReports</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+  <style>
+  .block {
+    display: inline-block;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  </style>
+</head>
+<body>
+
+<p>Last reports</p>
+<table>
+  <tr>
+  <th>Platform</th>
+  <th>Branch</th>
+  <th>Suite</th>
+  <th>Link</th>
+  </tr>
+  <% @last_reports.each do |r| %>
+      <tr>
+        <td><%= r.platform%></td>
+        <td><%= r.branch %></td>
+        <td><%= r.suite %></td>
+        <td><%= link_to "link to report", r.link %></td>
+      </tr>
+  <% end %>
+</table>
+
+<div class="block">
+  <p>By Branch</p>
+  <% @branches.each do |b| %>
+     <p><%= link_to "#{b.first} (#{b.second})", "/reports?branch=#{b.first}" %></p>
+  <% end %>
+</div>
+<div class="block">
+  <p>By Platform</p>
+  <% @platforms.each do |p| %>
+     <p><%= link_to "#{p.first} (#{p.second})", "/reports?platform=#{p.first}" %></p>
+  <% end %>
+</div>
+<div class="block">
+  <p>By Suite</p>
+  <% @suites.each do |s| %>
+     <p><%= link_to "#{s.first} (#{s.second})", "/reports?suite=#{s.first}" %></p>
+  <% end %>
+</div>
+
+</body>
+</html>

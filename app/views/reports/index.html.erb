@@ -7,23 +7,21 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-
 <table>
-  <%= @param %>
+  <tr>
+  <th>Platform</th>
+  <th>Branch</th>
+  <th>Suite</th>
+  <th>Link</th>
+  </tr>
   <% @reports.each do |r| %>
       <tr>
-        <td><%= link_to r.platfrom, report_path(r) %></td>
-        <td><%= link_to r.branch, "?branch=#{r.branch}" %></td>
-        <td><%= r.date.strftime("%-d %h, %Y") %></td>
+        <td><%= r.platform%></td>
+        <td><%= r.branch %></td>
         <td><%= r.suite %></td>
+        <td><%= link_to "link to report", r.link %></td>
       </tr>
   <% end %>
 </table>
-
-<% @branch_count.each do |b| %>
-
-<p><%= link_to "#{b.first}(#{b.second})", "?branch=#{b.first}" %></p>
-<% end %>
-
 </body>
 </html>
