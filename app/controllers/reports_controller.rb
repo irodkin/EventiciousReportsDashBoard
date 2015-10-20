@@ -1,11 +1,14 @@
 class ReportsController < ApplicationController
   def index
     if params[:branch]
-      @reports = Report.where(branch: params[:branch]).all
+      @title = "By Branches"
+      @reports = Report.where(branch: params[:branch]).order("date DESC").all
     elsif params[:suite]
-      @reports = Report.where(suite: params[:suite]).all
+      @title = "By Suites"
+      @reports = Report.where(suite: params[:suite]).order("date DESC").all
     elsif params[:platform]
-      @reports = Report.where(platform: params[:platform]).all
+      @title = "By Platforms"
+      @reports = Report.where(platform: params[:platform]).order("date DESC").all
     end
   end
 end

@@ -15,6 +15,7 @@ class DashboardController < ApplicationController
     Report.group(:suite).count
   end
   def by_date(limit=5)
-    Report.last(limit)
+    reports = Report.order("date DESC")
+    reports.last(limit)
   end
 end

@@ -7,21 +7,34 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-<table>
+<div class="container">
+<div class="panel panel-primary">
+  <div class="panel-heading"><h4><%= @title %></h4></div>
+  <table class="table">
   <tr>
+  <th>Date</th>
   <th>Platform</th>
   <th>Branch</th>
   <th>Suite</th>
+  <th>Device</th> 
   <th>Link</th>
   </tr>
   <% @reports.each do |r| %>
       <tr>
+        <td><%= r.date.strftime("%d %b, %Y %H:%M")%></td>
         <td><%= r.platform%></td>
         <td><%= r.branch %></td>
         <td><%= r.suite %></td>
+        <% if r.platform == "Android" %>
+        <td>Some Device</td>
+        <% else %>
+        <td></td>
+        <% end %>
         <td><%= link_to "link to report", r.link %></td>
       </tr>
   <% end %>
-</table>
+  </table>
+</div>
+</div>
 </body>
 </html>

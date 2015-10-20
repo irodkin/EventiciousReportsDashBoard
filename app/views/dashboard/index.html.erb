@@ -5,52 +5,71 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
-  <style>
-  .block {
-    display: inline-block;
-    margin-left: 10px;
-    margin-right: 10px;
-  }
-  </style>
 </head>
 <body>
-
-<p>Last reports</p>
-<table>
+<div class="container">
+<div class="panel panel-primary">
+  <div class="panel-heading"><h4>Last reports</h4></div>
+  <table class="table">
   <tr>
+  <th>Date</th>
   <th>Platform</th>
   <th>Branch</th>
   <th>Suite</th>
+  <th>Device</th> 
   <th>Link</th>
   </tr>
   <% @last_reports.each do |r| %>
       <tr>
+        <td><%= r.date.strftime("%d %b, %Y %H:%M")%></td>
         <td><%= r.platform%></td>
         <td><%= r.branch %></td>
         <td><%= r.suite %></td>
+        <% if r.platform == "Android" %>
+        <td>Some Device</td>
+        <% else %>
+        <td></td>
+        <% end %>
         <td><%= link_to "link to report", r.link %></td>
       </tr>
   <% end %>
-</table>
-
-<div class="block">
-  <p>By Branch</p>
+  </table>
+</div>
+<div class="container">
+<div class="raw">
+  <h4>By Branch</h4>
+<ul class="list-group">
   <% @branches.each do |b| %>
-     <p><%= link_to "#{b.first} (#{b.second})", "/reports?branch=#{b.first}" %></p>
+    <li class="list-group-item">
+      <span class="badge"><%= b.second %></span>
+     <%= link_to b.first, "/reports?branch=#{b.first}" %>
+    </li>
   <% end %>
+</ul>
 </div>
-<div class="block">
-  <p>By Platform</p>
+<div class="raw">
+  <h4>By Platform</h4>
+<ul class="list-group">
   <% @platforms.each do |p| %>
-     <p><%= link_to "#{p.first} (#{p.second})", "/reports?platform=#{p.first}" %></p>
+    <li class="list-group-item">
+      <span class="badge"><%= p.second %></span>
+     <%= link_to p.first, "/reports?platform=#{p.first}" %>
+    </li>
   <% end %>
+</ul>
 </div>
-<div class="block">
-  <p>By Suite</p>
+<div class="raw">
+  <h4>By Suite</h4>
+<ul class="list-group">
   <% @suites.each do |s| %>
-     <p><%= link_to "#{s.first} (#{s.second})", "/reports?suite=#{s.first}" %></p>
+    <li class="list-group-item">
+      <span class="badge"><%= s.second %></span>
+     <%= link_to s.first, "/reports?suite=#{s.first}" %>
+    </li>
   <% end %>
+</ul>
 </div>
-
+</div>
+</div>
 </body>
 </html>

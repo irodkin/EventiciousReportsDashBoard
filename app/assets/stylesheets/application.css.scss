@@ -13,3 +13,9 @@
  *= require_tree .
  *= require_self
  */
+@import "bootstrap";
+
+.raw  {
+	display: inline-block;
+	width: 32%;
+}
