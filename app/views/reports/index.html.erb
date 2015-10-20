@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>EventiciousReports</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<table>
+  <%= @param %>
+  <% @reports.each do |r| %>
+      <tr>
+        <td><%= link_to r.platfrom, report_path(r) %></td>
+        <td><%= link_to r.branch, "?branch=#{r.branch}" %></td>
+        <td><%= r.date.strftime("%-d %h, %Y") %></td>
+        <td><%= r.suite %></td>
+      </tr>
+  <% end %>
+</table>
+
+<% @branch_count.each do |b| %>
+
+<p><%= link_to "#{b.first}(#{b.second})", "?branch=#{b.first}" %></p>
+<% end %>
+
+</body>
+</html>
