@@ -26,7 +26,7 @@
         <td><%= r.branch %></td>
         <td><%= r.suite %></td>
         <% if r.platform == "Android" %>
-        <td>Some Device</td>
+        <td><%= r.device %></td>
         <% else %>
         <td></td>
         <% end %>
@@ -70,11 +70,11 @@
 </ul>
 </div>
 </div>
+</div>
   <div class="navbar-fixed-bottom row-fluid">
     <div class="container" style="text-align: right">
       <p class="text-muted">Total report's count: <span class="badge"><%= @total_count %></span></p>
     </div>
   </div>
-</div>
 </body>
 </html>

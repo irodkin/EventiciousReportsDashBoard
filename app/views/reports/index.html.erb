@@ -26,7 +26,7 @@
         <td><%= r.branch %></td>
         <td><%= r.suite %></td>
         <% if r.platform == "Android" %>
-        <td>Some Device</td>
+        <td><%= r.device %></td>
         <% else %>
         <td></td>
         <% end %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151020085204) do
+ActiveRecord::Schema.define(version: 20151020234340) do
 
   create_table "reports", force: :cascade do |t|
     t.datetime "date"
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 20151020085204) do
     t.string   "link"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "device"
   end
 
 end
