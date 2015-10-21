@@ -19,7 +19,8 @@
     <th>Suite</th>
     <th>Tests</th>
     <th>Device</th>
-    <th>Link</th>
+    <th>Report</th>
+    <th>Build</th>
   </tr>
   <% @reports.each do |r| %>
       <tr>
@@ -35,6 +36,7 @@
         <td></td>
         <% end %>
         <td><%= link_to "link to report", r.link, :target => "_blank" %></td>
+        <td><%= link_to "#{r.job} ##{r.build}", r.buildurl, :target => "_blank" %></td>
       </tr>
   <% end %>
   </table>

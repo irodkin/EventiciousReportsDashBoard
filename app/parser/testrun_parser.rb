@@ -24,6 +24,15 @@ optparse = OptionParser.new do |opts|
   opts.on('--link', '--link http://ya.ru') do |f|
     options[:link] = f
   end
+  opts.on('--buildurl', '--buildurl http://ya.ru') do |f|
+    options[:buildurl] = f
+  end
+  opts.on('--build', '--build 387') do |f|
+    options[:build] = f
+  end
+  opts.on('--job', '--job TestDefault') do |f|
+    options[:job] = f
+  end
 end
 
 optparse.parse!
@@ -35,5 +44,8 @@ r = Report.new(:date=>Time.now+14400,
                :suite=>options[:suite],
                :tests=>options[:tests],
                :link=>options[:link],
+               :buildurl=>options[:buildurl],
+               :build=>options[:build],
+               :job=>options[:job],
                :branch=>options[:branch])
 r.save

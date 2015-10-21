@@ -9,6 +9,9 @@ class CreateReports < ActiveRecord::Migration
       t.string :device
       t.string :tests
       t.string :server
+      t.string :buildurl
+      t.string :build
+      t.string :job
       t.timestamps null: false
     end
   end
