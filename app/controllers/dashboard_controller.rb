@@ -4,6 +4,7 @@ class DashboardController < ApplicationController
     @branches = self.by_branch
     @platforms = self.by_platform
     @suites = self.by_suite
+    @servers = self.by_server
     @total_count = Report.all.count
   end
   def by_branch
@@ -14,6 +15,9 @@ class DashboardController < ApplicationController
   end
   def by_suite
     Report.group(:suite).count
+  end
+  def by_server
+    Report.group(:server).count
   end
   def by_date(limit=5)
     reports = Report.order("date DESC")

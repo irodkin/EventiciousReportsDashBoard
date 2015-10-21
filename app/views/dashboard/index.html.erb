@@ -11,20 +11,24 @@
 <div class="panel panel-primary">
   <div class="panel-heading"><h4>Last reports</h4></div>
   <table class="table">
-  <tr>
-  <th>Date</th>
-  <th>Platform</th>
-  <th>Branch</th>
-  <th>Suite</th>
-  <th>Device</th> 
-  <th>Link</th>
-  </tr>
+    <tr>
+      <th>Date</th>
+      <th>Platform</th>
+      <th>Server</th>
+      <th>Branch</th>
+      <th>Suite</th>
+      <th>Tests</th>
+      <th>Device</th>
+      <th>Link</th>
+    </tr>
   <% @last_reports.each do |r| %>
       <tr>
         <td><%= r.date.strftime("%d %b, %Y %H:%M")%></td>
         <td><%= r.platform%></td>
+        <td><%= r.server%></td>
         <td><%= r.branch %></td>
         <td><%= r.suite %></td>
+        <td><%= r.tests %></td>
         <% if r.platform == "Android" %>
         <td><%= r.device %></td>
         <% else %>
@@ -36,39 +40,50 @@
   </table>
 </div>
 <div class="container">
-<div class="raw">
-  <h4>By Branch</h4>
-<ul class="list-group">
-  <% @branches.each do |b| %>
-    <li class="list-group-item">
-      <span class="badge"><%= b.second %></span>
-     <%= link_to b.first, "/reports?branch=#{b.first}" %>
-    </li>
-  <% end %>
-</ul>
-</div>
-<div class="raw">
-  <h4>By Platform</h4>
-<ul class="list-group">
-  <% @platforms.each do |p| %>
-    <li class="list-group-item">
-      <span class="badge"><%= p.second %></span>
-     <%= link_to p.first, "/reports?platform=#{p.first}" %>
-    </li>
-  <% end %>
-</ul>
-</div>
-<div class="raw">
-  <h4>By Suite</h4>
-<ul class="list-group">
-  <% @suites.each do |s| %>
-    <li class="list-group-item">
-      <span class="badge"><%= s.second %></span>
-     <%= link_to s.first, "/reports?suite=#{s.first}" %>
-    </li>
-  <% end %>
-</ul>
-</div>
+  <div class="raw">
+    <h4>By Branch</h4>
+    <ul class="list-group">
+      <% @branches.each do |b| %>
+          <li class="list-group-item">
+            <span class="badge"><%= b.second %></span>
+            <%= link_to b.first, "/reports?branch=#{b.first}" %>
+          </li>
+      <% end %>
+    </ul>
+  </div>
+  <div class="raw">
+    <h4>By Platform</h4>
+    <ul class="list-group">
+      <% @platforms.each do |p| %>
+          <li class="list-group-item">
+            <span class="badge"><%= p.second %></span>
+            <%= link_to p.first, "/reports?platform=#{p.first}" %>
+          </li>
+      <% end %>
+    </ul>
+  </div>
+  <div class="raw">
+    <h4>By Suite</h4>
+    <ul class="list-group">
+      <% @suites.each do |s| %>
+          <li class="list-group-item">
+            <span class="badge"><%= s.second %></span>
+            <%= link_to s.first, "/reports?suite=#{s.first}" %>
+          </li>
+      <% end %>
+    </ul>
+  </div>
+  <div class="raw">
+    <h4>By Server</h4>
+    <ul class="list-group">
+      <% @server.each do |s| %>
+          <li class="list-group-item">
+            <span class="badge"><%= s.second %></span>
+            <%= link_to s.first, "/reports?server=#{s.first}" %>
+          </li>
+      <% end %>
+    </ul>
+  </div>
 </div>
 </div>
   <div class="navbar-fixed-bottom row-fluid">

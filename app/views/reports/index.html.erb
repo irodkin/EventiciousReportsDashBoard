@@ -12,19 +12,23 @@
   <div class="panel-heading"><h4><%= @title %></h4></div>
   <table class="table">
   <tr>
-  <th>Date</th>
-  <th>Platform</th>
-  <th>Branch</th>
-  <th>Suite</th>
-  <th>Device</th> 
-  <th>Link</th>
+    <th>Date</th>
+    <th>Platform</th>
+    <th>Server</th>
+    <th>Branch</th>
+    <th>Suite</th>
+    <th>Tests</th>
+    <th>Device</th>
+    <th>Link</th>
   </tr>
   <% @reports.each do |r| %>
       <tr>
         <td><%= r.date.strftime("%d %b, %Y %H:%M")%></td>
         <td><%= r.platform%></td>
+        <td><%= r.server%></td>
         <td><%= r.branch %></td>
         <td><%= r.suite %></td>
+        <td><%= r.tests %></td>
         <% if r.platform == "Android" %>
         <td><%= r.device %></td>
         <% else %>

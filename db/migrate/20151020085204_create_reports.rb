@@ -7,6 +7,8 @@ class CreateReports < ActiveRecord::Migration
       t.string :suite
       t.string :link
       t.string :device
+      t.string :tests
+      t.string :server
       t.timestamps null: false
     end
   end

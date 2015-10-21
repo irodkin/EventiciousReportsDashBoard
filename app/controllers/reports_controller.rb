@@ -9,6 +9,9 @@ class ReportsController < ApplicationController
     elsif params[:platform]
       @title = "By Platforms"
       @reports = Report.where(platform: params[:platform]).order("date DESC").all
+    elsif params[:server]
+      @title = "By Platforms"
+      @reports = Report.where(server: params[:server]).order("date DESC").all
     end
   end
 end
