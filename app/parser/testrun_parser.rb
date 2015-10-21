@@ -22,7 +22,7 @@ end
 
 optparse.parse!
 
-r = Report.new(:date=>DateTime.now,
+r = Report.new(:date=>Time.now+14400,
                :platform=>options[:platform],
                :device=>options[:device],
                :suite=>options[:suite],
