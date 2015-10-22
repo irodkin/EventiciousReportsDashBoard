@@ -21,6 +21,6 @@ class DashboardController < ApplicationController
   end
   def by_date(limit=5)
     reports = Report.order("date DESC")
-    reports.last(limit)
+    reports.first(limit)
   end
 end
