@@ -1,6 +1,6 @@
 class DashboardController < ApplicationController
   def index
-    @last_reports = self.by_date(5)
+    @last_reports = self.by_date(10)
     @branches = self.by_branch
     @platforms = self.by_platform
     @suites = self.by_suite
@@ -19,7 +19,7 @@ class DashboardController < ApplicationController
   def by_server
     Report.group(:server).count
   end
-  def by_date(limit=10)
+  def by_date(limit=5)
     reports = Report.order("date DESC")
     reports.last(limit)
   end
