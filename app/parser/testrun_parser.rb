@@ -33,6 +33,9 @@ optparse = OptionParser.new do |opts|
   opts.on('--job', '--job TestDefault') do |f|
     options[:job] = f
   end
+  opts.on('--user', '--user Vasya Pupkin') do |f|
+    options[:user] = f
+  end
 end
 
 optparse.parse!
@@ -47,5 +50,6 @@ r = Report.new(:date=>Time.now+14400,
                :buildurl=>options[:buildurl],
                :build=>options[:build],
                :job=>options[:job],
-               :branch=>options[:branch])
+               :branch=>options[:branch],
+               :user=>options[:user])
 r.save

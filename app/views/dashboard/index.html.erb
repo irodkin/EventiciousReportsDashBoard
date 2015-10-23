@@ -19,6 +19,7 @@
       <th>Suite</th>
       <th>Tests</th>
       <th>Device</th>
+      <th>User</th>
       <th>Report</th>
       <th>Build</th>
     </tr>
@@ -35,6 +36,7 @@
         <% else %>
         <td></td>
         <% end %>
+        <td><%= r.user %></td>
         <td><%= link_to "link to report", r.link, :target => "_blank" %></td>
         <td><%= link_to "#{r.job} ##{r.build}", r.buildurl, :target => "_blank" %></td>
       </tr>
