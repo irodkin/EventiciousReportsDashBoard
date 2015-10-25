@@ -56,4 +56,18 @@ Rails.application.routes.draw do
   root 'dashboard#index'
   resources :reports
   resources :dashboard
+  resources :testrunner do
+    collection do
+      get :custom
+    end
+  end
+   namespace :api do
+        #Directs /admin/products/* to Admin::ProductsController
+       # (app/controllers/admin/products_controller.rb)
+       resources :testrun do
+         collection do
+           get :run
+         end
+       end
+     end
 end
