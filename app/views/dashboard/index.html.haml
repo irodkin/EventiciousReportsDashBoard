@@ -1,0 +1,39 @@
+.container
+  = render 'shared/reporttable'
+
+  .container
+    .raw
+      %h4= "By Branch"
+      %ul.list-group
+        -@branches.each do |b|
+          %li.list-group-item
+            %span.badge= b.second
+            =link_to b.first, "/reports?branch=#{b.first}"
+
+    .raw
+      %h4= "By Platform"
+      %ul.list-group
+        -@platforms.each do |p|
+          %li.list-group-item
+            %span.badge= p.second
+            =link_to p.first, "/reports?platform=#{p.first}"
+
+    .raw
+      %h4= "By Suite"
+      %ul.list-group
+        -@suites.each do |s|
+          %li.list-group-item
+            %span.badge= s.second
+            =link_to s.first, "/reports?suite=#{s.first}"
+
+    .raw
+      %h4= "By Server"
+      %ul.list-group
+        -@servers.each do |s|
+          %li.list-group-item
+            %span.badge= s.second
+            =link_to s.first, "/reports?server=#{s.first}"
+
+.navbar-fixed-bottom.row-fluid
+  .container{:style=>"text-align: right"}
+    %span.badge= @total_count
