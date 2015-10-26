@@ -34,6 +34,11 @@
   width: 18px;
 }
 
-.btn-right {
-  align-self: right;
+.button-container {
+  display: inline-table;
+  margin-left: 83%;
+}
+
+.title-container {
+  display: inline-table;
 }
