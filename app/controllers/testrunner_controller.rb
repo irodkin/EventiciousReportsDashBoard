@@ -1,5 +1,8 @@
 class TestrunnerController < ApplicationController
 	def index
-		render 'index'
+		@tests = ["321"]
+	end
+	def tests
+		@tests = ["123"]
 	end
 end

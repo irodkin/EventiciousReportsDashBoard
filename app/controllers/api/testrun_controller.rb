@@ -3,6 +3,6 @@ class Api::TestrunController < ApplicationController
 		render text: params.to_json
 	end
 	def run
-		render text: "Okay!"
+		render json: params.to_json
 	end
 end

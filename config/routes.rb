@@ -59,6 +59,7 @@ Rails.application.routes.draw do
   resources :testrunner do
     collection do
       get :custom
+      get :tests
     end
   end
    namespace :api do
@@ -66,7 +67,7 @@ Rails.application.routes.draw do
        # (app/controllers/admin/products_controller.rb)
        resources :testrun do
          collection do
-           get :run
+           post :run
          end
        end
      end

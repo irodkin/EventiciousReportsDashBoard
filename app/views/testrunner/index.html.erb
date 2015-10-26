@@ -1,12 +1,64 @@
-<div class="dropdown">
-    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-      Dropdown
-      <span class="caret"></span>
-    </button>
-    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-      <li><a class="select" name="Server">Action</a></li>
-      <li><a class="select" name="Host">Another action</a></li>
-      <li><a href="#">Something else here</a></li>
-      <li><a href="#">Separated link</a></li>
-    </ul>
+<div class="container">
+  <div class="page-header">
+    <h1>Run Test <small>cause it's cool</small></h1>
+  </div>
+  <div>
+  <div class="inline">
+    <div class="dropdown">
+      <div>Server</div>
+      <button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+        <span id="select-server">Server</span>
+        <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+        <li><a class="select-server">Production</a></li>
+        <li><a class="select-server">Test</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="inline">
+    <div class="dropdown">
+      <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+        <span id="select-platform">Platform</span>
+        <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+        <li><a class="select-platform">IOS</a></li>
+        <li><a class="select-platform">Android</a></li>
+      </ul>
+    </div>
+  </div>
+  </div>
+  <div>
+  <div class="inline">
+    <div class="input-group">
+      <span class="input-group-addon" id="basic-addon3">Branch</span>
+      <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+    </div>
+  </div>
+  <div class="inline">
+    <div class="input-group">
+      <span class="input-group-addon" id="basic-addon3">Application Id</span>
+      <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+    </div>
+  </div>
 </div>
+  <h4>Suites</h4>
+  <div id="suite">
+    <ul class="nav nav-pills">
+      <li class="list-group-item-info active"><a>Smoke</a></li>
+      <li class="list-group-item-info"><a>BigSmoke</a></li>
+      <li class="list-group-item-info"><a>Networking</a></li>
+      <li class="list-group-item-info"><a>Meetings</a></li>
+    </ul>
+  </div>
+  <div class='tests' id="tests">
+    <h4>Tests</h4>
+    <span class="label label-info test-active">all</span>
+    <% @tests.each do |t| %>
+        <span class="label label-info"><%= t %></span>
+    <% end %>
+  </div>
+</div>
+
+<button id="send">SEND</button>

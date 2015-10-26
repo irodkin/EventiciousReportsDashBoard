@@ -43,3 +43,22 @@
 .title-container {
   display: inline-table;
 }
+
+.inline {
+  display: inline-block;
+  padding: 10px 10px 10px 10px;
+}
+
+.test-active {
+  background-color: #5cb85c;
+}
+
+.label {
+  font-size: 90%;
+  border-radius: 1.25em;
+}
+
+.tests {
+  padding-top: 10px;
+  max-width: 600px;
+}
