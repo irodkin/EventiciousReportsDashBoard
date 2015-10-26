@@ -11,7 +11,4 @@ $ ->
 
 $ ->
   $("#refresh").click ->
-    $.ajax
-      url: 'dashboard/'
-      type: 'GET'
       window.location.reload()
