@@ -7,4 +7,4 @@ $ ->
     $.ajax
       url: 'dashboard/' + $(current_record_tr).attr('recordid')
       type: 'DELETE'
-      $(current_record_tr).fadeOut(300)
+      $(current_record_tr).fadeOut(700)
