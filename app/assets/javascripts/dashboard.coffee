@@ -8,3 +8,9 @@ $ ->
       url: 'dashboard/' + $(current_record_tr).attr('recordid')
       type: 'DELETE'
       $(current_record_tr).fadeOut(700)
+
+$ ->
+  $("#refresh").click ->
+    $.ajax
+      url: 'dashboard/index'
+      type: 'GET'

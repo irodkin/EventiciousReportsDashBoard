@@ -34,6 +34,7 @@
             %span.badge= s.second
             =link_to s.first, "/reports?server=#{s.first}"
 
+%button{:id=>'refresh'}
 .navbar-fixed-bottom.row-fluid
   .container{:style=>"text-align: right"}
     %span.badge= @total_count
