@@ -12,5 +12,5 @@ $ ->
 $ ->
   $("#refresh").click ->
     $.ajax
-      url: 'dashboard/index'
+      url: 'dashboard/'
       type: 'GET'
