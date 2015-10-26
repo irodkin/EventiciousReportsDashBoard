@@ -8,6 +8,7 @@ class DashboardController < ApplicationController
     @suites = find_by(:suite)
     @servers = find_by(:server)
     @total_count = Report.all.count
+    render 'dashboard/index'
   end
   def destroy
     record = Report.find(params[:id])
