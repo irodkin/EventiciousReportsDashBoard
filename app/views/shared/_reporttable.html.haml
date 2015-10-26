@@ -29,4 +29,4 @@
     %td= link_to "link to report", r.link, :target => "_blank"
     %td= link_to "#{r.job} ##{r.build}", r.buildurl, :target => "_blank"
     %td
-     %span.deleteRecord= image_tag "erase.png"
+     %span.deleteRecord= image_tag("erase.png", :class=>'deleteButton')
