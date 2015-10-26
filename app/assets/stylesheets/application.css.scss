@@ -36,7 +36,11 @@
 
 .button-container {
   display: inline-table;
-  margin-left: 83%;
+  position: absolute;
+  right: 0px;
+  width: 300px;
+  border:3px solid #8AC007;
+  padding: 10px;
 }
 
 .title-container {
