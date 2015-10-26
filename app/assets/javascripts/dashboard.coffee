@@ -14,3 +14,4 @@ $ ->
     $.ajax
       url: 'dashboard/'
       type: 'GET'
+      window.location.reload()
