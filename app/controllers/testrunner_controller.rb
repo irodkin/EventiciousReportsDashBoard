@@ -7,7 +7,7 @@ class TestrunnerController < ApplicationController
 			when "Smoke"
 				tests = ["networking_smoke", "navigation", "speaker", "session", "attendees", "map", "indoor", "webview", "gallery"]
 			when "BigSmoke"
-				tests = ["update_schedule", "schedule_documents", "now", "rate", "schedule_ask", "filler", "coffebreak", "update_speaker", "update_attendees", "search_attendees", "news", "update_gallery", "update_indoor", "docs"]
+				tests = ["update_sidebar","update_schedule","schedule_documents", "now", "now_dt_valid", "rate_dt_valid", "schedule_ask_dt_valid", "ask_like", "rate", "schedule_ask", "filler", "coffebreak", "update_speaker", "update_attendees", "search_attendees", "news", "update_gallery", "update_indoor", "docs"]
 			when "Networking"
 				tests = ["hands", "ask", "profile", "exitPoints"]
 			when "Meetings"
