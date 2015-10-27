@@ -1,0 +1,25 @@
+<script>
+  (function() {
+  $(function() {
+    return $('#tests .label-info').click(function() {
+      if (this.className.indexOf('test-active') > -1) {
+        $(this).removeClass('test-active');
+        if ($('.test-active').length < 1) {
+          $('#all').addClass('test-active');
+        }
+      }
+      else if ($(this).id != 'all') {
+        $('#all').removeClass('test-active');
+        $(this).addClass('test-active');
+      }
+    });
+  });
+
+  }).call(this);
+
+</script>
+<h4>Tests</h4>
+<span id="all" class="label label-info test-active">all</span>
+<% tests.each do |t| %>
+<span class="label label-info"><%= t %></span>
+<% end %>

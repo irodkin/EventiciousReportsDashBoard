@@ -15,3 +15,11 @@
 //= require turbolinks
 //= require_tree .
 //= require bootstrap-sprockets
+
+$(document).ajaxStart(function(){
+    $('.ajaxBusy').fadeIn(700);
+    $('.bg_layer').fadeIn(1200);
+}).ajaxStop(function(){
+    $('.ajaxBusy').hide();
+    $('.bg_layer').hide();
+});
