@@ -60,6 +60,9 @@ $ ->
 
 $ ->
   $('#run').click ->
+    $('.ajaxBusy').fadeIn(700)
+    $('.bg_layer').fadeIn(1200)
+
     server = $('#server .active').text()
     platform = $('#platform .active').text()
     device =$('#select-platform').text()
@@ -86,7 +89,8 @@ $ ->
       dataType: 'json'
       data: testRun
       success: () ->
+        $('.ajaxBusy').fadeOut(200)
+        $('.bg_layer').fadeOut(500)
         $('.alert').fadeIn(700)
         setTimeout (-> $('.alert').fadeOut(700)), 5000
-
 
