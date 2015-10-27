@@ -56,7 +56,7 @@ $ ->
       $('.dropdown').show()
 
 $ ->
-  $('#run-test').click ->
+  $('#run').click ->
     server = $('#server .active').text()
     platform = $('#platform .active').text()
     device =$('#select-platform').text()
@@ -85,4 +85,5 @@ $ ->
       success: () ->
         $('.alert').fadeIn(700)
         setTimeout (-> $('.alert').fadeOut(700)), 5000
+
 
