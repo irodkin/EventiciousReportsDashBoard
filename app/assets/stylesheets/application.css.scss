@@ -38,8 +38,7 @@
 }
 .button-container {
   display: inline-table;
-  position: absolute;
-  right: 19%;
+  text-align: right;
 }
 
 .title-container {
@@ -118,4 +117,12 @@
   right: 45%;
   top: 35%;
   width: auto;
+}
+
+.container {
+  padding-bottom: 50px;
+}
+
+.row-fluid {
+  padding-top: 10px;
 }

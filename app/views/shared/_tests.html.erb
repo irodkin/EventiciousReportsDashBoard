@@ -8,9 +8,16 @@
           $('#all').addClass('test-active');
         }
       }
-      else if ($(this).id != 'all') {
+      else if ($(this).text() != 'all') {
         $('#all').removeClass('test-active');
         $(this).addClass('test-active');
+      }
+      else if ($(this).text() == 'all') {
+        tests = $('.test-active')
+        $(this).addClass('test-active');
+        $.each(tests, function(e) {
+          $(tests[e]).removeClass('test-active');
+        });
       }
     });
   });

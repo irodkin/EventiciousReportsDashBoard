@@ -34,9 +34,10 @@
             %span.badge= s.second
             =link_to s.first, "/reports?server=#{s.first}"
 
-    %button{:class=>"btn btn-success", :onclick=>"window.location.href='/testrunner'"}= "Run Tests"
+
 
 .navbar-fixed-bottom.row-fluid
-  .container{:style=>"text-align: right"}
+  .container{:style=>"text-align: right; padding-bottom: 0px; padding-top: 0px;"}
+    %button{:class=>"btn btn-success", :onclick=>"window.location.href='/testrunner'"}= "Run Tests"
     %span.badge= @total_count
 

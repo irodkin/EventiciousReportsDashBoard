@@ -54,6 +54,9 @@ $ ->
     platform = $(this).text()
     if (platform == 'Android')
       $('.dropdown').show()
+    else
+      $('.dropdown').hide()
+
 
 $ ->
   $('#run').click ->
