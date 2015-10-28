@@ -94,6 +94,6 @@ $ ->
       success: () ->
         $('.ajaxBusy').fadeOut(200)
         $('.bg_layer').fadeOut(500)
-        setTimeout (-> $('.alert').fadeIn(700)), 700
-        setTimeout (-> $('.alert').fadeOut(700)), 5000
+        setTimeout (-> $('.alert-success').fadeIn(700)), 700
+        setTimeout (-> $('.alert-success').fadeOut(700)), 5000
 
