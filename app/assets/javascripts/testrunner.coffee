@@ -89,6 +89,8 @@ $ ->
       dataType: 'json'
       data: testRun
       error: ->
+        $('.ajaxBusy').fadeOut(200)
+        $('.bg_layer').fadeOut(500)
         $('.alert-danger').fadeIn(700)
         $('.alert-danger').fadeOut(700)
       success: () ->
