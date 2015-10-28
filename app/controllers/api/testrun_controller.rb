@@ -13,8 +13,8 @@ class Api::TestrunController < ApplicationController
 
 
 		@client = JenkinsApi::Client.new(:server_ip => '192.168.162.78',
-																		 :username => 'DashBoardRunner',
-																		 :password => '1234567890')
+																		 :username => params[:username],
+																		 :password => params[:password])
 
 
 		job_params = { :BuildConfiguration => "Release",
