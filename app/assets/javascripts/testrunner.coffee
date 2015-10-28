@@ -46,7 +46,7 @@ $ ->
     if (server == 'Production')
       $('#appId').val('4193')
     else
-      $('#appId').val('4286')
+      $('#appId').val('4389')
 
 
 $ ->
