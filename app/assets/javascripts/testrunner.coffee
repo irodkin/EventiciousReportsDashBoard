@@ -61,9 +61,9 @@ $ ->
   $('#platform .list-group-item-info').click ->
     platform = $(this).text()
     if (platform == 'Android')
-      $('.dropdown').show()
+      $('#devices').collapse('show')
     else
-      $('.dropdown').hide()
+      $('#devices').collapse('hide')
 
 
 $ ->
