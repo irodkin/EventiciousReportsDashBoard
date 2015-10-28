@@ -26,6 +26,7 @@ class Api::TestrunController < ApplicationController
 									 :Branch => params[:branch],
 									 :Locale => "ru",
 									 :API_version => "v2",
+									 :device=>params[:device],
 									 :suite => params[:suite],
 									 :tests => tests}
 
