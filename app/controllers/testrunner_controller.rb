@@ -1,6 +1,6 @@
 class TestrunnerController < ApplicationController
 	def index
-		@tests = ["session", "speaker", "attendees", "map", "indoor", "smoke_networking", "navi"]
+		@tests = ["networking_smoke", "navigation", "speaker", "session", "attendees", "map", "indoor", "webview", "gallery"]
 	end
 	def tests
 		case params[:suite]
