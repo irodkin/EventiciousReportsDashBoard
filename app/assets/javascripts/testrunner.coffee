@@ -88,6 +88,9 @@ $ ->
       type: 'POST'
       dataType: 'json'
       data: testRun
+      error: ->
+        $('.alert-danger').fadeIn(700)
+        $('.alert-danger').fadeOut(700)
       success: () ->
         $('.ajaxBusy').fadeOut(200)
         $('.bg_layer').fadeOut(500)
