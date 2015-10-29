@@ -17,6 +17,8 @@ class Api::TestrunController < ApplicationController
 																		 :password => params[:password])
 
 
+		job_name = "EventiciousTestURI"
+
 		job_params = { :BuildConfiguration => "Release",
 									 :ServerConfig => params[:server],
 									 :Preview => false,
@@ -30,13 +32,16 @@ class Api::TestrunController < ApplicationController
 									 :suite => params[:suite],
 									 :tests => tests}
 
+
+
 		jenkins_job = JenkinsApi::Client::Job.new(@client)
-		return_code = jenkins_job.build("EventiciousTestURI", job_params)
+		return_code = jenkins_job.build(job_name, job_params)
+		current_build = jenkins_job.get_current_build_number(job_name)
 
-
-
-
-		render json: job_params,
+		render json: {
+				          :job_params => job_params,
+									:build=>current_build+1
+		},
 					 status: return_code
 	end
 	def activeDevices

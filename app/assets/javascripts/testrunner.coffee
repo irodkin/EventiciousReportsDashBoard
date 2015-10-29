@@ -156,8 +156,9 @@ $ ->
           $('.bg_layer').fadeOut(500)
           setTimeout (-> $('.alert-danger').fadeIn(700)), 700
           setTimeout (-> $('.alert-danger').fadeOut(700)), 5000
-        success: () ->
+        success: (response) ->
           $('.ajaxBusy').fadeOut(200)
           $('.bg_layer').fadeOut(500)
+          $('.buildNumber').text(response['build'])
           setTimeout (-> $('.alert-success').fadeIn(700)), 700
           setTimeout (-> $('.alert-success').fadeOut(700)), 5000
