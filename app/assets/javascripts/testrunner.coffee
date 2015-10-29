@@ -5,6 +5,7 @@
 readCookie = (name) ->
    nameEQ = name + "="
    ca = document.cookie.split(";")
+   console.log ca
    i = 0
    while i < ca.length
      c = ca[i]
@@ -14,13 +15,53 @@ readCookie = (name) ->
    ca
 
 setCookie = (cookieName, cookieValue) ->
+   day = 1000 * 60 * 60  * 24
    today = new Date()
-   expire = new Date("2015-01-01 12:00:00")
-   document.cookie = cookieName + "=" + escape(cookieValue) + ";expires=" + today.toString()
+   expire = today + day
+   document.cookie = cookieName + "=" + escape(cookieValue) + ";expires=" + (20 * expire).toString()
 
 login = (username, password) ->
   setCookie("username", username)
   setCookie("password", password)
+
+activeDevices = () ->
+  $.ajax
+    url: 'api/testrun/activeDevices'
+    type: 'GET'
+    dataType: 'json'
+    success: (response) ->
+      $('#iPhone').removeClass("label-success label-danger label-warning")
+      $('#Nexus4').removeClass("label-success label-danger label-warning")
+      $('#Nexus7').removeClass("label-success label-danger label-warning")
+      if response["iPhone"]
+        $('#iPhone').addClass("label-success")
+      else
+        $('#iPhone').addClass("label-danger")
+
+      if response["android"]["nexus4"]
+        $('#Nexus4').addClass("label-success")
+      else
+        $('#Nexus4').addClass("label-danger")
+
+      if response["android"]["nexus7"]
+        $('#Nexus7').addClass("label-success")
+      else
+        $('#Nexus7').addClass("label-danger")
+      $('#check').button('reset')
+
+
+$ ->
+  activeDevices()
+
+
+$ ->
+  setInterval(activeDevices, 10000)
+
+$ ->
+  $('#check').click ->
+    $(this).button('loading')
+    activeDevices()
+
 
 $ ->
   $('.select-platform').click ->
@@ -76,6 +117,10 @@ $ ->
   $('#run').click ->
     username = readCookie("username")
     password = readCookie("password")
+    console.log username
+    console.log password
+    console.log username.toString() == ''
+    console.log password.toString() == ''
     if username.toString() == '' || password.toString() == ''
       $('#login').modal('show')
     else
@@ -83,7 +128,7 @@ $ ->
       $('.ajaxBusy').fadeIn(700)
       server = $('#server .active').text()
       platform = $('#platform .active').text()
-      device =$('#select-platform').text()
+      device =$('#devices .active').text()
       branch  = $('#branch').val()
       appId = $('#appId').val()
       suite = $('#suite .active').text()
@@ -109,10 +154,11 @@ $ ->
         error: ->
           $('.ajaxBusy').fadeOut(200)
           $('.bg_layer').fadeOut(500)
-          $('.alert-danger').fadeIn(700)
-          $('.alert-danger').fadeOut(700)
-        success: () ->
+          setTimeout (-> $('.alert-danger').fadeIn(700)), 700
+          setTimeout (-> $('.alert-danger').fadeOut(700)), 5000
+        success: (response) ->
           $('.ajaxBusy').fadeOut(200)
           $('.bg_layer').fadeOut(500)
+          $('.buildNumber').text(response['build'])
           setTimeout (-> $('.alert-success').fadeIn(700)), 700
           setTimeout (-> $('.alert-success').fadeOut(700)), 5000

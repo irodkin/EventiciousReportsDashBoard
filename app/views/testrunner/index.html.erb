@@ -1,5 +1,5 @@
-<div class="alert alert-success" role="alert">
-  <h4><span><%= image_tag("tick.png", :class=>'tick') %></span>Tests Run!</h4>
+<div class="alert alert-success" role="alert" xmlns="http://www.w3.org/1999/html">
+  <h4><span><%= image_tag("tick.png", :class=>'tick') %></span>Build #<span class="buildNumber"></span> Run!</h4>
 </div>
 <div class="alert alert-danger" role="alert">
   <h4>TestsRun Failed :(</h4>
@@ -8,7 +8,16 @@
 <div class="bg_layer"></div>
 <div class="container">
   <div class="page-header">
+    <ul class="pager">
+      <li class="previous"><a href="/dashboard"><span aria-hidden="true">&larr;</span> To Dashboard</a></li>
+    </ul>
     <h1>Run Test <small>cause it's cool</small></h1>
+    <div class="availableDevices">
+      <span class="label label-warning" id="iPhone">iPhone</span>
+      <span class="label label-warning" id="Nexus4">Nexus 4</span>
+      <span class="label label-warning" id="Nexus7">Nexus 7</span>
+      <button type="button" class="btn btn-primary" data-loading-text="checking..." id='check'>Check</button>
+    </div>
   </div>
   <div class="params-container">
     <h4>Server</h4>
