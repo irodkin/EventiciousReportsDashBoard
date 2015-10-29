@@ -77,6 +77,8 @@ $ ->
   $('#run').click ->
     username = readCookie("username")
     password = readCookie("password")
+    console.log username
+    console.log password
     console.log username.toString() == ''
     console.log password.toString() == ''
     if username.toString() == '' || password.toString() == ''
