@@ -14,9 +14,10 @@ readCookie = (name) ->
    ca
 
 setCookie = (cookieName, cookieValue) ->
+   day = 1000 * 60 * 60  * 24
    today = new Date()
-   expire = new Date("2015-01-01 12:00:00")
-   document.cookie = cookieName + "=" + escape(cookieValue) + ";expires=" + today.toString()
+   expire = today + day
+   document.cookie = cookieName + "=" + escape(cookieValue) + ";expires=" + (20 * expire).toString()
 
 login = (username, password) ->
   setCookie("username", username)
@@ -61,9 +62,9 @@ $ ->
   $('#platform .list-group-item-info').click ->
     platform = $(this).text()
     if (platform == 'Android')
-      $('.dropdown').show()
+      $('#devices').collapse('show')
     else
-      $('.dropdown').hide()
+      $('#devices').collapse('hide')
 
 
 $ ->
@@ -83,7 +84,7 @@ $ ->
       $('.ajaxBusy').fadeIn(700)
       server = $('#server .active').text()
       platform = $('#platform .active').text()
-      device =$('#select-platform').text()
+      device =$('#devices .active').text()
       branch  = $('#branch').val()
       appId = $('#appId').val()
       suite = $('#suite .active').text()
@@ -109,8 +110,8 @@ $ ->
         error: ->
           $('.ajaxBusy').fadeOut(200)
           $('.bg_layer').fadeOut(500)
-          $('.alert-danger').fadeIn(700)
-          $('.alert-danger').fadeOut(700)
+          setTimeout (-> $('.alert-danger').fadeIn(700)), 700
+          setTimeout (-> $('.alert-danger').fadeOut(700)), 5000
         success: () ->
           $('.ajaxBusy').fadeOut(200)
           $('.bg_layer').fadeOut(500)
