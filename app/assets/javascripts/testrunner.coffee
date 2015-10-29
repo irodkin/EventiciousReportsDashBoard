@@ -5,6 +5,7 @@
 readCookie = (name) ->
    nameEQ = name + "="
    ca = document.cookie.split(";")
+   console.log ca
    i = 0
    while i < ca.length
      c = ca[i]
