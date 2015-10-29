@@ -39,4 +39,22 @@ class Api::TestrunController < ApplicationController
 		render json: job_params,
 					 status: return_code
 	end
+	def activeDevices
+		udid = `system_profiler SPUSBDataType | sed -n '/iPhone/,/Serial/p' | grep "Serial Number:" | awk -F ": " '{print $2}'`
+		udid.delete!("\n")
+		androidDevices = `adb devices`
+		nexus4 = androidDevices.include?("04d228289809504a")
+		nexus7 = androidDevices.include?("015d2578a21c1403")
+		iPhone = !udid.empty?
+
+		render json: {
+				:iPhone => iPhone,
+				:android => {
+						:nexus4 => nexus4,
+						:nexus7 => nexus7
+
+				}
+		},
+				status: 200
+	end
 end

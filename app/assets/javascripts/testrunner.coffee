@@ -24,6 +24,45 @@ login = (username, password) ->
   setCookie("username", username)
   setCookie("password", password)
 
+activeDevices = () ->
+  $.ajax
+    url: 'api/testrun/activeDevices'
+    type: 'GET'
+    dataType: 'json'
+    success: (response) ->
+      $('#iPhone').removeClass("label-success label-danger label-warning")
+      $('#Nexus4').removeClass("label-success label-danger label-warning")
+      $('#Nexus7').removeClass("label-success label-danger label-warning")
+      if response["iPhone"]
+        $('#iPhone').addClass("label-success")
+      else
+        $('#iPhone').addClass("label-danger")
+
+      if response["android"]["nexus4"]
+        $('#Nexus4').addClass("label-success")
+      else
+        $('#Nexus4').addClass("label-danger")
+
+      if response["android"]["nexus7"]
+        $('#Nexus7').addClass("label-success")
+      else
+        $('#Nexus7').addClass("label-danger")
+      $('#check').button('reset')
+
+
+$ ->
+  activeDevices()
+
+
+$ ->
+  setInterval(activeDevices, 10000)
+
+$ ->
+  $('#check').click ->
+    $(this).button('loading')
+    activeDevices()
+
+
 $ ->
   $('.select-platform').click ->
     button_title = $('#select-platform')
