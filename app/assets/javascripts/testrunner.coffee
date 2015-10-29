@@ -55,6 +55,23 @@ $ ->
 
 
 $ ->
+  $('#singIn').click ->
+    $('#login').modal('show')
+
+$ ->
+  if $('#username').val() == '' || $('#password').val() == ''
+    $('#loginButton').addClass('disabled')
+  $('#username').change ->
+    $('#username').removeClass('empty')
+    unless $('#password').val() == ''
+      $('#loginButton').removeClass('disabled')
+  $('#password').change ->
+    $('#password').removeClass('empty')
+    unless $('#password').val() == ''
+      $('#loginButton').removeClass('disabled')
+
+
+$ ->
   setInterval(activeDevices, 10000)
 
 $ ->
@@ -109,18 +126,18 @@ $ ->
 
 $ ->
   $('#loginButton').click ->
-    login($('#username').val(), $('#password').val())
-    $('#login').modal('hide')
+    if $('#loginButton').hasClass('disabled')
+      $('#username').addClass('empty')
+      $('#password').addClass('empty')
+    else
+      login($('#username').val(), $('#password').val())
+      $('#login').modal('hide')
 
 
 $ ->
   $('#run').click ->
     username = readCookie("username")
     password = readCookie("password")
-    console.log username
-    console.log password
-    console.log username.toString() == ''
-    console.log password.toString() == ''
     if username.toString() == '' || password.toString() == ''
       $('#login').modal('show')
     else
