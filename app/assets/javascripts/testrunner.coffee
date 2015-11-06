@@ -53,6 +53,29 @@ activeDevices = () ->
 $ ->
   activeDevices()
 
+$ ->
+  $('.select-job').click ->
+    $('#current_job').text($(this).text())
+
+$ ->
+  $('#addJob').click ->
+    $('#addJobContainer').modal('show')
+
+$ ->
+  $('#addJobButton').click ->
+     addJob = {
+     title: $('#jobName').val()
+     }
+     $.ajax
+        url: 'api/testrun/createJob'
+        type: 'POST'
+        dataType: 'json'
+        data: addJob
+        error: () ->
+          alert "error!"
+        success: (response) ->
+          $('#addJobContainer').modal('hide')
+          $('.dropdown-menu').append('<li><a class="select-job">' + response['title'] + '</a></li>')
 
 $ ->
   $('#singIn').click ->
@@ -143,6 +166,7 @@ $ ->
     else
       $('.bg_layer').fadeIn(1200)
       $('.ajaxBusy').fadeIn(700)
+      job = $('#current_job').text()
       server = $('#server .active').text()
       platform = $('#platform .active').text()
       device =$('#devices .active').text()
@@ -153,6 +177,7 @@ $ ->
       testsArray = []
       $.each tests, (e) -> testsArray.push("@" + $(tests[e]).text())
       testRun = {
+        job: job
         server: server
         platform: platform
         device: device

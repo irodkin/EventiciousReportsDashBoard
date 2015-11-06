@@ -5,19 +5,15 @@ class Api::TestrunController < ApplicationController
 		render text: params.to_json
 	end
 	def run
-		#sleep 3
 		tests = params[:tests].join(",")
 		tests = "all" if tests.eql?('@all')
-
-
-
 
 		@client = JenkinsApi::Client.new(:server_ip => '192.168.162.78',
 																		 :username => params[:username],
 																		 :password => params[:password])
 
 
-		job_name = "EventiciousTestURI"
+		job_name = params[:job]
 
 		job_params = { :BuildConfiguration => "Release",
 									 :ServerConfig => params[:server],
@@ -40,6 +36,7 @@ class Api::TestrunController < ApplicationController
 
 		render json: {
 				          :job_params => job_params,
+				          :job_name => job_name,
 									:build=>current_build+1
 		},
 					 status: return_code
@@ -61,5 +58,14 @@ class Api::TestrunController < ApplicationController
 				}
 		},
 				status: 200
+	end
+	def createJob
+		job = Job.new(:title=>params[:title])
+		if job.save
+			render json: job,
+			       status: 200
+		else
+			render status: 500
+		end
 	end
 end

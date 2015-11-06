@@ -69,6 +69,7 @@ Rails.application.routes.draw do
          collection do
            post :run
            get :activeDevices
+           post :createJob
          end
        end
      end
