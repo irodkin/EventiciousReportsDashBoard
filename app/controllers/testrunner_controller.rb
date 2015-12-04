@@ -13,6 +13,8 @@ class TestrunnerController < ApplicationController
 				tests = ["networking", "hands", "ask", "profile", "exitPoints", "logout", "meeting", "meeting_speaker"]
 			when "Meetings"
 				tests = ["meeting", "directmeeting", "canceledmeeting", "cancelmeeting", "cancelmeetinginvited"]
+			when "MultiBigSmoke"
+        tests = ["multievent", "multi_update_sidebar", "multi_update_schedule", "multi_schedule_document", "multi_now", "multi_now_dt_valid", "multi_rate_dt_valid", "multi_schedule_ask_dt_valid", "multi_ask_like", "multi_rate", "multi_schedule_ask", "multi_filler", "multi_coffebreak", "multi_update_speaker", "multi_update_attendees", "multi_search_attendees", "multi_news", "multi_update_gallery", "multi_update_indoor", "multi_docs"]
 		end
 
 		render partial: 'shared/tests', locals: {tests: tests}
