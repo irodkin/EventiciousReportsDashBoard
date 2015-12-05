@@ -8,11 +8,11 @@
           $('#all').addClass('test-active');
         }
       }
-      else if ($(this).text() != 'all') {
+      else if ($(this).attr('id') != 'all') {
         $('#all').removeClass('test-active');
         $(this).addClass('test-active');
       }
-      else if ($(this).text() == 'all') {
+      else if ($(this).attr('id') == 'all') {
         tests = $('.test-active')
         $(this).addClass('test-active');
         $.each(tests, function(e) {
@@ -24,9 +24,18 @@
 
   }).call(this);
 
+  $(function () {
+    $('.test').tooltip({title: "Скоро тут будет описание! Stay Tuned!", html: true, template:'<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner" style="text-align: left; font-size:11px; max-width: 650px;"></div></div>', placement: "top"})
+  })
+
 </script>
 <h4>Tests <span class="badge"><%= tests.size %></span></h4>
-<span id="all" class="label label-info test-active">all</span>
-<% tests.each do |t| %>
-<span class="label label-info"><%= t %></span>
+<% for i in 0..tests.size-1%>
+<div style="display: inline-block">
+<% if i==0 %>
+<span id="all" class="label label-info test-active"><%= tests[i] %></span>
+<% else %>
+<span class="label label-info test"><%= tests[i] %></span>
+<% end %>
+</div>
 <% end %>
