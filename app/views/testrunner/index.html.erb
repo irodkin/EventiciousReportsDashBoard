@@ -23,8 +23,14 @@
   <div class="params-container">
     <div class="dropdown" style="display: inline-block">
       <h4>Job</h4>
+      <%= @suite.first.title %>
+      <%= @suite.first.id %>
       <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+        <% if @jobs.nil? %>
+        <span id="current_job">No Jobs yet :( Add new, dude!</span>
+        <% else %>
         <span id="current_job"><%= @jobs.first.title %></span>
+        <% end %>
         <span class="caret"></span>
       </button>
       <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
