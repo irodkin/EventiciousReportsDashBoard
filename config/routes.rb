@@ -62,15 +62,20 @@ Rails.application.routes.draw do
       get :tests
     end
   end
-   namespace :api do
-        #Directs /admin/products/* to Admin::ProductsController
-       # (app/controllers/admin/products_controller.rb)
-       resources :testrun do
-         collection do
-           post :run
-           get :activeDevices
-           post :createJob
-         end
-       end
-     end
+  namespace :api do
+    resources :scenarioparser do
+      collection do
+        post :parse
+        get :get_tests
+        post :get_test
+      end
+    end
+    resources :testrun do
+      collection do
+        post :run
+        get :activeDevices
+        post :createJob
+      end
+    end
+  end
 end

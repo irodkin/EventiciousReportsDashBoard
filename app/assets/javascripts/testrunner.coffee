@@ -204,3 +204,36 @@ $ ->
           $('.buildNumber').text(response['build'])
           setTimeout (-> $('.alert-success').fadeIn(700)), 700
           setTimeout (-> $('.alert-success').fadeOut(700)), 5000
+$ ->
+  $('#parse').click ->
+    suite = $('.suites').val()
+    $.ajax
+      url: 'api/scenarioparser/parse'
+      type: 'POST'
+      dataType: 'json'
+      data: suite: suite
+
+$ ->
+  $('#get_tests').click ->
+    find = $('#find_tests').val()
+    $.ajax
+      url: 'api/scenarioparser/get_tests'
+      type: 'GET'
+      dataType: 'json'
+      data: suite: find
+
+
+$ ->
+  $('.test').mouseenter ->
+    tag = $(this).text()
+    $.ajax
+      url: 'api/scenarioparser/get_test'
+      type: 'POST'
+      dataType: 'json'
+      data: tag: tag
+      success: (response) -> 
+        $('this').title = response["tests"]["title"]
+
+$ ->
+  $('.lol').tooltip({title: $('#find_tests').val(), html: true, template:'<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner" style="text-align: left; font-size:11px; max-width: 650px;"></div></div>', placement: "top"})  
+  
