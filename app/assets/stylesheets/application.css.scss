@@ -20,6 +20,28 @@
 	font-weight: 700;
 }
 
+.awesome-input {
+		border: none;
+	  box-shadow: none;
+}
+
+.delete_feature {
+	cursor: pointer;
+}
+
+.delete_scenario {
+	cursor: pointer;
+}
+
+.addContainer {
+	display: none;
+}
+
+.parse_area {
+	width: 400px;
+	height: 205px;
+}
+
 .scenario_title {
 	color: #91ba61;
 	font-weight: 500;
@@ -77,6 +99,7 @@
 .feature_container {
 	width: 400px;
 	vertical-align: top;
+	padding-top: 0px;
 }
 
 .ticket {

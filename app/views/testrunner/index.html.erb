@@ -76,11 +76,13 @@
     <h4>Suites</h4>
     <div id="suite">
       <ul class="nav nav-pills">
-        <li class="list-group-item-info active"><a>Smoke</a></li>
-        <li class="list-group-item-info"><a>BigSmoke</a></li>
-        <li class="list-group-item-info"><a>Networking</a></li>
-        <li class="list-group-item-info"><a>Meetings</a></li>
-        <li class="list-group-item-info"><a>MultiBigSmoke</a></li>
+        <% for i in 0..@feature.size-1 %>
+        <% if i==0 %>
+        <li class="list-group-item-info active"><a><%= @feature[i].title %></a></li>
+        <% else %>
+        <li class="list-group-item-info"><a><%= @feature[i].title %></a></li>
+        <% end %>
+        <% end %>
         <li><button class="btn" id="addSuite" type="button" style="border-radius: 25px">+</button></li>
       </ul>
     </div>
@@ -117,9 +119,5 @@
     <div class="run_section">
       <button class="btn btn-success btn-run" id="run">RUN!</button>
     </div>
-    <textarea class="suites"></textarea>
-    <button id="parse">parse</button>
-    <input type="text" id="find_tests">
-    <button id="get_tests">find</button>
   </div>
 </div>

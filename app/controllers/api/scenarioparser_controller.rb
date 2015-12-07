@@ -20,12 +20,14 @@ class Api::ScenarioparserController < ApplicationController
 
   def add_feature
     s = Suite.new(:title=>params[:title], :tag=>params[:tag])
-    s.save
-
-    render json: {
-      :result => s
-    },
-    status: 200
+    if s.save
+      suites = Suite.all
+      render partial: 'shared/featurelist', locals: {suites: suites}
+    else
+      render json: {
+        :suk => "error"
+      }
+    end
   end
 
   def get_features
@@ -34,8 +36,14 @@ class Api::ScenarioparserController < ApplicationController
 
   def delete_feature
     feature = Suite.find(params[:id])
+    scenarios_id = Test.where(suite: feature.title).all.collect! { |st| st.id }
     if feature.destroy
-      render json: { :deleted=>true },
+      Test.where(suite: feature.title).all.each { |s| s.destroy }
+      render json: {
+                    :feature=>feature.title,
+                    :scenarios=>scenarios_id,
+                    :deleted=>true
+                  },
              status: 200
     else
       render json: { :deleted=>false },
@@ -73,9 +81,7 @@ class Api::ScenarioparserController < ApplicationController
       t = Test.new(s)
       t.save
     end
-    render json: {
-      :suite => Test.last
-    },
-      status: 200
+    scenarios = Test.where(suite: params[:feature])
+    render partial: 'shared/scenarios', locals: {scenarios: scenarios}
   end
 end

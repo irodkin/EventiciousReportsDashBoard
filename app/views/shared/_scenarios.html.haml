@@ -1,6 +1,6 @@
 :coffeescript
   $ ->
-    $('.delete_feature').click ->
+    $('.delete_scenario').click ->
       id = $(this).attr("id")
       parent_div = $(this).parents("div")[0]
       $.ajax
@@ -11,10 +11,34 @@
         success: () ->
           $(parent_div).fadeOut(200)
 
--scenarios.each do |s|
-  %div
-    -s.tags.split(",").each do |t|
-      %span{:class=>"label label-info test"}= "@#{t}"
-    %span{:class=>"badge delete_feature", :id=>s.id}= "delete"
-    %div= s.title.html_safe
-    %div{:style=>"margin-left:10px"}= s.steps.html_safe
+  $ ->
+    $('#parse').click ->
+      suite = $('.parse_area').val()
+      feature = $('.active').text()
+      $.ajax
+        url: 'api/scenarioparser/parse'
+        type: 'POST'
+        dataType: 'html'
+        data: {
+            suite: suite
+            feature: feature
+            }
+        success: (response) ->
+          $('.tests_container').html(response)
+
+
+-if scenarios.empty?
+  .addScenarioContainer
+    %h4="Copy your scenario here"
+    %div
+      %textarea{:class=>"parse_area"}
+    %div{:style=>"text-align: right"}
+      %button{:class=>"btn btn-success", :id=>"parse"}="Parse"
+-else
+  -scenarios.each do |s|
+    %div
+      -s.tags.split(",").each do |t|
+        %span{:class=>"label label-info test"}= "@#{t}"
+      %span{:class=>"badge delete_scenario", :id=>s.id}= "delete"
+      %div= s.title.html_safe
+      %div{:style=>"margin-left:10px"}= s.steps.html_safe

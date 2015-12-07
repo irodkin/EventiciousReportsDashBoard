@@ -1,41 +1,59 @@
 :coffeescript
   $ ->
-    $('.delete_feature').click ->
-      id = $(this).attr("id")
-      parent_div = $(this).parents("div")[3]
-      $.ajax
-        url: 'api/scenarioparser/delete_feature'
-        type: 'DELETE'
-        dataType: 'json'
-        data: id: id
-        success: () ->
-          $(parent_div).fadeOut(200)
+    $('#addNewFeatureForm').click ->
+      $(this).fadeOut(500)
+      $('.addContainer').fadeIn(1400)
+
   $ ->
-    $('.feature').click ->
-        active = $('.active')
-        console.log active
-        $(active).removeClass('active')
-        $(this).addClass('active')
-        suite = $(this).text()
-        $.ajax
-          url: 'testrunner/get_scenario_of_feature'
-          type: 'GET'
-          dataType: 'html'
-          data: suite: suite
-          success: (response) ->
-            $('.tests_container').html(response)
+    [first, ..., last] = $('.feature')
+    $(first).addClass("active")
+    title = $(first).text()
+    $.ajax
+      url: 'testrunner/get_scenario_of_feature'
+      type: 'GET'
+      dataType: 'html'
+      data: suite: title
+      success: (response) ->
+        $('.tests_container').html(response)
+
+  $ ->
+    $('#addNewFeature').click ->
+      title = $('#title').val()
+      tag = $('#tag').val()
+      $.ajax
+        url: 'api/scenarioparser/add_feature'
+        type: 'POST'
+        dataType: 'html'
+        data: {
+        title: title
+        tag: tag
+        }
+        success: (response) ->
+          $('#featurelist').html(response)
+          [first, ..., last] = $('.feature')
+          $(last).addClass("active")
+          $('.addContainer').fadeOut(100)
+          $('.addScenarioContainer').fadeIn(1400)
+          $('#addNewFeatureForm').fadeIn(500)
+          $.ajax
+            url: 'testrunner/get_scenario_of_feature'
+            type: 'GET'
+            dataType: 'html'
+            data: suite: title
+            success: (response) ->
+              $('.tests_container').html(response)
 
 
 %h4="Edit Suites"
 %div{:class=>"list-group inline feature_container"}
-  -suites.each do |f|
-    %div
-      %div{:class=>"inline"}
-        %a{:class=>"list-group-item list-group-item-info feature"}= f.title
-      %div{:class=>"inline fixed"}
-        %div{:class=>"ticket"}
-          %span{:class=>"label label-info test"}= "@#{f.tag}"
-        %div{:class=>"ticket"}
-          %span{:class=>"badge delete_feature", :id=>f.id}= "delete"
+  %div{:id=>"featurelist", :style=>"margin-bottom: 10px"}=render partial: 'shared/featurelist', locals: {suites: suites}
+  .addContainer
+    .input-group
+      %div
+        %input{:id=>'tag', :class=>"form-control awesome-input", :style=>"width: 150px; margin-bottom: 7px;", :placeholder=>"tag here without @"}
+      %div
+        %input{:id=>'title', :class=>"form-control awesome-input", :style=>"width: 150px; margin-bottom: 7px;", :placeholder=>"title here"}
+      %button{:id=>"addNewFeature", :class=>"btn btn-success"}="Add New Feature"
+  %button{:id=>"addNewFeatureForm", :class=>"btn btn-info"}="Add New Feature"
 
 %div{:class=>"inline tests_container"}

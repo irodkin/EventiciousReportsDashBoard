@@ -222,21 +222,10 @@ $ ->
           $('.buildNumber').text(response['build'])
           setTimeout (-> $('.alert-success').fadeIn(700)), 700
           setTimeout (-> $('.alert-success').fadeOut(700)), 5000
-$ ->
-  $('#parse').click ->
-    suite = $('.suites').val()
-    $.ajax
-      url: 'api/scenarioparser/parse'
-      type: 'POST'
-      dataType: 'json'
-      data: suite: suite
 
 $ ->
   $('#addSuite').click ->
     $('#SuitesEdit').modal("show")
-
-$ ->
-  $('#addFeature').click ->
     $.ajax
       url: 'testrunner/add_feature'
       type: 'GET'

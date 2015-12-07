@@ -1,0 +1,36 @@
+:coffeescript
+  $ ->
+    $('.feature').click ->
+        active = $('.active')
+        $(active).removeClass('active')
+        $(this).addClass('active')
+        suite = $(this).text()
+        $.ajax
+          url: 'testrunner/get_scenario_of_feature'
+          type: 'GET'
+          dataType: 'html'
+          data: suite: suite
+          success: (response) ->
+            $('.tests_container').html(response)
+
+  $ ->
+    $('.delete_feature').click ->
+      id = $(this).attr("id")
+      parent_div = $(this).parents("div")[2]
+      $.ajax
+        url: 'api/scenarioparser/delete_feature'
+        type: 'DELETE'
+        dataType: 'json'
+        data: id: id
+        success: () ->
+          $(parent_div).fadeOut(200)
+
+-suites.each do |f|
+  %div
+    .inline
+      %a{:class=>"list-group-item list-group-item-info feature"}= f.title
+    %div{:class=>"inline fixed"}
+      .ticket
+        %span{:class=>"label label-info test"}= "@#{f.tag}"
+      .ticket
+        %span{:class=>"badge delete_feature", :id=>f.id}= "delete"
