@@ -1,0 +1,11 @@
+<h4>Suites</h4>
+<div id="suites">
+  <ul class="nav nav-pills">
+    <% @feature.each do |f| %>
+    <li class="list-group-item-info feature"><a><%= f.title %></a><li>
+    <% end %>
+    <li><button class="btn" id="addFeature" type="button" style="border-radius: 25px">+</button></li>
+  </ul>
+</div>
+<div id="scenarios">
+</div>

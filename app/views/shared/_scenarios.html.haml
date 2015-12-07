@@ -1,0 +1,20 @@
+:coffeescript
+  $ ->
+    $('.delete_feature').click ->
+      id = $(this).attr("id")
+      parent_div = $(this).parents("div")[0]
+      $.ajax
+        url: 'api/scenarioparser/delete_scenario'
+        type: 'DELETE'
+        dataType: 'json'
+        data: id: id
+        success: () ->
+          $(parent_div).fadeOut(200)
+
+-scenarios.each do |s|
+  %div
+    -s.tags.split(",").each do |t|
+      %span{:class=>"label label-info test"}= "@#{t}"
+    %span{:class=>"badge delete_feature", :id=>s.id}= "delete"
+    %div= s.title.html_safe
+    %div{:style=>"margin-left:10px"}= s.steps.html_safe

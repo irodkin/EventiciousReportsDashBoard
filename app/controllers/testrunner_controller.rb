@@ -2,7 +2,16 @@ class TestrunnerController < ApplicationController
 	def index
 		@tests = ["smoke", "networking_smoke", "navigation", "speaker", "session", "attendees", "map", "indoor", "webview", "gallery"]
 		@jobs = Job.all
-		@suite = Suite.all
+		@feature = Suite.all
+	end
+	def get_scenario_of_feature
+		scenarios = Test.where(suite: params[:suite]).all
+
+		render partial: 'shared/scenarios', locals: {scenarios: scenarios}
+	end
+	def add_feature
+		suites = Suite.all
+		render partial: 'shared/addfeature', locals: {suites: suites}
 	end
 	def tests
 		case params[:suite]

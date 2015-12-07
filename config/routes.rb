@@ -60,6 +60,8 @@ Rails.application.routes.draw do
     collection do
       get :custom
       get :tests
+      get :get_scenario_of_feature
+      get :add_feature
     end
   end
   namespace :api do
@@ -68,6 +70,10 @@ Rails.application.routes.draw do
         post :parse
         get :get_tests
         post :get_test
+        post :add_feature
+        get :get_features
+        delete :delete_feature
+        delete :delete_scenario
       end
     end
     resources :testrun do

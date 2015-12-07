@@ -15,6 +15,16 @@
  */
 @import "bootstrap";
 
+.keyword {
+	color: #8495CC;
+	font-weight: 700;
+}
+
+.scenario_title {
+	color: #91ba61;
+	font-weight: 500;
+}
+
 .raw  {
 	display: inline-table;
 	width: 24%;
@@ -50,8 +60,27 @@
   padding-top: 15px;
 }
 
+.fixed {
+	position: fixed;
+}
+
 .test-active {
   background-color: #5cb85c;
+}
+
+.feature {
+	padding-top:  13px;
+	padding-bottom: 13px;
+	margin-right: 8px;
+}
+
+.feature_container {
+	width: 400px;
+	vertical-align: top;
+}
+
+.ticket {
+	text-align: center;
 }
 
 .label {
@@ -147,4 +176,15 @@
 .suites {
   width: 320px;
   height: 225px;
+}
+
+.tooltip-inner {
+	text-align: left;
+	font-size:11px;
+	max-width: 650px;
+}
+
+.tag {
+	display: inline-block;
+	margin-left: 5px;
 }

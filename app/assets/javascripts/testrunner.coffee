@@ -117,6 +117,18 @@ $ ->
 
 $ ->
   $('#suite .list-group-item-info').click ->
+    if ($(this).text() == 'MultiBigSmoke')
+      if ($('#server .active').text() == 'Production')
+        $('#appId').val('4304');
+      else
+        $('#appId').val('test');
+    else
+      if ($('#server .active').text() == 'Production')
+        $('#appId').val('4193');
+      else
+        $('#appId').val('4389');
+
+
     response = {
       suite: $(this).text()
     }
@@ -131,11 +143,17 @@ $ ->
 $ ->
   $('#server .list-group-item-info').click ->
     server = $(this).text()
-    $('#appId').val('4286');
-    if (server == 'Production')
-      $('#appId').val('4193')
+    suite = $('#suite .active').text()
+    if (suite == 'MultiBigSmoke')
+      if (server == 'Production')
+        $('#appId').val('4304');
+      else
+        $('#appId').val('test');
     else
-      $('#appId').val('4389')
+      if (server == 'Production')
+        $('#appId').val('4193');
+      else
+        $('#appId').val('4389');
 
 
 $ ->
@@ -214,6 +232,19 @@ $ ->
       data: suite: suite
 
 $ ->
+  $('#addSuite').click ->
+    $('#SuitesEdit').modal("show")
+
+$ ->
+  $('#addFeature').click ->
+    $.ajax
+      url: 'testrunner/add_feature'
+      type: 'GET'
+      dataType: 'html'
+      success: (response) ->
+        $('#suitemodalbody').html(response)
+
+$ ->
   $('#get_tests').click ->
     find = $('#find_tests').val()
     $.ajax
@@ -221,6 +252,20 @@ $ ->
       type: 'GET'
       dataType: 'json'
       data: suite: find
+
+$ ->
+  $('.feature').click ->
+      active = $(this).siblings('.active')[0]
+      $(active).removeClass('active')
+      $(this).addClass('active')
+      suite = $(this).text()
+      $.ajax
+        url: 'testrunner/get_scenario_of_feature'
+        type: 'GET'
+        dataType: 'html'
+        data: suite: suite
+        success: (response) ->
+          $('.test_container').html(response)
 
 
 $ ->
@@ -231,9 +276,8 @@ $ ->
       type: 'POST'
       dataType: 'json'
       data: tag: tag
-      success: (response) -> 
+      success: (response) ->
         $('this').title = response["tests"]["title"]
 
 $ ->
-  $('.lol').tooltip({title: $('#find_tests').val(), html: true, template:'<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner" style="text-align: left; font-size:11px; max-width: 650px;"></div></div>', placement: "top"})  
-  
+  $('.lol').tooltip({title: $('#find_tests').val(), html: true, template:'<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner" style="text-align: left; font-size:11px; max-width: 650px;"></div></div>', placement: "top"})
