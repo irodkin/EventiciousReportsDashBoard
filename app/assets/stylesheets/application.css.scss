@@ -204,11 +204,11 @@
 	display: inline-block;
 }
 
-a.tooltips {
+div.tooltips {
   position: relative;
   display: inline;
 }
-a.tooltips section {
+div.tooltips section {
 	white-space: nowrap;
   position: absolute;
   min-width: 200px;
@@ -219,7 +219,7 @@ a.tooltips section {
   visibility: hidden;
   border-radius: 20px;
 }
-a.tooltips section:after {
+div.tooltips section:after {
   content: '';
   position: absolute;
   top: 100%;
@@ -230,7 +230,7 @@ a.tooltips section:after {
   border-right: 8px solid transparent;
   border-left: 8px solid transparent;
 }
-a:hover.tooltips section {
+div:hover.tooltips section {
   visibility: visible;
   opacity: 0.9;
   bottom: 30px;

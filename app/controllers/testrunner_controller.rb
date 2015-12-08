@@ -29,9 +29,14 @@ class TestrunnerController < ApplicationController
 		to_delete.each {|d| tags_arr.delete d}
 		split.each {|s| tags_arr.push s}
 		scenarios = []
+		tags_arr.uniq!
 		tags_arr.each do |t|
-			scenarios_a = tests.find {|f| f.tags.split(",").include?(t)}
-			scenarios.push(["<div>#{scenarios_a.title}</div>#{scenarios_a.steps}", t])
+			scenarios_a = tests.find_all { |f| f.tags.split(",").include?(t)}
+			scenarios_b = []
+			scenarios_a.each do |s|
+				scenarios_b.push "<div>#{s.title}</div><div style=\"margin-left: 5px\">#{s.steps}</div>"
+			end
+			scenarios.push([scenarios_b, t])
 		end
 		head_tag = Suite.where(title: params[:suite]).first.tag
 		render partial: 'shared/tests', locals: {tests: scenarios, head_tag: head_tag}

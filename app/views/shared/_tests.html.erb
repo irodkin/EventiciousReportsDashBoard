@@ -29,9 +29,14 @@
 <span id="all" class="label label-info test-active"><%= head_tag %></span>
 </div>
 <% tests.each do |test|%>
-<div class="tag">
-  <a class="tooltips" href="#">
-  <span class="label label-info scenario test "><%= test[1] %></span>
-  <section><div style="margin:10px 10px 10px 10px"><%= test[0].html_safe %></div></section></a>
+ <div class="tag">
+   <div class="tooltips" href="#">
+   <span class="label label-info scenario test "><%= test[1] %></span>
+   <section><div style="margin:10px 10px 10px 10px">
+     <% for i in 0..test.first.size-1 %>
+     <%= test.first[i].html_safe %>
+     <% end %>
+   </div></section>
+ </div>
 </div>
 <% end %>
