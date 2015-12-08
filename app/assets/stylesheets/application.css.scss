@@ -119,7 +119,6 @@
 .tests {
   padding-top: 10px;
   max-width: 600px;
-	font-size: 0;
 }
 
 .params-container {
@@ -201,13 +200,41 @@
   height: 225px;
 }
 
-.tooltip-inner {
-	text-align: left;
-	font-size:11px;
-	max-width: 650px;
-}
-
 .tag {
 	display: inline-block;
-	margin-left: 5px;
+}
+
+a.tooltips {
+  position: relative;
+  display: inline;
+}
+a.tooltips section {
+	white-space: nowrap;
+  position: absolute;
+  min-width: 200px;
+  color: #FFFFFF;
+  background: #000000;
+	font-size: 10px;
+  text-align: left;
+  visibility: hidden;
+  border-radius: 20px;
+}
+a.tooltips section:after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -8px;
+  width: 0; height: 0;
+  border-top: 8px solid #000000;
+  border-right: 8px solid transparent;
+  border-left: 8px solid transparent;
+}
+a:hover.tooltips section {
+  visibility: visible;
+  opacity: 0.9;
+  bottom: 30px;
+  left: 50%;
+  margin-left: -76px;
+  z-index: 999;
 }

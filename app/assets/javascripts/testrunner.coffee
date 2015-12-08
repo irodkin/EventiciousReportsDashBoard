@@ -141,6 +141,15 @@ $ ->
         $('#tests').html(response)
 
 $ ->
+    $.ajax
+      url: 'testrunner/tests'
+      type: 'GET'
+      dataType: 'html'
+      data: suite: $('#suite .active').text()
+      success: (response) ->
+        $('#tests').html(response)
+
+$ ->
   $('#server .list-group-item-info').click ->
     server = $(this).text()
     suite = $('#suite .active').text()
@@ -255,18 +264,3 @@ $ ->
         data: suite: suite
         success: (response) ->
           $('.test_container').html(response)
-
-
-$ ->
-  $('.test').mouseenter ->
-    tag = $(this).text()
-    $.ajax
-      url: 'api/scenarioparser/get_test'
-      type: 'POST'
-      dataType: 'json'
-      data: tag: tag
-      success: (response) ->
-        $('this').title = response["tests"]["title"]
-
-$ ->
-  $('.lol').tooltip({title: $('#find_tests').val(), html: true, template:'<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner" style="text-align: left; font-size:11px; max-width: 650px;"></div></div>', placement: "top"})

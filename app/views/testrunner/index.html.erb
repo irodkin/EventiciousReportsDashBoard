@@ -87,7 +87,7 @@
       </ul>
     </div>
     <div class='tests' id="tests">
-      <%= render partial: 'shared/tests', locals: {tests: @tests} %>
+      <%= render partial: 'shared/tests', locals: {tests: @tests, head_tag: @head_tag} %>
     </div>
     <!-- Modal Login-->
     <div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">

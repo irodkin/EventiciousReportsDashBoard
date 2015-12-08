@@ -21,17 +21,17 @@
       }
     });
   });
-
   }).call(this);
 
 </script>
 <h4>Tests <span class="badge"><%= tests.size %></span></h4>
-<% for i in 0..tests.size-1%>
 <div class="tag">
-<% if i==0 %>
-<span id="all" class="label label-info test-active"><%= tests[i] %></span>
-<% else %>
-<span class="label label-info test" title="123123"><%= tests[i] %></span>
-<% end %>
+<span id="all" class="label label-info test-active"><%= head_tag %></span>
+</div>
+<% tests.each do |test|%>
+<div class="tag">
+  <a class="tooltips" href="#">
+  <span class="label label-info scenario test "><%= test[1] %></span>
+  <section><div style="margin:10px 10px 10px 10px"><%= test[0].html_safe %></div></section></a>
 </div>
 <% end %>
