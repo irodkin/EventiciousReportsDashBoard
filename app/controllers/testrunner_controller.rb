@@ -3,7 +3,7 @@ class TestrunnerController < ApplicationController
 		@tests = ["smoke", "networking_smoke", "navigation", "speaker", "session", "attendees", "map", "indoor", "webview", "gallery"]
 		@jobs = Job.all
 		@feature = Suite.all
-		@head_tag = Suite.first.tag
+		@head_tag = Suite.first.tag unless Suite.first.nil?
 	end
 	def get_scenario_of_feature
 		scenarios = Test.where(suite: params[:suite]).all
