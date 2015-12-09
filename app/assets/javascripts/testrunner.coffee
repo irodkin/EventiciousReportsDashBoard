@@ -117,7 +117,7 @@ $ ->
 
 $ ->
   $('#suite .list-group-item-info').click ->
-    if ($(this).text() == 'MultiBigSmoke')
+    if ($(this).text() == 'MultiSmoke')
       if ($('#server .active').text() == 'Production')
         $('#appId').val('4304');
       else
