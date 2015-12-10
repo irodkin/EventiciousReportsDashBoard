@@ -186,6 +186,9 @@ $ ->
     else
       $('#devices').collapse('hide')
 
+$ ->
+  $('.result').tooltip({title: "<div><span class=\"label label-success\">green</span> is awesome :)</div><div><span class=\"label label-warning\">yellow</span> is good :|</div><div><span class=\"label label-danger\">red</span> is bad :()</div>", html: true})
+
 
 $ ->
   $('#loginButton').click ->
