@@ -1,4 +1,5 @@
 require 'optparse'
+require 'nokogiri'
 
 options = {}
 
@@ -40,6 +41,19 @@ end
 
 optparse.parse!
 
+docs = Dir['/Users/user/Jenkins/workspace/allure-results/*-testsuite.xml']
+#docs = Dir['/Users/migrate/EventiciousReportsDashBoard/app/controllers/*-testsuite.xml']
+
+failed = 0
+all = 0
+
+docs.each do |d|
+  doc = File.open(d)
+  xml = Nokogiri::XML(doc)
+  failed+= xml.xpath("//test-case[@status='failed']").size
+  all+= xml.xpath("//test-case").size
+end
+
 r = Report.new(:date=>Time.now+14400,
                :platform=>options[:platform],
                :server=>options[:server],
@@ -51,5 +65,7 @@ r = Report.new(:date=>Time.now+14400,
                :build=>options[:build],
                :job=>options[:job],
                :branch=>options[:branch],
-               :user=>options[:user])
+               :user=>options[:user],
+               :all => all,
+               :failed => failed)
 r.save

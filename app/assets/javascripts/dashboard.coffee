@@ -2,7 +2,7 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 $ ->
-  $(".deleteRecord").click ->
+  $(".deleteButton").click ->
     current_record_tr = $(this).parents('tr')[0]
     $.ajax
       url: 'dashboard/' + $(current_record_tr).attr('recordid')

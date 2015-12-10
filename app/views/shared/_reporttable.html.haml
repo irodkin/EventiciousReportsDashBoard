@@ -14,7 +14,7 @@
    %th= "Tests"
    %th= "Device"
    %th= "User"
-   %th= "Report"
+   %th{:style=>"text-align: center"}= "Report"
    %th= "Build"
   -@reports.each do |r|
    %tr{:recordId=>r.id}
@@ -29,7 +29,21 @@
     -else
      %td= nil
     %td= r.user
-    %td= link_to "link to report", r.link, :target => "_blank"
+    %td{:style=>"text-align: center"}
+     %div
+      -unless r.failed.nil? && r.all.nil?
+       -if r.failed.to_f/r.all.to_f*100 < 75
+        %span{:class=>"label label-danger"}="#{r.failed}/#{r.all}"
+       -elsif r.failed.to_f/r.all.to_f*100 > 75 && r.failed/r.all*100 < 100
+        %span{:class=>"label label-warning"}="#{r.failed}/#{r.all}"
+       -else
+        %span{:class=>"label label-success"}="#{r.failed}/#{r.all}"
+     %div
+      %a{:href=>r.link, :target=>"_blank"}
+       %span{:class=>"label label-info"}="allure"
     %td= link_to "#{r.job} ##{r.build}", r.buildurl, :target => "_blank"
-    %td
-     %span.deleteRecord= image_tag("erase.png", :class=>'deleteButton')
+    %td{:style=>"text-align: center"}
+     %div
+      %span{:class=>"label label-danger deleteButton"}= "delete"
+     %div
+      %span{:class=>"label label-info reply"}= "reply"

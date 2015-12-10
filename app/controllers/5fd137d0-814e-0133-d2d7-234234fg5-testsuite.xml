@@ -1,0 +1,128 @@
+<?xml version="1.0"?>
+<ns2:test-suite xmlns="" xmlns:ns2="urn:model.allure.qatools.yandex.ru" start="1449739714634" stop="1449739742718">
+  <name>MemoryLeaks feature</name>
+  <title>MemoryLeaks feature</title>
+  <test-cases>
+    <test-case start="1449739714635" stop="1449739734959" status="failed">
+      <name>&#x414;&#x43E;&#x43A;&#x43B;&#x430;&#x434; - &#x414;&#x435;&#x442;&#x430;&#x43B;&#x438; &#x434;&#x43E;&#x43A;&#x43B;&#x430;&#x434;&#x430;</name>
+      <title>&#x414;&#x43E;&#x43A;&#x43B;&#x430;&#x434; - &#x414;&#x435;&#x442;&#x430;&#x43B;&#x438; &#x434;&#x43E;&#x43A;&#x43B;&#x430;&#x434;&#x430;</title>
+      <failure>
+        <message>ERROR: Unable to connect to Appium. Is the server running?</message>
+        <stack-trace>./features/ios/pages/pageBasic.rb:19:in `start'&#xD;
+./features/step_definitions/Session_steps.rb:6:in `/^&#x417;&#x430;&#x43F;&#x443;&#x441;&#x43A; &#x43F;&#x440;&#x438;&#x43B;&#x43E;&#x436;&#x435;&#x43D;&#x438;&#x44F;$/'&#xD;
+./features/step_definitions/Session_steps.rb:13:in `/^&#x41A;&#x43E;&#x43D;&#x444;&#x435;&#x440;&#x435;&#x43D;&#x446;&#x438;&#x44F; &#x43E;&#x442;&#x43A;&#x440;&#x44B;&#x442;&#x430;$/'&#xD;
+features/MemoryLeaks.feature:70:in `Given &#x41A;&#x43E;&#x43D;&#x444;&#x435;&#x440;&#x435;&#x43D;&#x446;&#x438;&#x44F; &#x43E;&#x442;&#x43A;&#x440;&#x44B;&#x442;&#x430;'</stack-trace>
+      </failure>
+      <steps>
+        <step start="1449739734942" stop="1449739734957" status="failed">
+          <name>&#x41A;&#x43E;&#x43D;&#x444;&#x435;&#x440;&#x435;&#x43D;&#x446;&#x438;&#x44F; &#x43E;&#x442;&#x43A;&#x440;&#x44B;&#x442;&#x430;</name>
+          <title>&#x41A;&#x43E;&#x43D;&#x444;&#x435;&#x440;&#x435;&#x43D;&#x446;&#x438;&#x44F; &#x43E;&#x442;&#x43A;&#x440;&#x44B;&#x442;&#x430;</title>
+          <attachments/>
+        </step>
+        <step start="1449739734957" stop="1449739734958" status="pending">
+          <name>&#x42F; &#x432;&#x438;&#x436;&#x443; &#x43F;&#x435;&#x440;&#x432;&#x44B;&#x439; &#x434;&#x43E;&#x43A;&#x43B;&#x430;&#x434;</name>
+          <title>&#x42F; &#x432;&#x438;&#x436;&#x443; &#x43F;&#x435;&#x440;&#x432;&#x44B;&#x439; &#x434;&#x43E;&#x43A;&#x43B;&#x430;&#x434;</title>
+          <attachments/>
+        </step>
+        <step start="1449739734958" stop="1449739734959" status="pending">
+          <name>&#x42F; &#x43E;&#x442;&#x43A;&#x440;&#x44B;&#x432;&#x430;&#x44E; &#x434;&#x435;&#x442;&#x430;&#x43B;&#x438; &#x434;&#x43E;&#x43A;&#x43B;&#x430;&#x434;&#x430;</name>
+          <title>&#x42F; &#x43E;&#x442;&#x43A;&#x440;&#x44B;&#x432;&#x430;&#x44E; &#x434;&#x435;&#x442;&#x430;&#x43B;&#x438; &#x434;&#x43E;&#x43A;&#x43B;&#x430;&#x434;&#x430;</title>
+          <attachments/>
+        </step>
+      </steps>
+      <attachments/>
+      <labels>
+        <label name="severity" value="normal"/>
+        <label name="thread" value="70206953488900"/>
+        <label name="host" value="dsptest14.mercury.office"/>
+        <label name="feature" value="MemoryLeaks feature"/>
+        <label name="story" value="&#x414;&#x43E;&#x43A;&#x43B;&#x430;&#x434; - &#x414;&#x435;&#x442;&#x430;&#x43B;&#x438; &#x434;&#x43E;&#x43A;&#x43B;&#x430;&#x434;&#x430;"/>
+      </labels>
+      <parameters/>
+    </test-case>
+    <test-case start="1449739734963" stop="1449739741393" status="failed">
+      <name>&#x421;&#x43F;&#x438;&#x43A;&#x435;&#x440;&#x44B; - &#x414;&#x435;&#x442;&#x430;&#x43B;&#x438; &#x441;&#x43F;&#x438;&#x43A;&#x435;&#x440;&#x430;</name>
+      <title>&#x421;&#x43F;&#x438;&#x43A;&#x435;&#x440;&#x44B; - &#x414;&#x435;&#x442;&#x430;&#x43B;&#x438; &#x441;&#x43F;&#x438;&#x43A;&#x435;&#x440;&#x430;</title>
+      <failure>
+        <message>ERROR: Unable to connect to Appium. Is the server running?</message>
+        <stack-trace>./features/ios/pages/pageBasic.rb:19:in `start'&#xD;
+./features/step_definitions/Session_steps.rb:6:in `/^&#x417;&#x430;&#x43F;&#x443;&#x441;&#x43A; &#x43F;&#x440;&#x438;&#x43B;&#x43E;&#x436;&#x435;&#x43D;&#x438;&#x44F;$/'&#xD;
+./features/step_definitions/Session_steps.rb:13:in `/^&#x41A;&#x43E;&#x43D;&#x444;&#x435;&#x440;&#x435;&#x43D;&#x446;&#x438;&#x44F; &#x43E;&#x442;&#x43A;&#x440;&#x44B;&#x442;&#x430;$/'&#xD;
+features/MemoryLeaks.feature:75:in `Given &#x41A;&#x43E;&#x43D;&#x444;&#x435;&#x440;&#x435;&#x43D;&#x446;&#x438;&#x44F; &#x43E;&#x442;&#x43A;&#x440;&#x44B;&#x442;&#x430;'</stack-trace>
+      </failure>
+      <steps>
+        <step start="1449739741385" stop="1449739741392" status="failed">
+          <name>&#x41A;&#x43E;&#x43D;&#x444;&#x435;&#x440;&#x435;&#x43D;&#x446;&#x438;&#x44F; &#x43E;&#x442;&#x43A;&#x440;&#x44B;&#x442;&#x430;</name>
+          <title>&#x41A;&#x43E;&#x43D;&#x444;&#x435;&#x440;&#x435;&#x43D;&#x446;&#x438;&#x44F; &#x43E;&#x442;&#x43A;&#x440;&#x44B;&#x442;&#x430;</title>
+          <attachments/>
+        </step>
+        <step start="1449739741392" stop="1449739741393" status="pending">
+          <name>&#x41E;&#x442;&#x43A;&#x440;&#x44B;&#x432;&#x430;&#x44E; &#x44D;&#x43A;&#x440;&#x430;&#x43D; &#x434;&#x43E;&#x43A;&#x43B;&#x430;&#x434;&#x447;&#x438;&#x43A;&#x43E;&#x432;</name>
+          <title>&#x41E;&#x442;&#x43A;&#x440;&#x44B;&#x432;&#x430;&#x44E; &#x44D;&#x43A;&#x440;&#x430;&#x43D; &#x434;&#x43E;&#x43A;&#x43B;&#x430;&#x434;&#x447;&#x438;&#x43A;&#x43E;&#x432;</title>
+          <attachments/>
+        </step>
+        <step start="1449739741393" stop="1449739741393" status="pending">
+          <name>&#x42F; &#x43E;&#x442;&#x43A;&#x440;&#x44B;&#x432;&#x430;&#x44E; &#x434;&#x435;&#x442;&#x430;&#x43B;&#x438; &#x441;&#x43F;&#x438;&#x43A;&#x435;&#x440;&#x430;</name>
+          <title>&#x42F; &#x43E;&#x442;&#x43A;&#x440;&#x44B;&#x432;&#x430;&#x44E; &#x434;&#x435;&#x442;&#x430;&#x43B;&#x438; &#x441;&#x43F;&#x438;&#x43A;&#x435;&#x440;&#x430;</title>
+          <attachments/>
+        </step>
+      </steps>
+      <attachments/>
+      <labels>
+        <label name="severity" value="normal"/>
+        <label name="thread" value="70206953488900"/>
+        <label name="host" value="dsptest14.mercury.office"/>
+        <label name="feature" value="MemoryLeaks feature"/>
+        <label name="story" value="&#x421;&#x43F;&#x438;&#x43A;&#x435;&#x440;&#x44B; - &#x414;&#x435;&#x442;&#x430;&#x43B;&#x438; &#x441;&#x43F;&#x438;&#x43A;&#x435;&#x440;&#x430;"/>
+      </labels>
+      <parameters/>
+    </test-case>
+    <test-case start="1449739741396" stop="1449739742715" status="failed">
+      <name>&#x423;&#x447;&#x430;&#x441;&#x442;&#x43D;&#x438;&#x43A;&#x438; - &#x41D;&#x430;&#x437;&#x43D;&#x430;&#x447;&#x435;&#x43D;&#x438;&#x435; &#x432;&#x441;&#x442;&#x440;&#x435;&#x447;&#x438;</name>
+      <title>&#x423;&#x447;&#x430;&#x441;&#x442;&#x43D;&#x438;&#x43A;&#x438; - &#x41D;&#x430;&#x437;&#x43D;&#x430;&#x447;&#x435;&#x43D;&#x438;&#x435; &#x432;&#x441;&#x442;&#x440;&#x435;&#x447;&#x438;</title>
+      <failure>
+        <message>ERROR: Unable to connect to Appium. Is the server running?</message>
+        <stack-trace>./features/ios/pages/pageBasic.rb:19:in `start'&#xD;
+./features/step_definitions/Session_steps.rb:6:in `/^&#x417;&#x430;&#x43F;&#x443;&#x441;&#x43A; &#x43F;&#x440;&#x438;&#x43B;&#x43E;&#x436;&#x435;&#x43D;&#x438;&#x44F;$/'&#xD;
+./features/step_definitions/Session_steps.rb:13:in `/^&#x41A;&#x43E;&#x43D;&#x444;&#x435;&#x440;&#x435;&#x43D;&#x446;&#x438;&#x44F; &#x43E;&#x442;&#x43A;&#x440;&#x44B;&#x442;&#x430;$/'&#xD;
+features/MemoryLeaks.feature:80:in `Given &#x41A;&#x43E;&#x43D;&#x444;&#x435;&#x440;&#x435;&#x43D;&#x446;&#x438;&#x44F; &#x43E;&#x442;&#x43A;&#x440;&#x44B;&#x442;&#x430;'</stack-trace>
+      </failure>
+      <steps>
+        <step start="1449739742706" stop="1449739742713" status="failed">
+          <name>&#x41A;&#x43E;&#x43D;&#x444;&#x435;&#x440;&#x435;&#x43D;&#x446;&#x438;&#x44F; &#x43E;&#x442;&#x43A;&#x440;&#x44B;&#x442;&#x430;</name>
+          <title>&#x41A;&#x43E;&#x43D;&#x444;&#x435;&#x440;&#x435;&#x43D;&#x446;&#x438;&#x44F; &#x43E;&#x442;&#x43A;&#x440;&#x44B;&#x442;&#x430;</title>
+          <attachments/>
+        </step>
+        <step start="1449739742713" stop="1449739742714" status="pending">
+          <name>&#x41E;&#x442;&#x43A;&#x440;&#x44B;&#x432;&#x430;&#x44E; &#x44D;&#x43A;&#x440;&#x430;&#x43D; &#x443;&#x447;&#x430;&#x441;&#x442;&#x43D;&#x438;&#x43A;&#x43E;&#x432;</name>
+          <title>&#x41E;&#x442;&#x43A;&#x440;&#x44B;&#x432;&#x430;&#x44E; &#x44D;&#x43A;&#x440;&#x430;&#x43D; &#x443;&#x447;&#x430;&#x441;&#x442;&#x43D;&#x438;&#x43A;&#x43E;&#x432;</title>
+          <attachments/>
+        </step>
+        <step start="1449739742714" stop="1449739742715" status="pending">
+          <name>&#x42F; &#x43E;&#x442;&#x43A;&#x440;&#x44B;&#x432;&#x430;&#x44E; &#x43F;&#x440;&#x43E;&#x444;&#x438;&#x43B;&#x44C; &#x443;&#x447;&#x430;&#x441;&#x442;&#x43D;&#x438;&#x43A;&#x430;</name>
+          <title>&#x42F; &#x43E;&#x442;&#x43A;&#x440;&#x44B;&#x432;&#x430;&#x44E; &#x43F;&#x440;&#x43E;&#x444;&#x438;&#x43B;&#x44C; &#x443;&#x447;&#x430;&#x441;&#x442;&#x43D;&#x438;&#x43A;&#x430;</title>
+          <attachments/>
+        </step>
+        <step start="1449739742715" stop="1449739742715" status="pending">
+          <name>&#x42F; &#x43D;&#x430;&#x437;&#x43D;&#x430;&#x447;&#x430;&#x44E; &#x432;&#x441;&#x442;&#x440;&#x435;&#x447;&#x443;</name>
+          <title>&#x42F; &#x43D;&#x430;&#x437;&#x43D;&#x430;&#x447;&#x430;&#x44E; &#x432;&#x441;&#x442;&#x440;&#x435;&#x447;&#x443;</title>
+          <attachments/>
+        </step>
+      </steps>
+      <attachments/>
+      <labels>
+        <label name="severity" value="normal"/>
+        <label name="thread" value="70206953488900"/>
+        <label name="host" value="dsptest14.mercury.office"/>
+        <label name="feature" value="MemoryLeaks feature"/>
+        <label name="story" value="&#x423;&#x447;&#x430;&#x441;&#x442;&#x43D;&#x438;&#x43A;&#x438; - &#x41D;&#x430;&#x437;&#x43D;&#x430;&#x447;&#x435;&#x43D;&#x438;&#x435; &#x432;&#x441;&#x442;&#x440;&#x435;&#x447;&#x438;"/>
+      </labels>
+      <parameters/>
+    </test-case>
+  </test-cases>
+  <labels>
+    <label name="severity" value="normal"/>
+    <label name="thread" value="70206953488900"/>
+    <label name="host" value="dsptest14.mercury.office"/>
+  </labels>
+</ns2:test-suite>
