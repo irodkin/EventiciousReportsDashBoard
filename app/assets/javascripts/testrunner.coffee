@@ -115,6 +115,20 @@ $ ->
     $(active).removeClass('active')
     $(this).addClass('active')
 
+getParams = ->
+  query = window.location.search.substring(1)
+  raw_vars = query.split("&")
+
+  params = {}
+
+  for v in raw_vars
+    [key, val] = v.split("=")
+    params[key] = decodeURIComponent(val)
+
+  params
+
+console.log(getParams())
+
 $ ->
   $('#suite .list-group-item-info').click ->
     if ($(this).text() == 'MultiSmoke')
@@ -127,7 +141,6 @@ $ ->
         $('#appId').val('4193');
       else
         $('#appId').val('4389');
-
 
     response = {
       suite: $(this).text()
