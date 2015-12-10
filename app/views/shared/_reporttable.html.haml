@@ -34,7 +34,7 @@
       -unless r.failed.nil? && r.all.nil?
        -if r.failed.to_f/r.all.to_f*100 > 25
         %span{:class=>"label label-danger result"}="#{r.failed}/#{r.all}"
-       -elsif r.failed.to_f/r.all.to_f*100 <= 25 && r.failed/r.all*100 < 100
+       -elsif r.failed.to_f/r.all.to_f*100 <= 25 && r.failed/r.all*100 < 100 && r.failed/r.all*100 != 0
         %span{:class=>"label label-warning result"}="#{r.failed}/#{r.all}"
        -else
         %span{:class=>"label label-success result"}="#{r.all}/#{r.all}"
