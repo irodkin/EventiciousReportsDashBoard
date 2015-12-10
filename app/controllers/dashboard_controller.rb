@@ -1,13 +1,14 @@
 class DashboardController < ApplicationController
   before_filter :find_by, only: [:index]
   def index
+    r = Report.all
   	@title = "Last Reports"
     @reports = by_date(10)
     @branches = find_by(:branch)
     @platforms = find_by(:platform)
     @suites = find_by(:suite)
     @servers = find_by(:server)
-    @total_count = Report.all.count
+    @total_count = r.size
     render 'dashboard/index'
   end
   def destroy
