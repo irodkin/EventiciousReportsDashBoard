@@ -1,4 +1,4 @@
-require 'cucumber'
+require 'gherkin3/parser'
 
 class Api::ScenarioparserController < ApplicationController
 
