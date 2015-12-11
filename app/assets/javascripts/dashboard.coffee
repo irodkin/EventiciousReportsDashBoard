@@ -10,15 +10,10 @@ $ ->
       $(current_record_tr).fadeOut(700)
 
 $ ->
-  element = $(document.evaluate('//button[@class="btn btn-success"]' ,document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null ).singleNodeValue)
-  console.log $(element).text()
-
-
-$ ->
   $("#refresh").click ->
       window.location.reload()
 $ ->
-  $("#reply").click ->
+  $(".reply").click ->
     parent_td = $(this).parents('tr')[0]
     platform = $(parent_td).children('td')[1]
     server = $(parent_td).children('td')[2]

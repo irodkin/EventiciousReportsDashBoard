@@ -142,9 +142,6 @@ $ ->
     $('#appId').val(params['app'])
     $('#suite .list-group-item-info').removeClass('active')
     $("#suite .#{params['suite']}").addClass('active')
-    tests = params['tests'].split(",")
-    $('.test-active').removeClass('test-active')
-    $.each tests, (e) -> console.log $(".#{tests[e]}").addClass('test-active')
 
 
 $ ->
