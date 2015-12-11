@@ -169,15 +169,6 @@ $ ->
         $('#tests').html(response)
 
 $ ->
-    $.ajax
-      url: 'testrunner/tests'
-      type: 'GET'
-      dataType: 'html'
-      data: suite: $('#suite .active').text()
-      success: (response) ->
-        $('#tests').html(response)
-
-$ ->
   $('#server .list-group-item-info').click ->
     server = $(this).text()
     suite = $('#suite .active').text()

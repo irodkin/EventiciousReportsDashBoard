@@ -1,3 +1,20 @@
+<script>
+  (function() {
+$(document).ready(function() {
+    return $.ajax({
+      url: 'testrunner/tests',
+      type: 'GET',
+      dataType: 'html',
+      data: {
+        suite: $('#suite .active').text()
+      },
+      success: function(response) {
+        return $('#tests').html(response);
+      }
+    });
+  });
+    }).call(this);
+  </script>
 <div class="alert alert-success" role="alert" xmlns="http://www.w3.org/1999/html">
   <h4><span><%= image_tag("tick.png", :class=>'tick') %></span>Build #<span class="buildNumber"></span> Run!</h4>
 </div>
