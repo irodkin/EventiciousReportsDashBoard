@@ -41,7 +41,7 @@
       tests = params['tests'].split(",");
       $('.test-active').removeClass('test-active');
       return $.each(tests, function(e) {
-      return console.log($("." + tests[e]).addClass('test-active'));
+      return console.log($("#" + tests[e]).addClass('test-active'));
       });
     }
   });
@@ -55,7 +55,7 @@
 <% tests.each do |test|%>
  <div class="tag">
    <div class="tooltips" href="#">
-   <%= ("<span class=\"label label-info scenario #{test[1]} test\">").html_safe %><%= test[1] %></span>
+   <%= ("<span class=\"label label-info scenario test\" id=\"#{test[1]}\">").html_safe %><%= test[1] %></span>
    <section><div style="margin:10px 10px 10px 10px">
      <% for i in 0..test.first.size-1 %>
      <%= test.first[i].html_safe %>
