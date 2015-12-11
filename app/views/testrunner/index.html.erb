@@ -43,22 +43,22 @@
     <h4>Server</h4>
     <div id="server">
       <ul class="nav nav-pills">
-        <li class="list-group-item-info active"><a>Production</a></li>
-        <li class="list-group-item-info"><a>Test</a></li>
+        <li class="list-group-item-info Production active"><a>Production</a></li>
+        <li class="list-group-item-info Test"><a>Test</a></li>
       </ul>
     </div>
     <h4>Platform</h4>
     <div id="platform">
       <ul class="nav nav-pills">
-        <li class="list-group-item-info active"><a>IOS</a></li>
-        <li class="list-group-item-info"><a>Android</a></li>
+        <li class="list-group-item-info IOS active"><a>IOS</a></li>
+        <li class="list-group-item-info Android"><a>Android</a></li>
       </ul>
     </div>
     <div class="collapse" id="devices">
       <h4>Choose Device</h4>
       <ul class="nav nav-pills">
-        <li class="list-group-item-info active"><a>Nexus7</a></li>
-        <li class="list-group-item-info"><a>Nexus4</a></li>
+        <li class="list-group-item-info Nexus7 active"><a>Nexus7</a></li>
+        <li class="list-group-item-info Nexus4"><a>Nexus4</a></li>
       </ul>
     </div>
     <div class="inline">
@@ -78,9 +78,9 @@
       <ul class="nav nav-pills">
         <% for i in 0..@feature.size-1 %>
         <% if i==0 %>
-        <li class="list-group-item-info active"><a><%= @feature[i].title %></a></li>
+        <%= ("<li class=\"list-group-item-info #{@feature[i].title} active\">").html_safe %><a><%= @feature[i].title %></a></li>
         <% else %>
-        <li class="list-group-item-info"><a><%= @feature[i].title %></a></li>
+        <%= ("<li class=\"list-group-item-info #{@feature[i].title}\">").html_safe %><a><%= @feature[i].title %></a></li>
         <% end %>
         <% end %>
         <li><button class="btn" id="addSuite" type="button" style="border-radius: 25px">+</button></li>

@@ -127,7 +127,25 @@ getParams = ->
 
   params
 
-console.log(getParams())
+$ ->
+  params = getParams()
+  if params['reply'] == 'true'
+    $('#server .list-group-item-info').removeClass('active')
+    $("#server .#{params['server']}").addClass('active')
+    $('#platform .list-group-item-info').removeClass('active')
+    $("#platform .#{params['platform']}").addClass('active')
+    if params['platform'] == 'Android'
+      $('#devices').collapse('show')
+      $('#devices .list-group-item-info').removeClass('active')
+      $("#devices .#{params['device']}").addClass('active')
+    $('#branch').val(params['branch'])
+    $('#appId').val(params['app'])
+    $('#suite .list-group-item-info').removeClass('active')
+    $("#suite .#{params['suite']}").addClass('active')
+    tests = params['tests'].split(",")
+    $('.test-active').removeClass('test-active')
+    $.each tests, (e) -> console.log $(".#{tests[e]}").addClass('test-active')
+
 
 $ ->
   $('#suite .list-group-item-info').click ->

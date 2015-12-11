@@ -10,6 +10,9 @@ optparse = OptionParser.new do |opts|
   opts.on('--server', '--server production') do |f|
     options[:server] = f
   end
+  opts.on('--appid', '--appid 4193') do |f|
+    options[:appid] = f
+  end
   opts.on('--suite', '--suite Networking') do |f|
     options[:suite] = f
   end
@@ -66,6 +69,7 @@ r = Report.new(:date=>Time.now+14400,
                :job=>options[:job],
                :branch=>options[:branch],
                :user=>options[:user],
+               :appid=>options[:appid],
                :all => all,
                :failed => failed)
 r.save

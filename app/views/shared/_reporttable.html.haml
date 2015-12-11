@@ -9,6 +9,7 @@
    %th= "Date"
    %th= "Platform"
    %th= "Server"
+   %th= "App"
    %th= "Branch"
    %th= "Suite"
    %th= "Tests"
@@ -21,6 +22,7 @@
     %td= r.date.strftime("%d %b, %Y %H:%M")
     %td= r.platform
     %td= r.server
+    %td= r.appid
     %td= r.branch
     %td= r.suite
     %td= r.tests.gsub(",", " ") unless r.tests.nil?
@@ -46,4 +48,4 @@
      %div
       %span{:class=>"label label-danger deleteButton"}= "delete"
      %div
-      %span{:class=>"label label-info reply"}= "reply"
+      %span{:class=>"label label-info reply", :id=>"reply"}= "reply"

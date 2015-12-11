@@ -21,17 +21,41 @@
       }
     });
   });
+  getParams = function() {
+    var j, key, len, params, query, raw_vars, ref, v, val;
+    query = window.location.search.substring(1);
+    raw_vars = query.split("&");
+    params = {};
+    for (j = 0, len = raw_vars.length; j < len; j++) {
+      v = raw_vars[j];
+      ref = v.split("="), key = ref[0], val = ref[1];
+      params[key] = decodeURIComponent(val);
+    }
+    return params;
+  };
+
+  $(function() {
+    var params, tests;
+    params = getParams();
+    if (params['reply'] === 'true') {
+      tests = params['tests'].split(",");
+      $('.test-active').removeClass('test-active');
+      return $.each(tests, function(e) {
+      return console.log($("." + tests[e]).addClass('test-active'));
+      });
+    }
+  });
   }).call(this);
 
 </script>
 <h4>Tests <span class="badge"><%= tests.size %></span></h4>
 <div class="tag">
-<span id="all" class="label label-info test-active"><%= head_tag %></span>
+<%= ("<span id=\"all\" class=\"label label-info #{head_tag} test-active\">").html_safe %><%= head_tag %></span>
 </div>
 <% tests.each do |test|%>
  <div class="tag">
    <div class="tooltips" href="#">
-   <span class="label label-info scenario test "><%= test[1] %></span>
+   <%= ("<span class=\"label label-info scenario #{test[1]} test\">").html_safe %><%= test[1] %></span>
    <section><div style="margin:10px 10px 10px 10px">
      <% for i in 0..test.first.size-1 %>
      <%= test.first[i].html_safe %>
