@@ -14,8 +14,8 @@ class Api::TestrunController < ApplicationController
     end
 
     @client = JenkinsApi::Client.new(:server_ip => '192.168.162.78',
-                                     :username => params[:username],
-                                     :password => params[:password])
+                                     :username => params[:username].to_s,
+                                     :password => params[:password].to_s)
 
 
     job_name = params[:job]
