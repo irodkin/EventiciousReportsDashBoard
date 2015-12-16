@@ -1,4 +1,5 @@
 require 'jenkins_api_client'
+require 'uri'
 
 class Api::TestrunController < ApplicationController
   def index
@@ -14,8 +15,8 @@ class Api::TestrunController < ApplicationController
     end
 
     @client = JenkinsApi::Client.new(:server_ip => '192.168.162.78',
-                                     :username => params[:username].to_s,
-                                     :password => params[:password].to_s)
+                                     :username => URI.decode_www_form_component(params[:username]),
+                                     :password => URI.decode_www_form_component(params[:password]))
 
 
     job_name = params[:job]

@@ -19,7 +19,7 @@
    %th= "Build"
   -@reports.each do |r|
    %tr{:recordId=>r.id}
-    %td= r.date.strftime("%d %b, %Y %H:%M")
+    %td= r.date.strftime("%d %b, %H:%M")
     %td= r.platform
     %td= r.server
     %td= r.appid

@@ -40,8 +40,9 @@
     if (params['reply'] === 'true') {
       tests = params['tests'].split(",");
       $('.test-active').removeClass('test-active');
-      return $.each(tests, function(e) {
-      return console.log($("#" + tests[e]).addClass('test-active'));
+      $.each(tests, function(e) {
+         $("." + tests[e]).addClass('test-active');
+         $("#" + tests[e]).addClass('test-active');
       });
     }
   });
