@@ -15,12 +15,8 @@
  */
 @import "bootstrap";
 
-table {
-	table-layout: fixed;
-}
-
 .panel-primary {
-	max-width: 1200px;
+	width: 1200px;
 }
 
 .keyword {
