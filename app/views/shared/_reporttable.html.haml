@@ -25,7 +25,7 @@
     %td= r.appid
     %td= r.branch
     %td= r.suite
-    %td= r.tests.gsub(",", " ") unless r.tests.nil?
+    %td{:style=>"font-size: 10px"}= r.tests.gsub(",", " ") unless r.tests.nil?
     -if r.platform == "Android"
      %td= r.device
     -else
