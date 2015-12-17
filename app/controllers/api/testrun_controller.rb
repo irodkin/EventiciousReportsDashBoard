@@ -34,7 +34,7 @@ class Api::TestrunController < ApplicationController
                    :suite => params[:suite],
                    :tests => tests,
                    :multi => multi,
-                   :buildAgain => buildAgain}
+                   :buildAgain => params[:buildAgain]}
 
 
 
