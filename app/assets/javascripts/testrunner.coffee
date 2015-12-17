@@ -115,6 +115,25 @@ $ ->
     $(active).removeClass('active')
     $(this).addClass('active')
 
+$ ->
+  $('.toggle').toggles({
+    drag: true,
+    click: true,
+    text: {
+      on: 'build',
+      off: "don't build"
+    },
+    on: true,
+    animate: 250,
+    easing: 'swing',
+    checkbox: null,
+    clicker: null,
+    width: 90,
+    height: 25
+    })
+
+
+
 getParams = ->
   query = window.location.search.substring(1)
   raw_vars = query.split("&")
@@ -132,6 +151,7 @@ $ ->
   if params['reply'] == 'true'
     $('#server .list-group-item-info').removeClass('active')
     $("#server .#{params['server']}").addClass('active')
+    console.log $('.toggle').toggles(false)
     $('#platform .list-group-item-info').removeClass('active')
     $("#platform .#{params['platform']}").addClass('active')
     if params['platform'] == 'Android'
@@ -210,6 +230,7 @@ $ ->
   $('#run').click ->
     username = readCookie("username")
     password = readCookie("password")
+    toggle = $('.toggle').data('toggles')
     if username.toString() == '' || password.toString() == ''
       $('#login').modal('show')
     else
@@ -223,6 +244,7 @@ $ ->
       appId = $('#appId').val()
       suite = $('#suite .active').text()
       tests = $('.test-active')
+      buildAgain = $(toggle).attr("active")
       testsArray = []
       $.each tests, (e) -> testsArray.push("@" + $(tests[e]).text())
       testRun = {
@@ -234,6 +256,7 @@ $ ->
         appId: appId
         suite: suite
         tests: testsArray
+        buildAgain: buildAgain
         username: username.toString()
         password: password.toString()
       }

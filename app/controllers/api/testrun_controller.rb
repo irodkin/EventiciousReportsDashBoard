@@ -9,9 +9,9 @@ class Api::TestrunController < ApplicationController
     tests = params[:tests].join(",")
 
     if params[:suite].eql?("MultiBigSmoke")
-      multi = "true"
+      multi = true
     else
-      multi = "false"
+      multi = false
     end
 
     @client = JenkinsApi::Client.new(:server_ip => '192.168.162.78',
@@ -33,7 +33,8 @@ class Api::TestrunController < ApplicationController
                    :device=>params[:device],
                    :suite => params[:suite],
                    :tests => tests,
-                   :multi => multi}
+                   :multi => multi,
+                   :buildAgain => buildAgain}
 
 
 
