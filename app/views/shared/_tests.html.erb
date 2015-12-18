@@ -35,6 +35,18 @@
   };
 
   $(function() {
+    $('.tooltips').mouseenter(function() {
+      $(this).children('section').show();
+    });
+  });
+
+  $(function() {
+    $('.tooltips').mouseleave(function() {
+      $(this).children('section').hide();
+    });
+  });
+
+  $(function() {
     var params, tests;
     params = getParams();
     if (params['reply'] === 'true') {
@@ -57,7 +69,7 @@
  <div class="tag">
    <div class="tooltips" href="#">
    <%= ("<span class=\"label label-info scenario test\" id=\"#{test[1]}\">").html_safe %><%= test[1] %></span>
-   <section><div class="test_container">
+   <section class="tooltips-container"><div class="test_container">
      <% for i in 0..test.first.size-1 %>
      <%= test.first[i].html_safe %>
      <% end %>
