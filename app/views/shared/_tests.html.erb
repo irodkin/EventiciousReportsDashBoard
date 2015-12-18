@@ -57,11 +57,11 @@
  <div class="tag">
    <div class="tooltips" href="#">
    <%= ("<span class=\"label label-info scenario test\" id=\"#{test[1]}\">").html_safe %><%= test[1] %></span>
-   <section><div>
+   <section class="test container">
      <% for i in 0..test.first.size-1 %>
      <%= test.first[i].html_safe %>
      <% end %>
-   </div></section>
+   </section>
  </div>
 </div>
 <% end %>
