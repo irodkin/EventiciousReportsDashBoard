@@ -34,10 +34,11 @@
     %td{:style=>"text-align: center"}
      %div
       -unless r.failed.nil? && r.all.nil?
+      -passed = (r.all.to_f - r.failed.to_f).to_i
        -if r.failed.to_f/r.all.to_f*100 > 25
-        %span{:class=>"label label-danger result"}="#{r.failed}/#{r.all}"
+        %span{:class=>"label label-danger result"}="#{passed}/#{r.all}"
        -elsif r.failed.to_f/r.all.to_f*100 <= 25 && r.failed.to_f/r.all.to_f*100 < 100 && r.failed.to_f != 0
-        %span{:class=>"label label-warning result"}="#{r.failed}/#{r.all}"
+        %span{:class=>"label label-warning result"}="#{passed}/#{r.all}"
        -else
         %span{:class=>"label label-success result"}="#{r.all}/#{r.all}"
      %div
