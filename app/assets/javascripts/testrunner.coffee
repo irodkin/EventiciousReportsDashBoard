@@ -213,7 +213,7 @@ $ ->
       $('#devices').collapse('hide')
 
 $ ->
-  $('.result').tooltip({title: "<div><span class=\"label label-success\">green</span> is awesome :)</div><div><span class=\"label label-warning\">yellow</span> is good :|</div><div><span class=\"label label-danger\">red</span> it is like your mom saw you smoking behind garages :(</div>", html: true})
+  $('.result').tooltip({title: "<div><span class=\"label label-success\">green</span> is awesome :)</div><div><span class=\"label label-warning\">yellow</span> is good :|</div><div><span class=\"label label-danger\">red</span> it is bad :(</div>", html: true})
 
 
 $ ->
