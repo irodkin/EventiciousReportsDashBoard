@@ -8,7 +8,7 @@ class Api::TestrunController < ApplicationController
   def run
     tests = params[:tests].join(",")
 
-    if params[:suite].eql?("MultiBigSmoke")
+    if params[:suite].eql?("MultiSmoke")
       multi = true
     else
       multi = false
