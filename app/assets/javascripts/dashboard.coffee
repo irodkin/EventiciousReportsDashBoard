@@ -26,6 +26,7 @@ $ ->
     for i in [0..tests.length-1]
       tests[i] = tests[i].replace("@", "")
     json = {
+      report_id: $(parent_td).attr("recordid")
       platform: $(platform).text()
       server: $(server).text()
       app: $(app).text()
@@ -34,4 +35,4 @@ $ ->
       tests: tests
       device: $(device).text()
     }
-    window.location.href = "/testrunner?reply=true&platform=#{json['platform']}&server=#{json['server']}&app=#{json['app']}&branch=#{json['branch']}&suite=#{json['suite']}&tests=#{json['tests']}&device=#{json['device']}"
+    window.location.href = "/testrunner?reply=true&report_id=#{json['report_id']}"

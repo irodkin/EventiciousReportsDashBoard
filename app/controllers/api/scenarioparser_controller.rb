@@ -72,8 +72,8 @@ class Api::ScenarioparserController < ApplicationController
     scenarios.collect!  do |s|
     	scenario.push(
     	 :suite => feauture_name,
-         :tags =>(s[:tags].collect! { |t| t[:name].delete!('@') }).join(","),
-    	 :title =>"<span class=\"keyword\">#{s[:keyword]}:</span> <span class=\"scenario_title\">#{s[:name]}<span>",
+       :tags =>(s[:tags].collect! { |t| t[:name].delete!('@') }).join(","),
+    	 :title =>s[:name],
     	 :steps => (s[:steps].collect! { |st| "<div><span class=\"keyword\">#{st[:keyword]}</span> #{st[:text]}</div>"}).join("")
          )
       end

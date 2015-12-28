@@ -53,6 +53,17 @@ activeDevices = () ->
 $ ->
   activeDevices()
 
+getTest = (suite) ->
+  $.ajax
+    url: 'testrunner/tests'
+    type: 'GET'
+    dataType: 'html'
+    data:
+      suite: suite
+    success: (response) ->
+      $('#tests').html(response)
+
+
 $ ->
   $('.select-job').click ->
     $('#current_job').text($(this).text())
@@ -149,20 +160,31 @@ getParams = ->
 $ ->
   params = getParams()
   if params['reply'] == 'true'
-    $('#server .list-group-item-info').removeClass('active')
-    $("#server .#{params['server']}").addClass('active')
-    console.log $('.toggle').toggles(false)
-    $('#platform .list-group-item-info').removeClass('active')
-    $("#platform .#{params['platform']}").addClass('active')
-    if params['platform'] == 'Android'
-      $('#devices').collapse('show')
-      $('#devices .list-group-item-info').removeClass('active')
-      $("#devices .#{params['device']}").addClass('active')
-    $('#branch').val(params['branch'])
-    $('#appId').val(params['app'])
-    $('#suite .list-group-item-info').removeClass('active')
-    $("#suite .#{params['suite']}").addClass('active')
-
+    $.ajax
+      url: 'testrunner/reply_failed'
+      type: 'GET'
+      dataType: 'json'
+      data:
+        report_id: params['report_id']
+      error: () ->
+        console.log "something going wrong"
+      success: (response) ->
+        $('#server .list-group-item-info').removeClass('active')
+        $("#server .#{response['server']}").addClass('active')
+        $('.toggle').toggles(false)
+        $('#platform .list-group-item-info').removeClass('active')
+        $("#platform .#{response['platform']}").addClass('active')
+        if response['platform'] == 'Android'
+          $('#devices').collapse('show')
+          $('#devices .list-group-item-info').removeClass('active')
+          $("#devices .#{response['device']}").addClass('active')
+        $('#branch').val(response['branch'])
+        $('#appId').val(response['appid'])
+        $('#suite .list-group-item-info').removeClass('active')
+        $("#suite .#{response['suite']}").addClass('active')
+        getTest(response['suite'])
+  else
+    getTest($('#suite .active').text())
 
 $ ->
   $('#suite .list-group-item-info').click ->
@@ -176,17 +198,7 @@ $ ->
         $('#appId').val('4193');
       else
         $('#appId').val('4389');
-
-    response = {
-      suite: $(this).text()
-    }
-    $.ajax
-      url: 'testrunner/tests'
-      type: 'GET'
-      dataType: 'html'
-      data: response
-      success: (response) ->
-        $('#tests').html(response)
+    getTest($(this).text())
 
 $ ->
   $('#server .list-group-item-info').click ->

@@ -62,6 +62,7 @@ Rails.application.routes.draw do
       get :tests
       get :get_scenario_of_feature
       get :add_feature
+      get :reply_failed
     end
   end
   namespace :api do

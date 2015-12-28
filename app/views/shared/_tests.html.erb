@@ -47,17 +47,32 @@
   });
 
   $(function() {
-    var params, tests;
-    params = getParams();
-    if (params['reply'] === 'true') {
-      tests = params['tests'].split(",");
-      $('.test-active').removeClass('test-active');
-      $.each(tests, function(e) {
-         $("span." + tests[e]).addClass('test-active');
-         $("#" + tests[e]).addClass('test-active');
-      });
-    }
-  });
+      var params, tests;
+      params = getParams();
+      if (params['reply'] === 'true') {
+        return $.ajax({
+          url: 'testrunner/reply_failed',
+          type: 'GET',
+          dataType: 'json',
+          data: {
+            report_id: params['report_id'],
+            tests: true
+          },
+          success: function(response) {
+            tests = response['failed_tests'].split("&&");
+            if (tests == "") {
+              $("#all").addClass('test-active');
+            }
+            else {
+              $('.test-active').removeClass('test-active');
+              $.each(tests, function(e) {
+                 $("#" + tests[e]).addClass('test-active');
+              });
+            }
+          }
+        });
+      }
+    });
   }).call(this);
 
 </script>

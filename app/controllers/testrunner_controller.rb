@@ -7,12 +7,29 @@ class TestrunnerController < ApplicationController
 	end
 	def get_scenario_of_feature
 		scenarios = Test.where(suite: params[:suite]).all
-
 		render partial: 'shared/scenarios', locals: {scenarios: scenarios}
 	end
 	def add_feature
 		suites = Suite.all
 		render partial: 'shared/addfeature', locals: {suites: suites}
+	end
+	def reply_failed
+		report = Report.find(params[:report_id])
+		if params[:tests]
+			render json: {failed_tests: report.failed_tests},
+			status: 200
+		else
+			render json: {
+				platform: report.platform,
+				branch: report.branch,
+				appid: report.appid,
+				suite: report.suite,
+				device: report.device,
+				server: report.server,
+				job: report.job
+			},
+			status: 200
+		end
 	end
 	def tests
 		tests = Test.where(suite: params[:suite]).all
@@ -34,7 +51,7 @@ class TestrunnerController < ApplicationController
 			scenarios_a = tests.find_all { |f| f.tags.split(",").include?(t)}
 			scenarios_b = []
 			scenarios_a.each do |s|
-				scenarios_b.push "<div>#{s.title}</div><div style=\"margin-left: 5px\">#{s.steps}</div>"
+				scenarios_b.push "<div><span class=\"keyword\">Scenario:</span><span class=\"scenario_title\">#{s.title}<span></div><div style=\"margin-left: 5px\">#{s.steps}</div>"
 			end
 			scenarios.push([scenarios_b, t])
 		end

@@ -40,5 +40,7 @@
       -s.tags.split(",").each do |t|
         %span{:class=>"label label-info test"}= "@#{t}"
       %span{:class=>"badge delete_scenario", :id=>s.id}= "delete"
-      %div= s.title.html_safe
+      %div
+        %span{:class=>"keyword"}= "Scenario:"
+        %span{:class=>"scenario_title"}= s.title
       %div{:style=>"margin-left:10px"}= s.steps.html_safe
