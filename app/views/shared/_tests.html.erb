@@ -67,6 +67,7 @@
               $('.test-active').removeClass('test-active');
               $.each(tests, function(e) {
                  $("#" + tests[e]).addClass('test-active');
+                 $("#" + tests[e]).addClass('test-failed');
               });
             }
           }
