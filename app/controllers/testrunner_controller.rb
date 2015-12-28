@@ -51,7 +51,7 @@ class TestrunnerController < ApplicationController
 			scenarios_a = tests.find_all { |f| f.tags.split(",").include?(t)}
 			scenarios_b = []
 			scenarios_a.each do |s|
-				scenarios_b.push "<div><span class=\"keyword\">Scenario:</span><span class=\"scenario_title\">#{s.title}<span></div><div style=\"margin-left: 5px\">#{s.steps}</div>"
+				scenarios_b.push "<div><span class=\"keyword\">Scenario: </span><span class=\"scenario_title\">#{s.title}<span></div><div style=\"margin-left: 5px\">#{s.steps}</div>"
 			end
 			scenarios.push([scenarios_b, t])
 		end
