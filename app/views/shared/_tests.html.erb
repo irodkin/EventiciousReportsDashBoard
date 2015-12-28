@@ -53,7 +53,7 @@
       tests = params['tests'].split(",");
       $('.test-active').removeClass('test-active');
       $.each(tests, function(e) {
-         $("." + tests[e]).addClass('test-active');
+         $("span." + tests[e]).addClass('test-active');
          $("#" + tests[e]).addClass('test-active');
       });
     }
