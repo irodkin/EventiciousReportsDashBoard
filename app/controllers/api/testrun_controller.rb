@@ -65,7 +65,6 @@ class Api::TestrunController < ApplicationController
       :android => {
         :nexus4 => nexus4,
         :nexus7 => nexus7
-
       }
     },
       status: 200
@@ -81,6 +80,7 @@ class Api::TestrunController < ApplicationController
   end
 
   private
+
   def check_branch_exists(branch, job)
     dev_branch = branch.gsub("feature/", "")
     dev_branch.gsub!("release/", "")

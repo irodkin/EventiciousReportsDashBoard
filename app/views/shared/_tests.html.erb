@@ -18,6 +18,7 @@
         $(this).addClass('test-active');
         $.each(tests, function(e) {
           $(tests[e]).removeClass('test-active');
+          $(tests[e]).removeClass('test-failed');
         });
       }
     });
