@@ -48,7 +48,7 @@ class Api::TestrunController < ApplicationController
     render json: {
       :job_params => job_params,
       :job_name => job_name,
-      :branch => params[:branch]
+      :branch => params[:branch],
       :build=>current_build+1
     },
       status: return_code
