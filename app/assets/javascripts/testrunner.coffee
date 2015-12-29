@@ -171,7 +171,8 @@ $ ->
       success: (response) ->
         $('#server .list-group-item-info').removeClass('active')
         $("#server .#{response['server']}").addClass('active')
-        $('.toggle').toggles(false)
+        if params['rerun'] == 'true'
+          $('.toggle').toggles(false)
         $('#platform .list-group-item-info').removeClass('active')
         $("#platform .#{response['platform']}").addClass('active')
         if response['platform'] == 'Android'
@@ -225,8 +226,13 @@ $ ->
       $('#devices').collapse('hide')
 
 $ ->
-  $('.result').tooltip({title: "<div><span class=\"label label-success\">green</span> is awesome :)</div><div><span class=\"label label-warning\">yellow</span> is good :|</div><div><span class=\"label label-danger\">red</span> it is bad :(</div>", html: true})
+  $('.result').tooltip({title: "<div><div><strong>click me to see a report</strong></div><span class=\"label label-success\">green</span> is awesome :)</div><div><span class=\"label label-warning\">yellow</span> is good :|</div><div><span class=\"label label-danger\">red</span> it is bad :(</div>", html: true})
 
+$ ->
+  $('.rerun').tooltip({title: "<strong>rerun only failed tests in run with <i>no</i> build again</strong>", html: true})
+
+$ ->
+  $('.reply').tooltip({title: "<strong>reply all tests in run with build again</strong>", html: true})
 
 $ ->
   $('#loginButton').click ->
