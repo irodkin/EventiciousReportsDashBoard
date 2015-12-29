@@ -39,7 +39,7 @@ class Api::TestrunController < ApplicationController
                    :multi => multi,
                    :buildAgain => params[:buildAgain]}
 
-    job_params[:TestBranch] = testBranch if params[:job].eql?("Eventicious_UITests_MultipileSCM")
+    job_params[:TestBranch] = testBranch unless testBranch.nil?
 
     jenkins_job = JenkinsApi::Client::Job.new(@client)
     return_code = jenkins_job.build(job_name, job_params)
@@ -81,9 +81,9 @@ class Api::TestrunController < ApplicationController
   end
 
   private
-  def check_branch_exists(branch, job)
-    branch.gsub!("feature/", "")
-    branch.gsub!("release/", "")
+  def check_branch_exists(dev_branch, job)
+    dev_branch.gsub!("feature/", "")
+    dev_branch.gsub!("release/", "")
     repository = Mercurial::Repository.open("/Users/user/Jenkins/workspace/#{job}/Events.tests")
     #Override of private method in Mercurial-Ruby
     Mercurial::BranchFactory.class_eval do
@@ -103,6 +103,7 @@ class Api::TestrunController < ApplicationController
       active_branches.push b.name.gsub("Mobile/", "") if b.name.include? "Mobile/" unless b.closed?
     end
     branch_exist = "default"
-    branch_exist = branch if active_branches.include? branch
+    branch_exist = dev_branch if active_branches.include? dev_branch
+    return branch_exist
   end
 end
