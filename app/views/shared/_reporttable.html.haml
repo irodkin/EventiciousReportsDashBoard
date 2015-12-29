@@ -44,7 +44,7 @@
          %span{:class=>"label label-success result"}="#{r.all}/#{r.all}"
      %div
       %span{:class=>"label label-info rerun"}= "rerun"
-    %td= link_to "#{r.job.gsub("Eventicious_")} ##{r.build}", r.buildurl, :target => "_blank"
+    %td= link_to "#{r.job.to_s.gsub("Eventicious_")} ##{r.build}", r.buildurl, :target => "_blank"
     %td{:style=>"text-align: center"}
      %div
       %span{:class=>"label label-danger deleteButton"}= "delete"
