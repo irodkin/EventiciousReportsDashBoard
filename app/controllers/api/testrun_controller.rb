@@ -1,5 +1,6 @@
 require 'jenkins_api_client'
 require 'uri'
+require 'mercurial-ruby'
 
 class Api::TestrunController < ApplicationController
   def index
@@ -7,6 +8,8 @@ class Api::TestrunController < ApplicationController
   end
   def run
     tests = params[:tests].join(",")
+
+    testBranch = check_branch_exists(params[:branch], params[:job]) if params[:job].eql?("Eventicious_UITests_MultipileSCM")
 
     if params[:suite].eql?("MultiSmoke")
       multi = true
@@ -36,7 +39,7 @@ class Api::TestrunController < ApplicationController
                    :multi => multi,
                    :buildAgain => params[:buildAgain]}
 
-
+    job_params[:TestBranch] = testBranch if params[:job].eql?("Eventicious_UITests_MultipileSCM")
 
     jenkins_job = JenkinsApi::Client::Job.new(@client)
     return_code = jenkins_job.build(job_name, job_params)
@@ -75,5 +78,29 @@ class Api::TestrunController < ApplicationController
     else
       render status: 500
     end
+  end
+
+  private
+  def check_branch_exists(branch, job)
+    repository = Mercurial::Repository.open("/Users/user/Jenkins/workspace/#{job}/Events.tests")
+    #Override of private method in Mercurial-Ruby
+    Mercurial::BranchFactory.class_eval do
+        def build(data)
+          name, last_commit, status = *data.scan(/([\w*\/\w*\- ]+)\s+\d+:(\w+)\s*\(*(\w*)\)*/).first
+          Mercurial::Branch.new(
+            repository,
+            name,
+            :commit => last_commit,
+            :status => status
+          )
+        end
+    end
+    branches = repository.branches.all
+    active_branches = []
+    branches.each do |b|
+      active_branches.push b.name unless b.closed?
+    end
+    branch_exist = "Mobile/default"
+    branch_exist = branch if active_branches.include? branch
   end
 end
