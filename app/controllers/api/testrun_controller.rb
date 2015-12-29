@@ -39,7 +39,7 @@ class Api::TestrunController < ApplicationController
                    :multi => multi,
                    :buildAgain => params[:buildAgain]}
 
-    job_params.merge({:TestBranch=>testBranch}) unless testBranch.nil?            
+    job_params.merge({:TestBranch=>testBranch}) unless testBranch.nil?
 
     jenkins_job = JenkinsApi::Client::Job.new(@client)
     return_code = jenkins_job.build(job_name, job_params)
@@ -48,6 +48,7 @@ class Api::TestrunController < ApplicationController
     render json: {
       :job_params => job_params,
       :job_name => job_name,
+      :branch => params[:branch]
       :build=>current_build+1
     },
       status: return_code
@@ -81,8 +82,8 @@ class Api::TestrunController < ApplicationController
   end
 
   private
-  def check_branch_exists(dev_branch, job)
-    dev_branch.gsub!("feature/", "")
+  def check_branch_exists(branch, job)
+    dev_branch = branch.gsub("feature/", "")
     dev_branch.gsub!("release/", "")
     repository = Mercurial::Repository.open("/Users/user/Jenkins/workspace/#{job}/Events.tests")
     #Override of private method in Mercurial-Ruby
