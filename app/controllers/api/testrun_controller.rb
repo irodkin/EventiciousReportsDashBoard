@@ -39,7 +39,7 @@ class Api::TestrunController < ApplicationController
                    :multi => multi,
                    :buildAgain => params[:buildAgain]}
 
-    job_params[:TestBranch] = testBranch unless testBranch.nil?
+    job_params.merge({:TestBranch=>testBranch}) unless testBranch.nil?            
 
     jenkins_job = JenkinsApi::Client::Job.new(@client)
     return_code = jenkins_job.build(job_name, job_params)
