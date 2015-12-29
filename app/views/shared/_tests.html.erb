@@ -59,7 +59,7 @@
             report_id: params['report_id']
           },
           success: function(response) {
-            tests = response['tests'].split("&&");
+            tests = response['tests'].split(",");
             if (tests == "") {
               $("#all").addClass('test-active');
             }
