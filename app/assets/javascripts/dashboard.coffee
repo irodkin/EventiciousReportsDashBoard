@@ -12,27 +12,19 @@ $ ->
 $ ->
   $("#refresh").click ->
       window.location.reload()
+
 $ ->
   $(".reply").click ->
     parent_td = $(this).parents('tr')[0]
-    platform = $(parent_td).children('td')[1]
-    server = $(parent_td).children('td')[2]
-    app = $(parent_td).children('td')[3]
-    branch = $(parent_td).children('td')[4]
-    suite = $(parent_td).children('td')[5]
-    tests_orig = $(parent_td).children('td')[6]
-    device = $(parent_td).children('td')[7]
-    tests = $(tests_orig).text().split(" ")
-    for i in [0..tests.length-1]
-      tests[i] = tests[i].replace("@", "")
     json = {
       report_id: $(parent_td).attr("recordid")
-      platform: $(platform).text()
-      server: $(server).text()
-      app: $(app).text()
-      branch: $(branch).text()
-      suite: $(suite).text()
-      tests: tests
-      device: $(device).text()
     }
     window.location.href = "/testrunner?reply=true&report_id=#{json['report_id']}"
+
+$ ->
+  $(".rerun").click ->
+    parent_td = $(this).parents('tr')[0]
+    json = {
+      report_id: $(parent_td).attr("recordid")
+    }
+    window.location.href = "/testrunner?rerun=true&report_id=#{json['report_id']}"

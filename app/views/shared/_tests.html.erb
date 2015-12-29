@@ -4,6 +4,7 @@
     return $('#tests .label-info').click(function() {
       if (this.className.indexOf('test-active') > -1) {
         $(this).removeClass('test-active');
+        $(this).removeClass('test-failed');
         if ($('.test-active').length < 1) {
           $('#all').addClass('test-active');
         }
@@ -51,12 +52,38 @@
       params = getParams();
       if (params['reply'] === 'true') {
         return $.ajax({
+          url: 'testrunner/reply_all',
+          type: 'GET',
+          dataType: 'json',
+          data: {
+            report_id: params['report_id']
+          },
+          success: function(response) {
+            tests = response['tests'].split("&&");
+            if (tests == "") {
+              $("#all").addClass('test-active');
+            }
+            else {
+              $('.test-active').removeClass('test-active');
+              $.each(tests, function(e) {
+                 $("#" + tests[e]).addClass('test-active');
+              });
+            }
+          }
+        });
+      }
+    });
+
+  $(function() {
+      var params, tests;
+      params = getParams();
+      if (params['rerun'] === 'true') {
+        return $.ajax({
           url: 'testrunner/reply_failed',
           type: 'GET',
           dataType: 'json',
           data: {
-            report_id: params['report_id'],
-            tests: true
+            report_id: params['report_id']
           },
           success: function(response) {
             tests = response['failed_tests'].split("&&");
@@ -66,8 +93,7 @@
             else {
               $('.test-active').removeClass('test-active');
               $.each(tests, function(e) {
-                 $("#" + tests[e]).addClass('test-active');
-                 $("#" + tests[e]).addClass('test-failed');
+                 $("#" + tests[e]).addClass('test-active test-failed');
               });
             }
           }

@@ -159,9 +159,9 @@ getParams = ->
 
 $ ->
   params = getParams()
-  if params['reply'] == 'true'
+  if params['rerun'] == 'true' || params['reply'] == 'true'
     $.ajax
-      url: 'testrunner/reply_failed'
+      url: 'testrunner/reply_run_params'
       type: 'GET'
       dataType: 'json'
       data:

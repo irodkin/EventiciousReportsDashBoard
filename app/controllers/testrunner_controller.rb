@@ -13,23 +13,28 @@ class TestrunnerController < ApplicationController
 		suites = Suite.all
 		render partial: 'shared/addfeature', locals: {suites: suites}
 	end
+	def reply_run_params
+		report = Report.find(params[:report_id])
+		render json: {
+			platform: report.platform,
+			branch: report.branch,
+			appid: report.appid,
+			suite: report.suite,
+			device: report.device,
+			server: report.server,
+			job: report.job
+		},
+		status: 200
+	end
+	def reply_all
+		report = Report.find(params[:report_id])
+		render json: {tests: report.tests},
+		status: 200
+	end
 	def reply_failed
 		report = Report.find(params[:report_id])
-		if params[:tests]
-			render json: {failed_tests: report.failed_tests},
-			status: 200
-		else
-			render json: {
-				platform: report.platform,
-				branch: report.branch,
-				appid: report.appid,
-				suite: report.suite,
-				device: report.device,
-				server: report.server,
-				job: report.job
-			},
-			status: 200
-		end
+		render json: {failed_tests: report.failed_tests},
+		status: 200
 	end
 	def tests
 		tests = Test.where(suite: params[:suite]).all

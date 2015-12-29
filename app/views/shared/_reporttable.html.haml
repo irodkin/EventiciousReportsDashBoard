@@ -33,17 +33,17 @@
     %td= r.user
     %td{:style=>"text-align: center"}
      %div
-      -unless r.failed.nil? && r.all.nil?
-      -passed = (r.all.to_f - r.failed.to_f).to_i
-       -if r.failed.to_f/r.all.to_f*100 > 25
-        %span{:class=>"label label-danger result"}="#{passed}/#{r.all}"
-       -elsif r.failed.to_f/r.all.to_f*100 <= 25 && r.failed.to_f/r.all.to_f*100 < 100 && r.failed.to_f != 0
-        %span{:class=>"label label-warning result"}="#{passed}/#{r.all}"
-       -else
-        %span{:class=>"label label-success result"}="#{r.all}/#{r.all}"
-     %div
       %a{:href=>r.link, :target=>"_blank"}
-       %span{:class=>"label label-info"}="allure"
+       -unless r.failed.nil? && r.all.nil?
+       -passed = (r.all.to_f - r.failed.to_f).to_i
+        -if r.failed.to_f/r.all.to_f*100 > 25
+         %span{:class=>"label label-danger result"}="#{passed}/#{r.all}"
+        -elsif r.failed.to_f/r.all.to_f*100 <= 25 && r.failed.to_f/r.all.to_f*100 < 100 && r.failed.to_f != 0
+         %span{:class=>"label label-warning result"}="#{passed}/#{r.all}"
+        -else
+         %span{:class=>"label label-success result"}="#{r.all}/#{r.all}"
+     %div
+      %span{:class=>"label label-info rerun"}= "rerun"
     %td= link_to "#{r.job} ##{r.build}", r.buildurl, :target => "_blank"
     %td{:style=>"text-align: center"}
      %div

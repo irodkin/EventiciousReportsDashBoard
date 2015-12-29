@@ -63,6 +63,8 @@ Rails.application.routes.draw do
       get :get_scenario_of_feature
       get :add_feature
       get :reply_failed
+      get :reply_run_params
+      get :reply_all
     end
   end
   namespace :api do
