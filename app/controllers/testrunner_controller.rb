@@ -28,7 +28,12 @@ class TestrunnerController < ApplicationController
 	end
 	def reply_all
 		report = Report.find(params[:report_id])
-		render json: {tests: report.tests},
+		if report.tests.kind_of?(Array)
+			tests = report.tests.each { |t| t.delete("@")}
+		else
+			tests = report.tests.delete("@")
+		end
+		render json: {tests: tests},
 		status: 200
 	end
 	def reply_failed
