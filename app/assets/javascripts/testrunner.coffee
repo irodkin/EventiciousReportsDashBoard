@@ -169,6 +169,7 @@ $ ->
       error: () ->
         console.log "something going wrong"
       success: (response) ->
+        $('#current_job').text(response['job'])
         $('#server .list-group-item-info').removeClass('active')
         $("#server .#{response['server']}").addClass('active')
         if params['rerun'] == 'true'
