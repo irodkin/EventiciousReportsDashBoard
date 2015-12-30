@@ -80,6 +80,7 @@
 
   $(function() {
       var params, tests;
+      var failed_tests, pending_tests;
       params = getParams();
       if (params['rerun'] === 'true') {
         return $.ajax({
@@ -94,13 +95,13 @@
               failed_tests = response['failed_tests'].split("&&");
             }
             else {
-              failed_tests = null
+              failed_tests = null;
             }
             if (response['pending_tests'] != null) {
               pending_tests = response['pending_tests'].split("&&");
             }
             else {
-              pending_tests = null
+              pending_tests = null;
             }
             if (failed_tests == "" && pending_tests == "" && failed_tests == null && pending_tests == null) {
               $("#all").addClass('test-active');
