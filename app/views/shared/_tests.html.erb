@@ -110,12 +110,12 @@
               $('.test-active').removeClass('test-active');
               if (failed_tests != "" && failed_tests != null) {
                 $.each(failed_tests, function(e) {
-                   $("#" + tests[e]).addClass('test-active test-failed');
+                   $("#" + failed_tests[e]).addClass('test-active test-failed');
                 });
               }
               if (pending_tests != "" && pending_tests != null) {
                 $.each(pending_tests, function(e) {
-                   $("#" + tests[e]).addClass('test-active test-pending');
+                   $("#" + pending_tests[e]).addClass('test-active test-pending');
                 });
               }
             }
