@@ -173,12 +173,11 @@ $ ->
         $("#server .#{response['server']}").addClass('active')
         if params['rerun'] == 'true'
           $('.toggle').toggles(false)
-        $('#platform .list-group-item-info').removeClass('active')
-        $("#platform .#{response['platform']}").addClass('active')
+        $('.activeDevice').removeClass("activeDevice")
         if response['platform'] == 'Android'
-          $('#devices').collapse('show')
-          $('#devices .list-group-item-info').removeClass('active')
-          $("#devices .#{response['device']}").addClass('active')
+          $("##{response['device']}").addClass('activeDevice')
+        else
+          $('#iPhone').addClass('activeDevice')
         $('#branch').val(response['branch'])
         $('#appId').val(response['appid'])
         $('#suite .list-group-item-info').removeClass('active')
@@ -226,15 +225,6 @@ $ ->
       $('#devices').collapse('hide')
 
 $ ->
-  $('.result').tooltip({title: "<div><div><strong>click me to see a report</strong></div><span class=\"label label-success\">green</span> is awesome :)</div><div><span class=\"label label-warning\">yellow</span> is good :|</div><div><span class=\"label label-danger\">red</span> it is bad :(</div>", html: true})
-
-$ ->
-  $('.rerun').tooltip({title: "<strong>rerun only failed tests in run with <i>no</i> build again</strong>", html: true})
-
-$ ->
-  $('.reply').tooltip({title: "<strong>reply all tests in run with build again</strong>", html: true})
-
-$ ->
   $('#loginButton').click ->
     if $('#loginButton').hasClass('disabled')
       $('#username').addClass('empty')
@@ -243,6 +233,15 @@ $ ->
       login($('#username').val(), $('#password').val())
       $('#login').modal('hide')
 
+$ ->
+  $('#Nexus4').tooltip({title: "<strong>go to <a href=\"http://192.168.162.34:7100/#!/control/04d228289809504a\" target=\"blank\">stf farm</a> to drive that device</strong>", html: true, delay: {"hide": 700 }})
+  $('#Nexus7').tooltip({title: "<strong>go to <a href=\"http://192.168.162.34:7100/#!/control/015d2578a21c1403\" target=\"blank\">stf farm</a> to drive that device</strong>", html: true, delay: {"hide": 700 }})
+
+$ ->
+  $('.availableDevices span.label').click ->
+    if (' ' + $(this).className + ' ').indexOf("label-danger") < -1
+      $('.activeDevice').removeClass("activeDevice")
+      $(this).addClass("activeDevice")
 
 $ ->
   $('#run').click ->
@@ -256,8 +255,11 @@ $ ->
       $('.ajaxBusy').fadeIn(700)
       job = $('#current_job').text()
       server = $('#server .active').text()
-      platform = $('#platform .active').text()
-      device =$('#devices .active').text()
+      platform = $('.activeDevice').attr('platformtype')
+      if platform == 'Android'
+        device = $('.activeDevice').attr('id')
+      else
+        device = "Nexus4"
       branch  = $('#branch').val()
       appId = $('#appId').val()
       suite = $('#suite .active').text()
