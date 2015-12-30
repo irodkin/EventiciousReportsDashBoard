@@ -61,7 +61,7 @@ docs.each do |d|
   f_names.each { |n| failed_scenarios.push n.text}
   p_names = xml.xpath("//test-case[@status='pending']/name")
   p_names.each { |n| pending_scenarios.push n.text}
-  failed+=names.size
+  failed+=f_names.size
   all+= xml.xpath("//test-case").size
 end
 
