@@ -240,7 +240,8 @@ $ ->
 $ ->
   $('.availableDevices span.label').click ->
     console.log $(this).attr('class')
-    console.log (' ' + $(this).attr('class') + ' ').indexOf(' ' + "label-danger" + ' ')
+    console.log (' ' + $(this).attr('class') + ' ').indexOf(' ' + "label" + ' ')
+    console.log ($(this).attr('class')).indexOf("label")
     if (' ' + $(this).className + ' ').indexOf(' ' + "label-danger" + ' ') > -1
       $('.activeDevice').removeClass("activeDevice")
       $(this).addClass("activeDevice")
