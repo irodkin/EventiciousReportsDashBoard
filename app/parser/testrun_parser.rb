@@ -50,13 +50,17 @@ docs = Dir['/Users/user/Jenkins/workspace/allure-results/*-testsuite.xml']
 failed = 0
 all = 0
 failed_scenarios = []
+pending_scenarios = []
 failed_tests = []
+pending_tests = []
 
 docs.each do |d|
   doc = File.open(d)
   xml = Nokogiri::XML(doc)
-  names = xml.xpath("//test-case[@status='failed']/name")
-  names.each { |n| failed_scenarios.push n.text}
+  f_names = xml.xpath("//test-case[@status='failed']/name")
+  f_names.each { |n| failed_scenarios.push n.text}
+  p_names = xml.xpath("//test-case[@status='pending']/name")
+  p_names.each { |n| pending_scenarios.push n.text}
   failed+=names.size
   all+= xml.xpath("//test-case").size
 end
@@ -64,6 +68,11 @@ end
 failed_scenarios.uniq.each do |s|
   scenario = Test.where(title: s).first
   failed_tests.push scenario.tags unless scenario.nil?
+end
+
+pending_scenarios.uniq.each do |s|
+  scenario = Test.where(title: s).first
+  pending_tests.push scenario.tags unless scenario.nil?
 end
 
 r = Report.new(:date=>Time.now+14400,
@@ -81,5 +90,6 @@ r = Report.new(:date=>Time.now+14400,
                :appid=>options[:appid],
                :all => all,
                :failed => failed,
-               :failed_tests => failed_tests.join("&&"))
+               :failed_tests => failed_tests.join("&&"),
+               :pending_tests => pending_tests.join("&&"))
 r.save

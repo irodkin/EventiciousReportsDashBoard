@@ -5,6 +5,7 @@
       if (this.className.indexOf('test-active') > -1) {
         $(this).removeClass('test-active');
         $(this).removeClass('test-failed');
+        $(this).removeClass('test-pending');
         if ($('.test-active').length < 1) {
           $('#all').addClass('test-active');
         }
@@ -19,6 +20,7 @@
         $.each(tests, function(e) {
           $(tests[e]).removeClass('test-active');
           $(tests[e]).removeClass('test-failed');
+          $(tests[e]).removeClass('test-pending');
         });
       }
     });
@@ -88,14 +90,18 @@
             report_id: params['report_id']
           },
           success: function(response) {
-            tests = response['failed_tests'].split("&&");
-            if (tests == "") {
+            failed_tests = response['failed_tests'].split("&&");
+            pending_tests = response['pending_tests'].split("&&");
+            if (failed_tests == "" && pending_tests == "") {
               $("#all").addClass('test-active');
             }
             else {
               $('.test-active').removeClass('test-active');
-              $.each(tests, function(e) {
+              $.each(failed_tests, function(e) {
                  $("#" + tests[e]).addClass('test-active test-failed');
+              });
+              $.each(pending_tests, function(e) {
+                 $("#" + tests[e]).addClass('test-active test-pending');
               });
             }
           }

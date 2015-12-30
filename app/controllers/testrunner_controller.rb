@@ -38,7 +38,10 @@ class TestrunnerController < ApplicationController
 	end
 	def reply_failed
 		report = Report.find(params[:report_id])
-		render json: {failed_tests: report.failed_tests},
+		render json: {
+			failed_tests: report.failed_tests,
+			pending_tests: report.pending_tests
+		},
 		status: 200
 	end
 	def tests
