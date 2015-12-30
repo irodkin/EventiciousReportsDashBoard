@@ -92,17 +92,21 @@
           success: function(response) {
             failed_tests = response['failed_tests'].split("&&");
             pending_tests = response['pending_tests'].split("&&");
-            if (failed_tests == "" && pending_tests == "") {
+            if (failed_tests == "" && pending_tests == "" && failed_tests == null && pending_tests == null) {
               $("#all").addClass('test-active');
             }
             else {
               $('.test-active').removeClass('test-active');
-              $.each(failed_tests, function(e) {
-                 $("#" + tests[e]).addClass('test-active test-failed');
-              });
-              $.each(pending_tests, function(e) {
-                 $("#" + tests[e]).addClass('test-active test-pending');
-              });
+              if (failed_tests != "" && failed_tests != null) {
+                $.each(failed_tests, function(e) {
+                   $("#" + tests[e]).addClass('test-active test-failed');
+                });
+              }
+              if (pending_tests != "" && pending_tests != null) {
+                $.each(pending_tests, function(e) {
+                   $("#" + tests[e]).addClass('test-active test-pending');
+                });
+              }
             }
           }
         });
