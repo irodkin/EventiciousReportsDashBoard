@@ -91,18 +91,8 @@
             report_id: params['report_id']
           },
           success: function(response) {
-            if (response['failed_tests'] != null) {
-              failed_tests = response['failed_tests'].split("&&");
-            }
-            else {
-              failed_tests = null;
-            }
-            if (response['pending_tests'] != null) {
-              pending_tests = response['pending_tests'].split("&&");
-            }
-            else {
-              pending_tests = null;
-            }
+            failed_tests = response['failed_tests'].split("&&");
+            pending_tests = response['pending_tests'].split("&&");
             if (failed_tests == "" && pending_tests == "" && failed_tests == null && pending_tests == null) {
               $("#all").addClass('test-active');
             }
