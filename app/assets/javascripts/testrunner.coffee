@@ -240,7 +240,9 @@ $ ->
 
 $ ->
   $('.availableDevices span.label').click ->
-    unless ($(this).attr('class')).indexOf("label-danger") > -1
+    if $(this).hasClass('label-danger')
+      alert "This device is not available"
+    else
       $('.activeDevice').removeClass("activeDevice")
       $(this).addClass("activeDevice")
 

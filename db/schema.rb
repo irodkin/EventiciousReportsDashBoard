@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151211122554) do
+ActiveRecord::Schema.define(version: 20151230075652) do
 
   create_table "jobs", force: :cascade do |t|
     t.string   "title"
@@ -25,8 +25,8 @@ ActiveRecord::Schema.define(version: 20151211122554) do
     t.string   "branch"
     t.string   "suite"
     t.string   "link"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
     t.string   "device"
     t.string   "user"
     t.string   "tests"
@@ -37,6 +37,8 @@ ActiveRecord::Schema.define(version: 20151211122554) do
     t.integer  "all"
     t.integer  "failed"
     t.string   "appid"
+    t.string   "failed_tests"
+    t.string   "pending_tests"
   end
 
   create_table "suites", force: :cascade do |t|
