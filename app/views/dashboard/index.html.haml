@@ -55,6 +55,9 @@
     .charts_raw
       %h4="Run results"
       =pie_chart @result_per_run, height: "200px", colors: ["#5cb85c", "#f0ad4e", "#d9534f"]
+    .charts_raw
+      %h4="Top users"
+      =pie_chart @users, height: "200px"
 
 .navbar-fixed-bottom.row-fluid
   .container{:style=>"text-align: right; padding-bottom: 0px; padding-top: 0px;"}

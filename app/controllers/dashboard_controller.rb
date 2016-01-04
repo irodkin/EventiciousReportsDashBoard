@@ -9,6 +9,7 @@ class DashboardController < ApplicationController
     @platforms = find_by(:platform)
     @suites = find_by(:suite)
     @servers = find_by(:server)
+    @users = find_by(:user)
     @total_count = r.size
     @total_results = total_results
     @result_per_run = result_per_run
