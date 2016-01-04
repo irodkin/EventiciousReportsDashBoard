@@ -41,17 +41,20 @@
   .container
     .raw
       =pie_chart @branches
-
     .raw
       =pie_chart @platforms
-
     .raw
       =pie_chart @suites
-
     .raw
       =pie_chart @servers
 
-  =pie_chart @total_results, height: "200px", colors: ["#5cb85c", "#d9534f", "#b1a0e3"]
+  .container
+    .charts_raw
+      %h4="Total runs"
+      =pie_chart @total_results, height: "200px", colors: ["#5cb85c", "#d9534f", "#b1a0e3"]
+    .charts_raw
+      %h4="Run results"
+      =pie_chart @result_per_run, height: "200px", colors: ["#5cb85c", "#f0ad4e", "#d9534f"]
 
 .navbar-fixed-bottom.row-fluid
   .container{:style=>"text-align: right; padding-bottom: 0px; padding-top: 0px;"}

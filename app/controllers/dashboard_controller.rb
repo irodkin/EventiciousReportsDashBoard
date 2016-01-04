@@ -11,6 +11,7 @@ class DashboardController < ApplicationController
     @servers = find_by(:server)
     @total_count = r.size
     @total_results = total_results
+    @result_per_run = result_per_run
     render 'dashboard/index'
   end
   def destroy
@@ -39,7 +40,24 @@ class DashboardController < ApplicationController
       failed += r.failed.to_i
       pending +=r.pending_tests.size unless r.pending_tests.nil?
     end
-    return {"passed"=>all-failed, "failed"=>failed, "pending"=>pending}
+    {passed: all-failed, failed: failed, pending: pending}
+  end
+
+  def result_per_run
+    perfect = 0
+    good = 0
+    bad = 0
+    Report.all.each do |r|
+      passed = (r.all.to_f - r.failed.to_f).to_i
+      if r.failed.to_f/r.all.to_f*100 > 25
+        bad+=1
+      elsif r.failed.to_f/r.all.to_f*100 <= 25 && r.failed.to_f/r.all.to_f*100 < 100 && r.failed.to_f != 0
+        good+=1
+      else
+        perfect+=1
+      end
+    end
+    {perfect: perfect, good: good, bad: bad}
   end
 
   def by_date(limit=5)
