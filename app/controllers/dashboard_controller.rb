@@ -29,7 +29,13 @@ class DashboardController < ApplicationController
   private
 
   def find_by(how=:id)
-    Report.group(how.to_sym).count
+    result = Report.group(how.to_sym).count
+    result.each do |r|
+      if r[0].nil? && r[0] == "" && r[1] == 0
+        result.delete(r)
+      end
+    end
+    result
   end
 
   def total_results

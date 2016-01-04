@@ -6,37 +6,33 @@
       %h4= "By Branch"
       %ul.list-group
         -@branches.each do |b|
-          -unless b.second == 0
-            %li.list-group-item
-              %span.badge= b.second
-              =link_to b.first, "/reports?branch=#{b.first}"
+          %li.list-group-item
+            %span.badge= b.second
+            =link_to b.first, "/reports?branch=#{b.first}"
 
     .raw
       %h4= "By Platform"
       %ul.list-group
         -@platforms.each do |p|
-          -unless p.second == 0
-            %li.list-group-item
-              %span.badge= p.second
-              =link_to p.first, "/reports?platform=#{p.first}"
+          %li.list-group-item
+            %span.badge= p.second
+            =link_to p.first, "/reports?platform=#{p.first}"
 
     .raw
       %h4= "By Suite"
       %ul.list-group
         -@suites.each do |s|
-          -unless s.second == 0
-            %li.list-group-item
-              %span.badge= s.second
-              =link_to s.first, "/reports?suite=#{s.first}"
+          %li.list-group-item
+            %span.badge= s.second
+            =link_to s.first, "/reports?suite=#{s.first}"
 
     .raw
       %h4= "By Server"
       %ul.list-group
         -@servers.each do |s|
-          -unless s.second == 0
-            %li.list-group-item
-              %span.badge= s.second
-              =link_to s.first, "/reports?server=#{s.first}"
+          %li.list-group-item
+            %span.badge= s.second
+            =link_to s.first, "/reports?server=#{s.first}"
 
   .container
     .raw
