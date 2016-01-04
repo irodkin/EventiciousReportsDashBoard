@@ -31,8 +31,8 @@ class DashboardController < ApplicationController
   def find_by(how=:id)
     result = Report.group(how.to_sym).count
     result.each do |r|
-      if r[0].nil? && r[0] == "" && r[1] == 0
-        result.delete_at(result.index(r))
+      if r[0].nil? || r[0] == "" || r[1] == 0 
+        result.delete(r)
       end
     end
     result
