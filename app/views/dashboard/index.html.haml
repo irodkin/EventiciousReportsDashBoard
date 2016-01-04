@@ -38,7 +38,20 @@
               %span.badge= s.second
               =link_to s.first, "/reports?server=#{s.first}"
 
+  .container
+    .raw
+      =pie_chart @branches
 
+    .raw
+      =pie_chart @platforms
+
+    .raw
+      =pie_chart @suites
+
+    .raw
+      =pie_chart @servers
+
+  =pie_chart @total_results, height: "200px", colors: ["#5cb85c", "#d9534f", "#b1a0e3"]
 
 .navbar-fixed-bottom.row-fluid
   .container{:style=>"text-align: right; padding-bottom: 0px; padding-top: 0px;"}
