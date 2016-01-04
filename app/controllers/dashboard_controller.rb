@@ -37,8 +37,8 @@ class DashboardController < ApplicationController
     all = 0
     pending = 0
     Report.all.each do |r|
-      all += r.all.to_i
-      failed += r.failed.to_i
+      all += r.all.to_i unless r.all.nil?
+      failed += r.failed.to_i unless r.failed.nil?
       pending +=r.pending_tests.size unless r.pending_tests.nil?
     end
     {passed: all-failed, failed: failed, pending: pending}
@@ -49,13 +49,14 @@ class DashboardController < ApplicationController
     good = 0
     bad = 0
     Report.all.each do |r|
-      passed = (r.all.to_f - r.failed.to_f).to_i
-      if r.failed.to_f/r.all.to_f*100 > 25
-        bad+=1
-      elsif r.failed.to_f/r.all.to_f*100 <= 25 && r.failed.to_f/r.all.to_f*100 < 100 && r.failed.to_f != 0
-        good+=1
-      else
-        perfect+=1
+      unless r.failed.nil? && r.all.nil?
+        if r.failed.to_f/r.all.to_f*100 > 25
+          bad+=1
+        elsif r.failed.to_f/r.all.to_f*100 <= 25 && r.failed.to_f/r.all.to_f*100 < 100 && r.failed.to_f != 0
+          good+=1
+        else
+          perfect+=1
+        end
       end
     end
     {perfect: perfect, good: good, bad: bad}
