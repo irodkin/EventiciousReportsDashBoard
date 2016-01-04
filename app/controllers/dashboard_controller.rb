@@ -32,7 +32,7 @@ class DashboardController < ApplicationController
     result = Report.group(how.to_sym).count
     result.each do |r|
       if r[0].nil? && r[0] == "" && r[1] == 0
-        result.delete(r)
+        result.delete_at(result.index(r))
       end
     end
     result
