@@ -8,7 +8,7 @@ class Api::TestrunController < ApplicationController
   end
   def run
     tests = params[:tests].join(",")
-    
+
     testBranch = check_branch_exists(params[:branch], params[:job]) if params[:job].eql?("Eventicious_UITests_MultipileSCM")
 
     if params[:suite].eql?("MultiSmoke")
@@ -41,7 +41,7 @@ class Api::TestrunController < ApplicationController
 
     job_params[:TestBranch] = testBranch unless testBranch.nil?
 
-    if params[:rerun]
+    if params[:rerun].eql?('true')
       report = Report.find(params[:report_id])
       job_params[:RERUN_BUILD_USER_EMAIL] = report.user_email unless report.user_email.nil?
       job_params[:RERUN_BUILD_NUMBER] = report.build unless report.build.nil?
