@@ -8,7 +8,7 @@ class Api::TestrunController < ApplicationController
   end
   def run
     tests = params[:tests].join(",")
-
+    
     testBranch = check_branch_exists(params[:branch], params[:job]) if params[:job].eql?("Eventicious_UITests_MultipileSCM")
 
     if params[:suite].eql?("MultiSmoke")
@@ -40,6 +40,12 @@ class Api::TestrunController < ApplicationController
                    :buildAgain => params[:buildAgain]}
 
     job_params[:TestBranch] = testBranch unless testBranch.nil?
+
+    if params[:rerun]
+      report = Report.find(params[:report_id])
+      job_params[:RERUN_BUILD_USER_EMAIL] = report.user_email unless report.user_email.nil?
+      job_params[:RERUN_BUILD_NUMBER] = report.build unless report.build.nil?
+    end
 
     jenkins_job = JenkinsApi::Client::Job.new(@client)
     return_code = jenkins_job.build(job_name, job_params)

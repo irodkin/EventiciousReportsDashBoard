@@ -40,6 +40,9 @@ optparse = OptionParser.new do |opts|
   opts.on('--user', '--user Vasya Pupkin') do |f|
     options[:user] = f
   end
+  opts.on('--user_email', '--user_email vasya@pupkin') do |f|
+    options[:user_email] = f
+  end
 end
 
 optparse.parse!
@@ -87,6 +90,7 @@ r = Report.new(:date=>Time.now+14400,
                :job=>options[:job],
                :branch=>options[:branch],
                :user=>options[:user],
+               :user_email=>options[:user_email],
                :appid=>options[:appid],
                :all => all,
                :failed => failed,

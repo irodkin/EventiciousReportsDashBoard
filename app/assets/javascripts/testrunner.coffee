@@ -270,6 +270,13 @@ $ ->
       buildAgain = $(toggle).attr("active")
       testsArray = []
       $.each tests, (e) -> testsArray.push("@" + $(tests[e]).text())
+      params = getParams()
+      if params['rerun'] == 'true'
+        rerun = true
+        report_id = params['report_id']
+      else
+        rerun = false
+        report_id = null
       testRun = {
         job: job
         server: server
@@ -282,6 +289,8 @@ $ ->
         buildAgain: buildAgain
         username: username.toString()
         password: password.toString()
+        rerun: rerun
+        report_id: report_id
       }
       $.ajax
         url: 'api/testrun/run'
