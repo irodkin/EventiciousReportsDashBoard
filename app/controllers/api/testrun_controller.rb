@@ -11,10 +11,16 @@ class Api::TestrunController < ApplicationController
 
     testBranch = check_branch_exists(params[:branch], params[:job]) if params[:job].eql?("Eventicious_UITests_MultipileSCM")
 
-    if params[:suite].eql?("MultiSmoke")
+    if params[:suite].include?("Multi")
       multi = true
     else
       multi = false
+    end
+
+    if params[:suite].include?("Pin")
+      pinAccess = true
+    else
+      pinAccess = false
     end
 
     @client = JenkinsApi::Client.new(:server_ip => '192.168.162.78',
@@ -37,6 +43,7 @@ class Api::TestrunController < ApplicationController
                    :suite => params[:suite],
                    :tests => tests,
                    :multi => multi,
+                   :pinAccess => pinAccess,
                    :buildAgain => params[:buildAgain]}
 
     job_params[:TestBranch] = testBranch unless testBranch.nil?
