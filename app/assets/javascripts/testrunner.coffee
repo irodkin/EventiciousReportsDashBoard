@@ -189,9 +189,14 @@ $ ->
 
 $ ->
   $('#suite .list-group-item-info').click ->
-    if ($(this).text() == 'MultiSmoke')
+    if ($(this).text() == 'MultiSmoke' || $(this).text() == 'MultiBigSmoke')
       if ($('#server .active').text() == 'Production')
         $('#appId').val('4304');
+      else
+        $('#appId').val('test');
+    else if ($(this).text() == 'PinSmoke' || $(this).text() == 'PinBigSmoke')
+      if ($('#server .active').text() == 'Production')
+        $('#appId').val('4312');
       else
         $('#appId').val('test');
     else
