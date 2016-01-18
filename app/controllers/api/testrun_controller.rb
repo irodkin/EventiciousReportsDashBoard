@@ -38,7 +38,7 @@ class Api::TestrunController < ApplicationController
                    :ApplicationId => params[:appId],
                    :Branch => params[:branch],
                    :Locale => "ru",
-                   :API_version => "v2",
+                   :API_version => "v3",
                    :device=>params[:device],
                    :suite => params[:suite],
                    :tests => tests,
