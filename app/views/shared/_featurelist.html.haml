@@ -24,13 +24,28 @@
         data: id: id
         success: () ->
           $(parent_div).fadeOut(200)
+  $ ->
+    $('.add_acenarios').click ->
+      $.ajax
+        url: 'testrunner/get_scenario_of_feature'
+        type: 'GET'
+        dataType: 'html'
+        data:
+          suite: $(this).attr("id")
+          edit: true
+        success: (response) ->
+          $('.tests_container').html(response)
+
+
 
 -suites.each do |f|
-  %div
-    .inline
+  %div{:style=>"margin-bottom: 15px"}
+    %div
+      %span{:class=>"label label-info test"}= "@#{f.tag}"
+    %div{:class=>"inline", :style=>"padding-top: 5px;"}
       %a{:class=>"list-group-item list-group-item-info feature"}= f.title
-    %div{:class=>"inline fixed"}
+    %div{:class=>"inline fixed", :style=>"padding-top: 5px;"}
       .ticket
-        %span{:class=>"label label-info test"}= "@#{f.tag}"
+        %span{:class=>"label label-info add_acenarios", :id=>f.title}= "add tests"
       .ticket
         %span{:class=>"badge delete_feature", :id=>f.id}= "delete"

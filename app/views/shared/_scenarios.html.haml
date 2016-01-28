@@ -25,6 +25,7 @@
             }
         success: (response) ->
           $('.tests_container').html(response)
+          alert "parsed"
 
 
 -if scenarios.empty?
@@ -32,6 +33,13 @@
     %h4="Copy your scenario here"
     %div
       %textarea{:class=>"parse_area"}
+    %div{:style=>"text-align: right"}
+      %button{:class=>"btn btn-success", :id=>"parse"}="Parse"
+-elsif edit
+  .addScenarioContainer
+    %h4="Copy your scenario for #{suite_title} here"
+    %div
+      %textarea{:class=>"parse_area"}="@#{suite_tag}\nFeature: #{suite_title}"
     %div{:style=>"text-align: right"}
       %button{:class=>"btn btn-success", :id=>"parse"}="Parse"
 -else

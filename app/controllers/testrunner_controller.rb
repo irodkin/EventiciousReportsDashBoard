@@ -7,7 +7,12 @@ class TestrunnerController < ApplicationController
 	end
 	def get_scenario_of_feature
 		scenarios = Test.where(suite: params[:suite]).all
-		render partial: 'shared/scenarios', locals: {scenarios: scenarios}
+		if params[:edit] == 'true'
+			edit = true
+			suite_title = params[:suite]
+			suite_tag = Suite.where(title: params[:suite]).first.tag
+		end
+		render partial: 'shared/scenarios', locals: {scenarios: scenarios, edit: edit, suite_title: suite_title, suite_tag: suite_tag}
 	end
 	def add_feature
 		suites = Suite.all
