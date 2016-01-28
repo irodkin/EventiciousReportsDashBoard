@@ -82,6 +82,6 @@ class Api::ScenarioparserController < ApplicationController
       t.save
     end
     scenarios = Test.where(suite: params[:feature])
-    render partial: 'shared/scenarios', locals: {scenarios: scenarios}
+    render partial: 'shared/scenarios', locals: {scenarios: scenarios, edit: false}
   end
 end

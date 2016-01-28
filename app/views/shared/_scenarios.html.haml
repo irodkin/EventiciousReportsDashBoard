@@ -14,7 +14,7 @@
   $ ->
     $('#parse').click ->
       suite = $('.parse_area').val()
-      feature = $('.active').text()
+      feature = $('.feature.active').text()
       $.ajax
         url: 'api/scenarioparser/parse'
         type: 'POST'
@@ -25,7 +25,6 @@
             }
         success: (response) ->
           $('.tests_container').html(response)
-          alert "parsed"
 
 
 -if scenarios.empty?

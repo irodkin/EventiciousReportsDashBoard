@@ -11,6 +11,8 @@ class TestrunnerController < ApplicationController
 			edit = true
 			suite_title = params[:suite]
 			suite_tag = Suite.where(title: params[:suite]).first.tag
+		else
+			edit = false
 		end
 		render partial: 'shared/scenarios', locals: {scenarios: scenarios, edit: edit, suite_title: suite_title, suite_tag: suite_tag}
 	end
