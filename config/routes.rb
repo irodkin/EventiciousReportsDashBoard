@@ -86,5 +86,10 @@ Rails.application.routes.draw do
         post :createJob
       end
     end
+    resources :runparser do
+      collection do
+        post :parse
+      end
+    end
   end
 end
