@@ -225,7 +225,6 @@ $ ->
       appId = $('#appId').val()
       suite = $('#suite .active').text()
       tests = $('.test-active')
-      buildAgain = $(toggle).attr("active")
       testsArray = []
       $.each tests, (e) -> testsArray.push("@" + $(tests[e]).text())
       params = getParams()
@@ -243,7 +242,6 @@ $ ->
         appId: appId
         suite: suite
         tests: testsArray
-        buildAgain: buildAgain
         username: username.toString()
         password: password.toString()
         rerun: rerun
