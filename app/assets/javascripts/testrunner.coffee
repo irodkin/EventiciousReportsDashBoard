@@ -24,35 +24,6 @@ login = (username, password) ->
   setCookie("username", username)
   setCookie("password", password)
 
-activeDevices = () ->
-  $.ajax
-    url: 'api/testrun/activeDevices'
-    type: 'GET'
-    dataType: 'json'
-    success: (response) ->
-      $('#iPhone').removeClass("label-success label-danger label-warning")
-      $('#Nexus4').removeClass("label-success label-danger label-warning")
-      $('#Nexus7').removeClass("label-success label-danger label-warning")
-      if response["iPhone"]
-        $('#iPhone').addClass("label-success")
-      else
-        $('#iPhone').addClass("label-danger")
-
-      if response["android"]["nexus4"]
-        $('#Nexus4').addClass("label-success")
-      else
-        $('#Nexus4').addClass("label-danger")
-
-      if response["android"]["nexus7"]
-        $('#Nexus7').addClass("label-success")
-      else
-        $('#Nexus7').addClass("label-danger")
-      $('#check').button('reset')
-
-
-$ ->
-  activeDevices()
-
 getTest = (suite) ->
   $.ajax
     url: 'testrunner/tests'
@@ -103,16 +74,6 @@ $ ->
     $('#password').removeClass('empty')
     unless $('#password').val() == ''
       $('#loginButton').removeClass('disabled')
-
-
-$ ->
-  setInterval(activeDevices, 10000)
-
-$ ->
-  $('#check').click ->
-    $(this).button('loading')
-    activeDevices()
-
 
 $ ->
   $('.select-platform').click ->
@@ -240,10 +201,6 @@ $ ->
       $('#login').modal('hide')
 
 $ ->
-  $('#Nexus4').tooltip({title: "<strong>go to <a href=\"http://192.168.162.34:7100/#!/control/04d228289809504a\" target=\"blank\">stf farm</a> to drive that device</strong>", html: true, delay: {"hide": 700 }})
-  $('#Nexus7').tooltip({title: "<strong>go to <a href=\"http://192.168.162.34:7100/#!/control/015d2578a21c1403\" target=\"blank\">stf farm</a> to drive that device</strong>", html: true, delay: {"hide": 700 }})
-
-$ ->
   $('.availableDevices span.label').click ->
     if $(this).hasClass("label-danger")
       alert "This device is unavailable"
@@ -264,10 +221,6 @@ $ ->
       job = $('#current_job').text()
       server = $('#server .active').text()
       platform = $('.activeDevice').attr('platformtype')
-      if platform == 'Android'
-        device = $('.activeDevice').attr('id')
-      else
-        device = "Nexus4"
       branch  = $('#branch').val()
       appId = $('#appId').val()
       suite = $('#suite .active').text()
@@ -286,7 +239,6 @@ $ ->
         job: job
         server: server
         platform: platform
-        device: device
         branch: branch
         appId: appId
         suite: suite
