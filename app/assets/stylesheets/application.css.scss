@@ -48,13 +48,14 @@
 }
 
 .parse_area {
-	width: 400px;
+	width: 650px;
 	height: 205px;
 }
 
 .scenario_title {
 	color: #91ba61;
 	font-weight: 500;
+	white-space: normal;
 }
 
 .raw  {
@@ -135,8 +136,17 @@
   cursor: pointer;
 }
 
+.modal-lg {
+	width: 1100px;
+}
+
+.tests_container {
+	width: 650px;
+}
+
 .list-group-item-info {
   cursor: pointer;
+	margin-bottom: 5px;
 }
 .tests {
   padding-top: 10px;
@@ -198,7 +208,8 @@
 }
 
 .container {
-  padding-bottom: 50px;
+  padding-bottom: 10px;
+	padding-top: 10px;
 	width: 1300px;
 }
 

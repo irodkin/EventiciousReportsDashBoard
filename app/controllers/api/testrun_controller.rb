@@ -9,12 +9,18 @@ class Api::TestrunController < ApplicationController
   def run
     tests = params[:tests].join(",")
 
-    testBranch = check_branch_exists(params[:branch], params[:job]) if params[:job].eql?("Eventicious_UITests_MultipileSCM")
+    testBranch = check_branch_exists(params[:branch], params[:job])
 
-    if params[:suite].eql?("MultiSmoke")
+    if params[:suite].include?("Multi")
       multi = true
     else
       multi = false
+    end
+
+    if params[:suite].include?("Pin")
+      pinAccess = true
+    else
+      pinAccess = false
     end
 
     @client = JenkinsApi::Client.new(:server_ip => '192.168.162.78',
@@ -32,14 +38,21 @@ class Api::TestrunController < ApplicationController
                    :ApplicationId => params[:appId],
                    :Branch => params[:branch],
                    :Locale => "ru",
-                   :API_version => "v2",
+                   :API_version => "v3",
                    :device=>params[:device],
                    :suite => params[:suite],
                    :tests => tests,
                    :multi => multi,
+                   :pinAccess => pinAccess,
                    :buildAgain => params[:buildAgain]}
 
     job_params[:TestBranch] = testBranch unless testBranch.nil?
+
+    if params[:rerun].eql?('true')
+      report = Report.find(params[:report_id])
+      job_params[:RERUN_BUILD_USER_EMAIL] = report.user_email unless report.user_email.nil?
+      job_params[:RERUN_BUILD_NUMBER] = report.build unless report.build.nil?
+    end
 
     jenkins_job = JenkinsApi::Client::Job.new(@client)
     return_code = jenkins_job.build(job_name, job_params)
@@ -52,23 +65,11 @@ class Api::TestrunController < ApplicationController
     },
       status: return_code
   end
-  def activeDevices
-    udid = `system_profiler SPUSBDataType | sed -n '/iPhone/,/Serial/p' | grep "Serial Number:" | awk -F ": " '{print $2}'`
-    udid.delete!("\n")
-    androidDevices = `adb devices`
-    nexus4 = androidDevices.include?("04d228289809504a")
-    nexus7 = androidDevices.include?("015d2578a21c1403")
-    iPhone = !udid.empty?
 
-    render json: {
-      :iPhone => iPhone,
-      :android => {
-        :nexus4 => nexus4,
-        :nexus7 => nexus7
-      }
-    },
-      status: 200
-  end
+#  def activeDevices
+  #  udid = `system_profiler SPUSBDataType | sed -n '/iPhone/,/Serial/p' | grep "Serial Number:" | awk -F ": " '{print $2}'`
+#  end
+
   def createJob
     job = Job.new(:title=>params[:title])
     if job.save
@@ -84,6 +85,7 @@ class Api::TestrunController < ApplicationController
   def check_branch_exists(branch, job)
     dev_branch = branch.gsub("feature/", "")
     dev_branch.gsub!("release/", "")
+    dev_branch.gsub!("deadend/", "")
     repository = Mercurial::Repository.open("/Users/user/Jenkins/workspace/#{job}/Events.tests")
     #Override of private method in Mercurial-Ruby
     Mercurial::BranchFactory.class_eval do

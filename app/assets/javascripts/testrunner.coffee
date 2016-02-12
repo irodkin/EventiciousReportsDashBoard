@@ -24,35 +24,6 @@ login = (username, password) ->
   setCookie("username", username)
   setCookie("password", password)
 
-activeDevices = () ->
-  $.ajax
-    url: 'api/testrun/activeDevices'
-    type: 'GET'
-    dataType: 'json'
-    success: (response) ->
-      $('#iPhone').removeClass("label-success label-danger label-warning")
-      $('#Nexus4').removeClass("label-success label-danger label-warning")
-      $('#Nexus7').removeClass("label-success label-danger label-warning")
-      if response["iPhone"]
-        $('#iPhone').addClass("label-success")
-      else
-        $('#iPhone').addClass("label-danger")
-
-      if response["android"]["nexus4"]
-        $('#Nexus4').addClass("label-success")
-      else
-        $('#Nexus4').addClass("label-danger")
-
-      if response["android"]["nexus7"]
-        $('#Nexus7').addClass("label-success")
-      else
-        $('#Nexus7').addClass("label-danger")
-      $('#check').button('reset')
-
-
-$ ->
-  activeDevices()
-
 getTest = (suite) ->
   $.ajax
     url: 'testrunner/tests'
@@ -104,16 +75,6 @@ $ ->
     unless $('#password').val() == ''
       $('#loginButton').removeClass('disabled')
 
-
-$ ->
-  setInterval(activeDevices, 10000)
-
-$ ->
-  $('#check').click ->
-    $(this).button('loading')
-    activeDevices()
-
-
 $ ->
   $('.select-platform').click ->
     button_title = $('#select-platform')
@@ -131,17 +92,25 @@ $ ->
     drag: true,
     click: true,
     text: {
-      on: 'build',
-      off: "don't build"
+      on: 'auto',
+      off: "manual"
     },
     on: true,
     animate: 250,
     easing: 'swing',
     checkbox: null,
     clicker: null,
-    width: 90,
-    height: 25
+    width: 65,
+    height: 20
     })
+
+$ ->
+  $('.toggle').click ->
+    toggle = $(this).data('toggles')
+    if $(toggle).attr("active")
+      $('#appId').fadeOut(300)
+    else
+      $('#appId').fadeIn(500)
 
 
 
@@ -189,9 +158,14 @@ $ ->
 
 $ ->
   $('#suite .list-group-item-info').click ->
-    if ($(this).text() == 'MultiSmoke')
+    if ($(this).text() == 'MultiSmoke' || $(this).text() == 'MultiBigSmoke')
       if ($('#server .active').text() == 'Production')
         $('#appId').val('4304');
+      else
+        $('#appId').val('test');
+    else if ($(this).text() == 'PinSmoke' || $(this).text() == 'PinBigSmoke')
+      if ($('#server .active').text() == 'Production')
+        $('#appId').val('4312');
       else
         $('#appId').val('test');
     else
@@ -235,14 +209,7 @@ $ ->
       $('#login').modal('hide')
 
 $ ->
-  $('#Nexus4').tooltip({title: "<strong>go to <a href=\"http://192.168.162.34:7100/#!/control/04d228289809504a\" target=\"blank\">stf farm</a> to drive that device</strong>", html: true, delay: {"hide": 700 }})
-  $('#Nexus7').tooltip({title: "<strong>go to <a href=\"http://192.168.162.34:7100/#!/control/015d2578a21c1403\" target=\"blank\">stf farm</a> to drive that device</strong>", html: true, delay: {"hide": 700 }})
-
-$ ->
   $('.availableDevices span.label').click ->
-    if $(this).hasClass('label-danger')
-      alert "This device is not available"
-    else
       $('.activeDevice').removeClass("activeDevice")
       $(this).addClass("activeDevice")
 
@@ -259,29 +226,34 @@ $ ->
       job = $('#current_job').text()
       server = $('#server .active').text()
       platform = $('.activeDevice').attr('platformtype')
-      if platform == 'Android'
-        device = $('.activeDevice').attr('id')
-      else
-        device = "Nexus4"
       branch  = $('#branch').val()
-      appId = $('#appId').val()
+      if $(toggle).attr('active')
+        appId = 0
+      else
+        appId = $('#appId').val()
       suite = $('#suite .active').text()
       tests = $('.test-active')
-      buildAgain = $(toggle).attr("active")
       testsArray = []
       $.each tests, (e) -> testsArray.push("@" + $(tests[e]).text())
+      params = getParams()
+      if params['rerun'] == 'true'
+        rerun = true
+        report_id = params['report_id']
+      else
+        rerun = false
+        report_id = null
       testRun = {
         job: job
         server: server
         platform: platform
-        device: device
         branch: branch
         appId: appId
         suite: suite
         tests: testsArray
-        buildAgain: buildAgain
         username: username.toString()
         password: password.toString()
+        rerun: rerun
+        report_id: report_id
       }
       $.ajax
         url: 'api/testrun/run'

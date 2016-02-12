@@ -13,7 +13,6 @@
    %th= "Branch"
    %th= "Suite"
    %th= "Tests"
-   %th= "Device"
    %th= "User"
    %th{:style=>"text-align: center"}= "Report"
    %th= "Build"
@@ -26,10 +25,6 @@
     %td= r.branch
     %td= r.suite
     %td= r.tests.gsub(",", " ") unless r.tests.nil?
-    -if r.platform == "Android"
-     %td= r.device
-    -else
-     %td= nil
     %td= r.user
     %td{:style=>"text-align: center"}
      %div

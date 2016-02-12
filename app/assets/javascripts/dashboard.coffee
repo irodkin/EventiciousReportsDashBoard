@@ -21,6 +21,7 @@ $ ->
     }
     window.location.href = "/testrunner?reply=true&report_id=#{json['report_id']}"
 
+
 $ ->
   $(".rerun").click ->
     parent_td = $(this).parents('tr')[0]
@@ -29,12 +30,8 @@ $ ->
     }
     window.location.href = "/testrunner?rerun=true&report_id=#{json['report_id']}"
 
+
 $ ->
   $('.result').tooltip({title: "<div><div><strong>click me to see a report</strong></div><span class=\"label label-success\">green</span> is awesome :)</div><div><span class=\"label label-warning\">yellow</span> is good :|</div><div><span class=\"label label-danger\">red</span> it is bad :(</div>", html: true})
-
-$ ->
   $('.rerun').tooltip({title: "<strong>rerun only failed tests in run with <i>no</i> build again</strong>", html: true})
-
-$ ->
   $('.reply').tooltip({title: "<strong>reply all tests in run with build again</strong>", html: true})
-  

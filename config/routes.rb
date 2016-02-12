@@ -82,8 +82,12 @@ Rails.application.routes.draw do
     resources :testrun do
       collection do
         post :run
-        get :activeDevices
         post :createJob
+      end
+    end
+    resources :runparser do
+      collection do
+        post :parse
       end
     end
   end
