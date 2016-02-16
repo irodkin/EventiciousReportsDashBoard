@@ -86,7 +86,7 @@ class Api::TestrunController < ApplicationController
     dev_branch = branch.gsub("feature/", "")
     dev_branch.gsub!("release/", "")
     dev_branch.gsub!("deadend/", "")
-    repository = Mercurial::Repository.open("/Users/user/Jenkins/workspace/#{job}/Events.tests")
+    repository = Mercurial::Repository.open("~/Jenkins/workspace/#{job}/Events.tests")
     #Override of private method in Mercurial-Ruby
     Mercurial::BranchFactory.class_eval do
         def build(data)
