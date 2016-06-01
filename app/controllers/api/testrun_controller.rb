@@ -83,9 +83,7 @@ class Api::TestrunController < ApplicationController
   private
 
   def check_branch_exists(branch, job)
-    dev_branch = branch.gsub("feature/", "")
-    dev_branch.gsub!("release/", "")
-    dev_branch.gsub!("deadend/", "")
+    dev_branch = branch.sub(/^.+\//, "").sub(".","_")
     repository = Mercurial::Repository.open("#{Dir.home}/Jenkins/workspace/#{job}/Events.tests")
     #Override of private method in Mercurial-Ruby
     Mercurial::BranchFactory.class_eval do
