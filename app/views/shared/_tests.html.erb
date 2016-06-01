@@ -93,9 +93,15 @@
           success: function(response) {
             if (response['failed_tests'] != null) {
               failed_tests = response['failed_tests'].split("&&");
+              for (var i = 0; i < failed_tests.length; i++) { //to delete common tags //temporary measure
+                failed_tests[i] = failed_tests[i].replace(/\w*,/g, "")
+              }
             }
             if (response['pending_tests'] != null) {
               pending_tests = response['pending_tests'].split("&&");
+              for (var i = 0; i < pending_tests.length; i++) { //to delete common tags //temporary measure
+                pending_tests[i] = pending_tests[i].replace(/\w*,/g, "")
+              }
             }
             if (failed_tests == "" && pending_tests == "" && failed_tests == null && pending_tests == null) {
               $("#all").addClass('test-active');
