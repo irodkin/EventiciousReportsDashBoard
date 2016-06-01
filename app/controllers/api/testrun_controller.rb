@@ -86,8 +86,7 @@ class Api::TestrunController < ApplicationController
     dev_branch = branch.gsub("feature/", "")
     dev_branch.gsub!("release/", "")
     dev_branch.gsub!("deadend/", "")
-    current_dir = Dir.pwd.slice!(/\/Users\/\w*/)
-    repository = Mercurial::Repository.open("#{current_dir}/Jenkins/workspace/#{job}/Events.tests")
+    repository = Mercurial::Repository.open("#{Dir.home}/Jenkins/workspace/#{job}/Events.tests")
     #Override of private method in Mercurial-Ruby
     Mercurial::BranchFactory.class_eval do
         def build(data)
