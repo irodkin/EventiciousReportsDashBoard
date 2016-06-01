@@ -25,15 +25,14 @@ ActiveRecord::Schema.define(version: 20160212200342) do
     t.string   "branch"
     t.string   "suite"
     t.string   "link"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-    t.string   "device"
-    t.string   "user"
     t.string   "tests"
     t.string   "server"
     t.string   "buildurl"
     t.string   "build"
     t.string   "job"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.string   "user"
     t.integer  "all"
     t.integer  "failed"
     t.string   "appid"
