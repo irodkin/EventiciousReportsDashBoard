@@ -10,6 +10,7 @@
    %th= "Platform"
    %th= "Server"
    %th= "App"
+   %th= "Type"
    %th= "Branch"
    %th= "Suite"
    %th= "Tests"
@@ -22,6 +23,7 @@
     %td= r.platform
     %td= r.server
     %td= r.appid
+    %td= r.app_type
     %td= r.branch
     %td= r.suite
     %td= r.tests.gsub(",", " ") unless r.tests.nil?

@@ -19,6 +19,14 @@
             =link_to p.first, "/reports?platform=#{p.first}"
 
     .raw
+      %h4= "By App Type"
+      %ul.list-group
+        -@app_types.each do |t|
+          %li.list-group-item
+            %span.badge= t.second
+            =link_to t.first, "/reports?app_type=#{t.first}"
+
+    .raw
       %h4= "By Suite"
       %ul.list-group
         -@suites.each do |s|
@@ -39,6 +47,8 @@
       =pie_chart @branches
     .raw
       =pie_chart @platforms
+    .raw
+      =pie_chart @app_types
     .raw
       =pie_chart @suites
     .raw

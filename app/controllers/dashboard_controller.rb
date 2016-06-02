@@ -7,6 +7,7 @@ class DashboardController < ApplicationController
     @reports = by_date(10)
     @branches = find_by(:branch)
     @platforms = find_by(:platform)
+    @app_types = find_by(:app_type)
     @suites = find_by(:suite)
     @servers = find_by(:server)
     @users = find_by(:user)
