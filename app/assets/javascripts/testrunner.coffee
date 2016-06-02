@@ -147,6 +147,8 @@ $ ->
         $('.activeDevice').removeClass("activeDevice")
         $("##{response['platform']}").addClass('activeDevice')
         $('#branch').val(response['branch'])
+        $('#appType .list-group-item-info').removeClass('active')
+        $("#appType ##{response['app_type']}").addClass('active')
         $('#appId').val(response['appid'])
         $('#suite .list-group-item-info').removeClass('active')
         $("#suite .#{response['suite']}").addClass('active')
@@ -156,46 +158,41 @@ $ ->
 
 $ ->
   $('#suite .list-group-item-info').click ->
-    if ($(this).text() == 'MultiSmoke' || $(this).text() == 'MultiBigSmoke')
-      if ($('#server .active').text() == 'Production')
-        $('#appId').val('4304');
-      else
-        $('#appId').val('test');
-    else if ($(this).text() == 'PinSmoke' || $(this).text() == 'PinBigSmoke')
-      if ($('#server .active').text() == 'Production')
-        $('#appId').val('4312');
-      else
-        $('#appId').val('test');
-    else
-      if ($('#server .active').text() == 'Production')
-        $('#appId').val('4193');
-      else
-        $('#appId').val('4389');
     getTest($(this).text())
 
 $ ->
   $('#server .list-group-item-info').click ->
     server = $(this).text()
-    suite = $('#suite .active').text()
-    if (suite == 'MultiBigSmoke')
-      if (server == 'Production')
-        $('#appId').val('4304');
-      else
-        $('#appId').val('test');
-    else
-      if (server == 'Production')
-        $('#appId').val('4193');
-      else
-        $('#appId').val('4389');
-
+    appType = $('#appType .active').attr('id')
+    switch server
+      when "Production"
+        switch appType
+          when "Single" then $('#appId').val('4193 or 4330')
+          when "Multi" then $('#appId').val('4304 or 4331')
+          when "Pin" then $('#appId').val('4312 or 4332')
+      when "Test"
+        switch appType
+          when "Single" then $('#appId').val('4389 or 4452')
+          when "Multi" then $('#appId').val('app is missing')
+          when "Pin" then $('#appId').val('app is missing')
 
 $ ->
-  $('#platform .list-group-item-info').click ->
-    platform = $(this).text()
-    if (platform == 'Android')
-      $('#devices').collapse('show')
-    else
-      $('#devices').collapse('hide')
+  $('#appType .list-group-item-info').click ->
+    appType = $(this).attr('id')
+    server = $('#server .active').text()
+    switch appType
+      when "Single"
+        switch server
+          when "Production" then $('#appId').val('4193 or 4330')
+          when "Test" then $('#appId').val('4389 or 4452')
+      when "Multi"
+        switch server
+          when "Production" then $('#appId').val('4304 or 4331')
+          when "Test" then $('#appId').val('app is missing')
+      when "Pin"
+        switch server
+          when "Production" then $('#appId').val('4312 or 4332')
+          when "Test" then $('#appId').val('app is missing')
 
 $ ->
   $('#loginButton').click ->
@@ -224,6 +221,7 @@ $ ->
       job = $('#current_job').text()
       server = $('#server .active').text()
       platform = $('.activeDevice').attr('id')
+      appType = $('#appType .active').attr('id')
       branch  = $('#branch').val()
       if $(toggle).attr('active')
         appId = 0
@@ -245,6 +243,7 @@ $ ->
         server: server
         platform: platform
         branch: branch
+        appType: appType
         appId: appId
         suite: suite
         tests: testsArray

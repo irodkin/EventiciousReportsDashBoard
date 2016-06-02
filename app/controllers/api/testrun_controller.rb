@@ -11,18 +11,6 @@ class Api::TestrunController < ApplicationController
 
     testBranch = check_branch_exists(params[:branch], params[:job])
 
-    if params[:suite].include?("Multi")
-      multi = true
-    else
-      multi = false
-    end
-
-    if params[:suite].include?("Pin")
-      pinAccess = true
-    else
-      pinAccess = false
-    end
-
     @client = JenkinsApi::Client.new(:server_ip => '192.168.162.78',
                                      :username => URI.decode_www_form_component(params[:username]),
                                      :password => URI.decode_www_form_component(params[:password]))
@@ -42,8 +30,7 @@ class Api::TestrunController < ApplicationController
                    :device=>params[:device],
                    :suite => params[:suite],
                    :tests => tests,
-                   :multi => multi,
-                   :pinAccess => pinAccess,
+                   :app_type => params[:appType].downcase,
                    :buildAgain => params[:buildAgain]}
 
     job_params[:TestBranch] = testBranch unless testBranch.nil?

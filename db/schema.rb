@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160212200342) do
+ActiveRecord::Schema.define(version: 20160517160034) do
 
   create_table "jobs", force: :cascade do |t|
     t.string   "title"
@@ -39,7 +39,7 @@ ActiveRecord::Schema.define(version: 20160212200342) do
     t.string   "failed_tests"
     t.string   "pending_tests"
     t.string   "user_email"
-    t.string   "node"
+    t.string   "app_type"
   end
 
   create_table "suites", force: :cascade do |t|

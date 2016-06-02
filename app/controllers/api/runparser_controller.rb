@@ -33,6 +33,7 @@ class Api::RunparserController < ApplicationController
                    :user=>params[:user],
                    :user_email=>params[:user_email],
                    :appid=>params[:appid],
+                   :app_type=>params[:app_type],
                    :all => params[:all],
                    :failed => params[:failed],
                    :failed_tests => failed_tests.join("&&"),
