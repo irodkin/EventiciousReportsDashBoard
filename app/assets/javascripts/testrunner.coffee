@@ -144,10 +144,7 @@ $ ->
         if params['rerun'] == 'true'
           $('.toggle').toggles(false)
         $('.activeDevice').removeClass("activeDevice")
-        if response['platform'] == 'Android'
-          $("##{response['device']}").addClass('activeDevice')
-        else
-          $('#iPhone').addClass('activeDevice')
+        $("##{response['platform']}").addClass('activeDevice')
         $('#branch').val(response['branch'])
         $('#appId').val(response['appid'])
         $('#suite .list-group-item-info').removeClass('active')
