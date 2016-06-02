@@ -222,7 +222,7 @@ $ ->
       $('.ajaxBusy').fadeIn(700)
       job = $('#current_job').text()
       server = $('#server .active').text()
-      platform = $('.activeDevice').attr('platformtype')
+      platform = $('.activeDevice').attr('id')
       branch  = $('#branch').val()
       if $(toggle).attr('active')
         appId = 0
