@@ -28,7 +28,6 @@ class TestrunnerController < ApplicationController
 			appid: report.appid,
 			app_type: report.app_type,
 			suite: report.suite,
-			device: report.device,
 			server: report.server,
 			job: report.job
 		},

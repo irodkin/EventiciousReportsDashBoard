@@ -22,7 +22,6 @@ class Api::RunparserController < ApplicationController
     r = Report.new(:date=>Time.now+14400,
                    :platform=>params[:platform],
                    :server=>params[:server],
-                   :device=>nil,
                    :suite=>params[:suite],
                    :tests=>params[:tests],
                    :link=>params[:link],
