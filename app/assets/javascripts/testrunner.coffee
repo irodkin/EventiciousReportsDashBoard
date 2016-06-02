@@ -143,6 +143,7 @@ $ ->
         $("#server .#{response['server']}").addClass('active')
         if params['rerun'] == 'true'
           $('.toggle').toggles(false)
+          $('#appId').fadeIn(500)
         $('.activeDevice').removeClass("activeDevice")
         $("##{response['platform']}").addClass('activeDevice')
         $('#branch').val(response['branch'])
