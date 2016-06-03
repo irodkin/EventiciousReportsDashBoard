@@ -103,8 +103,12 @@ $ ->
     toggle = $(this).data('toggles')
     if $(toggle).attr("active")
       $('#appId').fadeOut(300)
+      #$('#appType').fadeIn(500)
+      #$('#appType').prev().fadeIn(500)
     else
       $('#appId').fadeIn(500)
+      #$('#appType').fadeOut(300)
+      #$('#appType').prev().fadeOut(300)
 
 
 
