@@ -76,12 +76,6 @@ $ ->
       $('#loginButton').removeClass('disabled')
 
 $ ->
-  $('.select-platform').click ->
-    button_title = $('#select-platform')
-    platform = $(this).text()
-    $(button_title).text(platform)
-
-$ ->
   $('.list-group-item-info').click ->
     active = $(this).siblings('.active')[0]
     $(active).removeClass('active')
