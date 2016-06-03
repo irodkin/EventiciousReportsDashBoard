@@ -18,19 +18,18 @@ class Api::TestrunController < ApplicationController
 
     job_name = params[:job]
 
-    job_params = { :BuildConfiguration => "Release",
-                   :ServerConfig => params[:server],
-                   :Preview => false,
-                   :OS_Platform => params[:platform],
-                   :ConferenceName => "TEST_CONF",
-                   :ApplicationId => params[:appId],
-                   :Branch => params[:branch],
-                  # :locale => "ru",
-                  # :API_version => "v3",
-                   :suite => params[:suite],
-                   :tests => tests,
-                   :app_type => params[:appType].downcase,
-                   :buildAgain => params[:buildAgain]}
+    job_params = {:BuildConfiguration => "Release",
+                  :ServerConfig => params[:server],
+                  :Preview => false,
+                  :OS_Platform => params[:platform],
+                  :ConferenceName => "TEST_CONF",
+                  :ApplicationId => params[:appId],
+                  :Branch => params[:branch],
+                  #:API_version => "v3",
+                  :app_type => params[:appType],
+                  #:locale => params[:locale],
+                  :suite => params[:suite],
+                  :tests => tests}
 
     job_params[:TestBranch] = testBranch unless testBranch.nil?
 

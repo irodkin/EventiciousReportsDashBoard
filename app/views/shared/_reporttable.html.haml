@@ -23,7 +23,7 @@
     %td= r.platform
     %td= r.server
     %td= r.appid
-    %td= r.app_type
+    %td= r.app_type.capitalize
     %td= r.branch
     %td= r.suite
     %td= r.tests.gsub(",", " ") unless r.tests.nil?
