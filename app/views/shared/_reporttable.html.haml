@@ -11,6 +11,7 @@
    %th= "Server"
    %th= "App"
    %th= "Type"
+   %th= "Locale"
    %th= "Branch"
    %th= "Suite"
    %th= "Tests"
@@ -24,6 +25,7 @@
     %td= r.server
     %td= r.appid
     %td= r.app_type.capitalize
+    %td= r.locale.capitalize
     %td= r.branch
     %td= r.suite
     %td= r.tests.gsub(",", " ") unless r.tests.nil?

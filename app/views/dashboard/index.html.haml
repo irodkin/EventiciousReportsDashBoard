@@ -27,6 +27,14 @@
             =link_to t.first, "/reports?app_type=#{t.first}"
 
     .raw
+      %h4= "By Locale"
+      %ul.list-group
+        -@locales.each do |l|
+          %li.list-group-item
+            %span.badge= l.second
+            =link_to l.first, "/reports?locale=#{l.first}"
+
+    .raw
       %h4= "By Suite"
       %ul.list-group
         -@suites.each do |s|
@@ -49,6 +57,8 @@
       =pie_chart @platforms
     .raw
       =pie_chart @app_types
+    .raw
+      =pie_chart @locales
     .raw
       =pie_chart @suites
     .raw

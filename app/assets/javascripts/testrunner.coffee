@@ -147,6 +147,8 @@ $ ->
         $('#branch').val(response['branch'])
         $('#appType .list-group-item-info').removeClass('active')
         $("#appType ##{response['app_type']}").addClass('active')
+        $('#locale .list-group-item-info').removeClass('active')
+        $("#locale ##{response['locale']}").addClass('active')
         $('#appId').val(response['appid'])
         $('#suite .list-group-item-info').removeClass('active')
         $("#suite .#{response['suite']}").addClass('active')
@@ -161,36 +163,30 @@ $ ->
 $ ->
   $('#server .list-group-item-info').click ->
     server = $(this).text()
-    appType = $('#appType .active').attr('id')
+    locale = $('#locale .active').attr('id')
     switch server
       when "Production"
-        switch appType
-          when "Single" then $('#appId').val('4193 or 4330')
-          when "Multi" then $('#appId').val('4304 or 4331')
-          when "Pin" then $('#appId').val('4312 or 4332')
+        switch locale
+          when "ru" then $('#appId').val('4193 or 4330')
+          when "en" then $('#appId').val('4331 or 4332')
       when "Test"
-        switch appType
-          when "Single" then $('#appId').val('4389 or 4452')
-          when "Multi" then $('#appId').val('app is missing')
-          when "Pin" then $('#appId').val('app is missing')
+        switch locale
+          when "ru" then $('#appId').val('4389 or 4452')
+          when "en" then $('#appId').val('4454 or 4455')
 
 $ ->
-  $('#appType .list-group-item-info').click ->
-    appType = $(this).attr('id')
+  $('#locale .list-group-item-info').click ->
+    locale = $(this).attr('id')
     server = $('#server .active').text()
-    switch appType
-      when "Single"
+    switch locale
+      when "ru"
         switch server
           when "Production" then $('#appId').val('4193 or 4330')
           when "Test" then $('#appId').val('4389 or 4452')
-      when "Multi"
+      when "en"
         switch server
-          when "Production" then $('#appId').val('4304 or 4331')
-          when "Test" then $('#appId').val('app is missing')
-      when "Pin"
-        switch server
-          when "Production" then $('#appId').val('4312 or 4332')
-          when "Test" then $('#appId').val('app is missing')
+          when "Production" then $('#appId').val('4331 or 4332')
+          when "Test" then $('#appId').val('4454 or 4455')
 
 $ ->
   $('#loginButton').click ->
@@ -220,6 +216,7 @@ $ ->
       server = $('#server .active').text()
       platform = $('.activeDevice').attr('id')
       appType = $('#appType .active').attr('id')
+      locale = $('#locale .active').attr('id')
       branch  = $('#branch').val()
       if $(toggle).attr('active')
         appId = 0
@@ -242,6 +239,7 @@ $ ->
         platform: platform
         branch: branch
         appType: appType
+        locale: locale
         appId: appId
         suite: suite
         tests: testsArray
