@@ -202,7 +202,7 @@ $ ->
       $('#login').modal('hide')
 
 $ ->
-  $('.availableDevices span.label').click ->
+  $('#platform span.label').click ->
       $('.activeDevice').removeClass("activeDevice")
       $(this).addClass("activeDevice")
 
