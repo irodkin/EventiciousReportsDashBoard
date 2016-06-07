@@ -7,14 +7,14 @@ class Api::RunparserController < ApplicationController
     pending_tests = []
     unless failed_scenarios.nil?
       failed_scenarios.uniq.each do |s|
-        scenario = Test.where(title: s).first
+        scenario = Test.where({title: s, suite: params[:suite]}).first
         failed_tests.push scenario.tags unless scenario.nil?
       end
     end
 
     unless pending_scenarios.nil?
       pending_scenarios.uniq.each do |s|
-        scenario = Test.where(title: s).first
+        scenario = Test.where({title: s, suite: params[:suite]}).first
         pending_tests.push scenario.tags unless scenario.nil?
       end
     end
