@@ -23,7 +23,7 @@ class Api::TestrunController < ApplicationController
                   :Preview => false,
                   :OS_Platform => params[:platform],
                   :ConferenceName => "TEST_CONF",
-                  :ApplicationId => params[:appId],
+                  :ApplicationId => params[:appId][/\d+/],
                   :Branch => params[:branch],
                   #:API_version => "v3",
                   :app_type => params[:appType],
