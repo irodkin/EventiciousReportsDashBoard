@@ -39,7 +39,7 @@ class Api::TestrunController < ApplicationController
       job_params[:RERUN_BUILD_NUMBER] = report.build unless report.build.nil?
     end
 
-    jenkins_job = JenkinsApi::Client::Job.new(@client)
+    jenkins_job = @client.job
     return_code = jenkins_job.build(job_name, job_params)
     current_build = jenkins_job.get_current_build_number(job_name)
 
