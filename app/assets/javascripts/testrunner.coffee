@@ -60,7 +60,7 @@ $ ->
           $('.dropdown-menu').append('<li><a class="select-job">' + response['title'] + '</a></li>')
 
 $ ->
-  $('#singIn').click ->
+  $('#signIn').click ->
     $('#login').modal('show')
 
 $ ->
