@@ -23,6 +23,7 @@ setCookie = (cookieName, cookieValue) ->
 login = (username, password) ->
   setCookie("username", username)
   setCookie("password", password)
+  $('#signIn').text("Logged In")
 
 getTest = (suite) ->
   $.ajax
@@ -62,6 +63,10 @@ $ ->
 $ ->
   $('#signIn').click ->
     $('#login').modal('show')
+
+$ ->
+  if readCookie("username") && readCookie("password")
+    $('#signIn').text("Logged In")
 
 $ ->
   if $('#username').val() == '' || $('#password').val() == ''
