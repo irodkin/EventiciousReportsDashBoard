@@ -15,10 +15,10 @@ readCookie = (name) ->
     return ca[i].match(/=(.+)/)[1]
 
 setCookie = (cookieName, cookieValue) ->
-   day = 1000 * 60 * 60  * 24
-   today = new Date()
-   expire = today + day
-   document.cookie = cookieName + "=" + escape(cookieValue) + ";expires=" + (20 * expire).toString()
+  day = 1000 * 60 * 60  * 24
+  today = new Date()
+  expire = today + day
+  document.cookie = cookieName + "=" + escape(cookieValue) + ";expires=" + (20 * expire).toString()
 
 login = (username, password) ->
   setCookie("username", username)
@@ -46,19 +46,19 @@ $ ->
 
 $ ->
   $('#addJobButton').click ->
-     addJob = {
-     title: $('#jobName').val()
-     }
-     $.ajax
-        url: 'api/testrun/createJob'
-        type: 'POST'
-        dataType: 'json'
-        data: addJob
-        error: () ->
-          alert "error!"
-        success: (response) ->
-          $('#addJobContainer').modal('hide')
-          $('.dropdown-menu').append('<li><a class="select-job">' + response['title'] + '</a></li>')
+    addJob = {
+    title: $('#jobName').val()
+    }
+    $.ajax
+      url: 'api/testrun/createJob'
+      type: 'POST'
+      dataType: 'json'
+      data: addJob
+      error: () ->
+        alert "error!"
+      success: (response) ->
+        $('#addJobContainer').modal('hide')
+        $('.dropdown-menu').append('<li><a class="select-job">' + response['title'] + '</a></li>')
 
 $ ->
   $('#signIn').click ->
