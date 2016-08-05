@@ -3,16 +3,16 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 readCookie = (name) ->
-   nameEQ = name + "="
-   ca = document.cookie.split(";")
-   console.log ca
-   i = 0
-   while i < ca.length
-     c = ca[i]
-     c = c.substring(1, c.length)  while c.charAt(0) is " "
-     return c.substring(nameEQ.length, c.length).replace(/"/g, '')  if c.indexOf(nameEQ) is 0
-     i++
-   ca
+  ca = document.cookie.split("; ")
+  #console.log ca
+  i = 0
+  ca_l = ca.length
+  while i < ca_l && !ca[i].startsWith(name)
+    i++
+  if i == ca_l
+    return null
+  else
+    return ca[i].match(/=(.+)/)[1]
 
 setCookie = (cookieName, cookieValue) ->
    day = 1000 * 60 * 60  * 24
@@ -207,7 +207,7 @@ $ ->
     username = readCookie("username")
     password = readCookie("password")
     toggle = $('.toggle').data('toggles')
-    if username.toString() == '' || password.toString() == ''
+    if !username || !password
       $('#login').modal('show')
     else
       $('.bg_layer').fadeIn(1200)
@@ -243,8 +243,8 @@ $ ->
         appId: appId
         suite: suite
         tests: testsArray
-        username: username.toString()
-        password: password.toString()
+        username: username
+        password: password
         rerun: rerun
         report_id: report_id
       }
