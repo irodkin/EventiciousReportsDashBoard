@@ -25,7 +25,7 @@
         success: () ->
           $(parent_div).fadeOut(200)
   $ ->
-    $('.add_acenarios').click ->
+    $('.add_scenarios').click ->
       $.ajax
         url: 'testrunner/get_scenario_of_feature'
         type: 'GET'
@@ -46,6 +46,6 @@
       %a{:class=>"list-group-item list-group-item-info feature"}= f.title
     %div{:class=>"inline fixed", :style=>"padding-top: 5px;"}
       .ticket
-        %span{:class=>"label label-info add_acenarios", :id=>f.title}= "add tests"
+        %span{:class=>"label label-info add_scenarios", :id=>f.title}= "add tests"
       .ticket
         %span{:class=>"badge delete_feature", :id=>f.id}= "delete"
