@@ -1,7 +1,8 @@
 :coffeescript
   $ ->
     $('.feature').click ->
-        active = $('.active')
+        #active = $(this).parent().parent().parent().find('.active')[0]
+        active = $($(this).parents()[2]).find('.active')[0]
         $(active).removeClass('active')
         $(this).addClass('active')
         suite = $(this).text()
