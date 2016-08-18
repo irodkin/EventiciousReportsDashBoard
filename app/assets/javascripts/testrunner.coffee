@@ -207,6 +207,12 @@ $ ->
       $('.activeDevice').removeClass("activeDevice")
       $(this).addClass("activeDevice")
 
+run_after_login = ->
+  #console.log("inside run_after_login")
+  $('#run').trigger("click")
+  #console.log("removing run_after_login")
+  $('#loginButton').off("click", run_after_login)
+
 $ ->
   $('#run').click ->
     username = readCookie("username")
@@ -214,6 +220,8 @@ $ ->
     toggle = $('.toggle').data('toggles')
     if !username || !password
       $('#login').modal('show')
+      #console.log("adding run_after_login")
+      $('#loginButton').on("click", run_after_login)
     else
       $('.bg_layer').fadeIn(1200)
       $('.ajaxBusy').fadeIn(700)
