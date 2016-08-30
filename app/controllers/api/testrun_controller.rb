@@ -29,7 +29,8 @@ class Api::TestrunController < ApplicationController
                   :app_type => params[:appType],
                   :locale => params[:locale],
                   :suite => params[:suite],
-                  :tests => tests}
+                  :tests => tests,
+                  :iterations => params[:iterations]}
 
     job_params[:TestBranch] = testBranch unless testBranch.nil?
 

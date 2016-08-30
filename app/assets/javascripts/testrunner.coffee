@@ -230,7 +230,7 @@ $ ->
       platform = $('.activeDevice').attr('id')
       appType = $('#appType .active').attr('id')
       locale = $('#locale .active').attr('id')
-      branch  = $('#branch').val()
+      branch = $('#branch').val()
       if $(toggle).attr('active')
         appId = 0
       else
@@ -239,6 +239,7 @@ $ ->
       tests = $('.test-active')
       testsArray = []
       $.each tests, (e) -> testsArray.push("@" + $(tests[e]).text())
+      iterations = $('#iterations').val()
       params = getParams()
       if params['rerun'] == 'true'
         rerun = true
@@ -256,6 +257,7 @@ $ ->
         appId: appId
         suite: suite
         tests: testsArray
+        iterations: iterations
         username: username
         password: password
         rerun: rerun

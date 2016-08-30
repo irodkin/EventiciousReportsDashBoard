@@ -12,7 +12,7 @@
       <li class="previous"><a href="/dashboard"><span aria-hidden="true">&larr;</span> To Dashboard</a></li>
       <li class="next"><a id="signIn" href="#">Sign In</a></li>
     </ul>
-    <h1>Run Test <small>cause it's cool</small></h1>
+    <h1>Run Tests <small>cause it's cool</small></h1>
     <div id="platform">
       <span class="label label-success activeDevice" id="IOS">iOS</span>
       <span class="label label-success" id="Android">Android</span>
@@ -46,9 +46,9 @@
       </ul>
     </div>
     <h4>Branch</h4>
-      <div class="input-group">
-        <input type="text" class="form-control" style="border-radius: 7px;" id="branch" value="default" placeholder="enter branch here..." aria-describedby="basic-addon3">
-      </div>
+    <div class="input-group">
+      <input type="text" class="form-control" style="border-radius: 7px;" id="branch" value="default" placeholder="enter branch here..." aria-describedby="basic-addon3">
+    </div>
     <h4>Application Type</h4>
     <div id="appType">
       <ul class="nav nav-pills">
@@ -88,6 +88,10 @@
     </div>
     <div class='tests' id="tests">
       <%= render partial: 'shared/tests', locals: {tests: @tests, head_tag: @head_tag} %>
+    </div>
+    <h4>Iterations <small>for MemoryLeaks tests only</small></h4>
+    <div class="input-group">
+      <input type="text" class="form-control" style="border-radius: 7px;" id="iterations" value="0" aria-describedby="basic-addon3">
     </div>
     <!-- Modal Login-->
     <div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
