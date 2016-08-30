@@ -11,7 +11,7 @@ $ ->
 
 $ ->
   $("#refresh").click ->
-      window.location.reload()
+    window.location.reload()
 
 $ ->
   $(".reply").click ->
