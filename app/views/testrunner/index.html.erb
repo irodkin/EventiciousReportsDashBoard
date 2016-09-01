@@ -13,12 +13,12 @@
       <li class="next"><a id="signIn" href="#">Sign In</a></li>
     </ul>
     <h1>Run Tests <small>cause it's cool</small></h1>
+  </div>
+  <div class="params-container"><form action="#" onsubmit="return false;">
     <div id="platform">
       <span class="label label-success activeDevice" id="IOS">iOS</span>
       <span class="label label-success" id="Android">Android</span>
     </div>
-  </div>
-  <div class="params-container">
     <div class="dropdown" style="display: inline-block">
       <h4>Job</h4>
       <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -121,7 +121,7 @@
     <%= render 'shared/addjob' %>
     <%= render 'shared/editsuite', locals: {feature: @feature} %>
     <div class="run_section">
-      <button class="btn btn-success btn-run" id="run">RUN!</button>
+      <button type="submit" class="btn btn-success btn-run" id="run">RUN!</button>
     </div>
-  </div>
+  </form></div>
 </div>
