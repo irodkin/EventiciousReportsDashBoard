@@ -130,36 +130,37 @@ getParams = ->
   params
 
 $ ->
-  params = getParams()
-  if params['rerun'] == 'true' || params['reply'] == 'true'
-    $.ajax
-      url: 'testrunner/reply_run_params'
-      type: 'GET'
-      dataType: 'json'
-      data:
-        report_id: params['report_id']
-      error: () ->
-        console.log "something going wrong"
-      success: (response) ->
-        $('#current_job').text(response['job'])
-        $('#server .list-group-item-info').removeClass('active')
-        $("#server .#{response['server']}").addClass('active')
-        if params['rerun'] == 'true'
-          $('.toggle').toggles(false)
-          $('#appId').fadeIn(500)
-        $('.activeDevice').removeClass("activeDevice")
-        $("##{response['platform']}").addClass('activeDevice')
-        $('#branch').val(response['branch'])
-        $('#appType .list-group-item-info').removeClass('active')
-        $("#appType ##{response['app_type']}").addClass('active')
-        $('#locale .list-group-item-info').removeClass('active')
-        $("#locale ##{response['locale']}").addClass('active')
-        $('#appId').val(response['appid'])
-        $('#suite .list-group-item-info').removeClass('active')
-        $("#suite .#{response['suite']}").addClass('active')
-        getTest(response['suite'])
-  else
-    getTest($('#suite .active').text())
+  if window.location.href.includes("/testrunner")
+    params = getParams()
+    if params['rerun'] == 'true' || params['reply'] == 'true'
+      $.ajax
+        url: 'testrunner/reply_run_params'
+        type: 'GET'
+        dataType: 'json'
+        data:
+          report_id: params['report_id']
+        error: () ->
+          console.log "something going wrong"
+        success: (response) ->
+          $('#current_job').text(response['job'])
+          $('#server .list-group-item-info').removeClass('active')
+          $("#server .#{response['server']}").addClass('active')
+          if params['rerun'] == 'true'
+            $('.toggle').toggles(false)
+            $('#appId').fadeIn(500)
+          $('.activeDevice').removeClass("activeDevice")
+          $("##{response['platform']}").addClass('activeDevice')
+          $('#branch').val(response['branch'])
+          $('#appType .list-group-item-info').removeClass('active')
+          $("#appType ##{response['app_type']}").addClass('active')
+          $('#locale .list-group-item-info').removeClass('active')
+          $("#locale ##{response['locale']}").addClass('active')
+          $('#appId').val(response['appid'])
+          $('#suite .list-group-item-info').removeClass('active')
+          $("#suite .#{response['suite']}").addClass('active')
+          getTest(response['suite'])
+    else
+      getTest($('#suite .active').text())
 
 $ ->
   $('#suite .list-group-item-info').click ->
