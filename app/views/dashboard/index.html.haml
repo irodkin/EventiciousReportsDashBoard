@@ -77,5 +77,5 @@
 
 .navbar-fixed-bottom.row-fluid
   .container{:style=>"text-align: right; padding-bottom: 0px; padding-top: 0px;"}
-    %button{:class=>"btn btn-success", :onclick=>"window.location.href='/testrunner'"}= "Run Tests"
+    %a{:class=>"btn btn-success", :href=>"/testrunner"}= "Run Tests"
     %span.badge= @total_count
