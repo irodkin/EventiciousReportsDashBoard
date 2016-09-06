@@ -48,6 +48,7 @@ $ ->
 $ ->
   $("#reports_number_to_display").change ->
     value=Number($(this).val())
+    localStorage.setItem("reports_number_to_display", value)
     rows=$('table.table tr').slice(1, -1)
     rows.hide()
     rows.filter(":not([class*='rejectedBy'])").slice(0, value).show()
@@ -55,6 +56,7 @@ $ ->
 $ ->
   $("tr th input").change -> #filter by column
     value=$(this).val()
+    localStorage.setItem($(this).parent().text().trim(), value)
     column_number=$(this).parent().index()+1
     rows=$("table.table tr").slice(1, -1)
     rows_contains=rows.has("td:nth-child(#{column_number}):contains(#{value})")
@@ -64,7 +66,7 @@ $ ->
     rows.has("td:nth-child(#{column_number}):not(:contains(#{value}))").addClass("rejectedBy#{column_number}")
     $("#reports_number_to_display").trigger("change")
 
-$ ->
+applyFilters = () ->
   all_empty=true
   $("tr th input").each(
     (inp)->
@@ -74,3 +76,10 @@ $ ->
   )
   if all_empty
     $("#reports_number_to_display").trigger("change")
+
+$ ->
+  $("tr th input").each(
+    (inp)->$(this).val(localStorage.getItem($(this).parent().text().trim()))
+  )
+  $("#reports_number_to_display").val(localStorage.getItem("reports_number_to_display"))
+  applyFilters()
