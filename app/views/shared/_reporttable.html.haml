@@ -13,7 +13,8 @@
 		-["platforms", "servers", "app_types", "locales", "branches", "suites", "users"].each do |param|
 			%datalist{:id=>"#{param}_list"}
 				-instance_variable_get("@#{param}").each do |elem|
-					%option{:value=>elem.first}-#, :label=>elem.second}
+					%option{:value=>elem.first}
+					-#, :label=>elem.second}
 		%tr
 			%th= "Date"
 			%th
