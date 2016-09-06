@@ -1,51 +1,84 @@
 .panel.panel-primary
- .panel-heading
-  .title-container
-   %h4= @title
-  .button-container
-   %button{:id=>'refresh', :type=>'button', :class=>'btn btn-success'}="Refresh"
- %table.table
-  %tr
-   %th= "Date"
-   %th= "Platform"
-   %th= "Server"
-   %th= "App"
-   %th= "Type"
-   %th= "Locale"
-   %th= "Branch"
-   %th= "Suite"
-   %th= "Tests"
-   %th= "User"
-   %th{:style=>"text-align: center"}= "Report"
-   %th= "Build"
-  -@reports.each do |r|
-   %tr{:recordId=>r.id}
-    %td= r.date.strftime("%d %b, %H:%M")
-    %td= r.platform
-    %td= r.server
-    %td= r.appid
-    %td= r.app_type
-    %td= r.locale
-    %td= r.branch
-    %td= r.suite
-    %td= r.tests.gsub(",", " ") unless r.tests.nil?
-    %td= r.user
-    %td{:style=>"text-align: center"}
-     %div
-      %a{:href=>r.link, :target=>"_blank"}
-       -unless r.failed.nil? && r.all.nil?
-       -passed = (r.all.to_f - r.failed.to_f).to_i
-        -if r.failed.to_f/r.all.to_f*100 > 25
-         %span{:class=>"label label-danger result"}="#{passed}/#{r.all}"
-        -elsif r.failed.to_f/r.all.to_f*100 <= 25 && r.failed.to_f/r.all.to_f*100 < 100 && r.failed.to_f != 0
-         %span{:class=>"label label-warning result"}="#{passed}/#{r.all}"
-        -else
-         %span{:class=>"label label-success result"}="#{r.all}/#{r.all}"
-     %div
-      %span{:class=>"label label-info rerun"}= "rerun"
-    %td= link_to "#{r.job} ##{r.build}", r.buildurl, :target => "_blank"
-    %td{:style=>"text-align: center"}
-     %div
-      %span{:class=>"label label-danger deleteButton"}= "delete"
-     %div
-      %span{:class=>"label label-info reply"}= "reply"
+	.panel-heading
+		.title-container
+			%h4= @title
+		.button-container
+			%button{:id=>'refresh', :type=>'button', :class=>'btn btn-success'}="Refresh"
+		.button-container
+			%button{:id=>'reset_filters', :type=>'button', :class=>'btn btn-success'}="Reset filters"
+		.select-count-container{:style=>'float:right'}
+			%label{:for=>'reports_number_to_display', :style=>'float:left;'}="Number of reports to display:"
+			%input{:id=>'reports_number_to_display', :style=>'color:black;float:left;width:50px', :value=>10}
+	%table.table
+		-["platforms", "servers", "app_types", "locales", "branches", "suites", "users"].each do |param|
+			%datalist{:id=>"#{param}_list"}
+				-instance_variable_get("@#{param}").each do |elem|
+					%option{:value=>elem.first}-#, :label=>elem.second}
+		%tr
+			%th= "Date"
+			%th
+				Platform
+				%br
+				%input{:type=>'text', :style=>'width:8ch', :list=>'platforms_list'}
+			%th
+				Server
+				%br
+				%input{:type=>'text', :style=>'width:11ch', :list=>'servers_list'}
+			%th
+				App
+				%br
+				%input{:type=>'text', :style=>'width:5ch'}
+			%th
+				Type
+				%br
+				%input{:type=>'text', :style=>'width:7ch', :list=>'app_types_list'}
+			%th
+				Locale
+				%br
+				%input{:type=>'text', :style=>'width:3ch', :list=>'locales_list'}
+			%th
+				Branch
+				%br
+				%input{:type=>'text', :style=>'width:11ch', :list=>'branches_list'}
+			%th
+				Suite
+				%br
+				%input{:type=>'text', :style=>'width:11ch', :list=>'suites_list'}
+			%th= "Tests"
+			%th
+				User
+				%br
+				%input{:type=>'text', :style=>'width:11ch', :list=>'users_list'}
+			%th{:style=>"text-align: center"}= "Report"
+			%th= "Build"
+		-@reports.each do |r|
+			%tr{:recordId=>r.id, :style=>"display:none"}
+				%td= r.date.strftime("%d %b, %H:%M")
+				%td= r.platform
+				%td= r.server
+				%td= r.appid
+				%td= r.app_type
+				%td= r.locale
+				%td= r.branch
+				%td= r.suite
+				%td= r.tests.gsub(",", " ") unless r.tests.nil?
+				%td= r.user
+				%td{:style=>"text-align: center"}
+					%div
+						%a{:href=>r.link, :target=>"_blank"}
+							-unless r.failed.nil? && r.all.nil?
+							-passed = (r.all.to_f - r.failed.to_f).to_i
+								-if r.failed.to_f/r.all.to_f*100 > 25
+									%span{:class=>"label label-danger result"}="#{passed}/#{r.all}"
+								-elsif r.failed.to_f/r.all.to_f*100 <= 25 && r.failed.to_f/r.all.to_f*100 < 100 && r.failed.to_f != 0
+									%span{:class=>"label label-warning result"}="#{passed}/#{r.all}"
+								-else
+									%span{:class=>"label label-success result"}="#{r.all}/#{r.all}"
+					%div
+						%span{:class=>"label label-info rerun"}= "rerun"
+				%td= link_to "#{r.job} ##{r.build}", r.buildurl, :target => "_blank"
+				%td{:style=>"text-align: center"}
+					%div
+						%span{:class=>"label label-danger deleteButton"}= "delete"
+					%div
+						%span{:class=>"label label-info reply"}= "reply"

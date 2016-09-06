@@ -4,7 +4,7 @@ class DashboardController < ApplicationController
   def index
     r = Report.all
   	@title = "Last Reports"
-    @reports = by_date(10)
+    @reports = by_date(r.size)
     @branches = find_by(:branch)
     @platforms = find_by(:platform)
     @app_types = find_by(:app_type)
