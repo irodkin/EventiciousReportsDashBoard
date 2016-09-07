@@ -54,7 +54,6 @@ Rails.application.routes.draw do
   #     resources :products
   #   end
   root 'dashboard#index'
-  resources :reports
   resources :dashboard
   resources :testrunner do
     collection do

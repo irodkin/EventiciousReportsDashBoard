@@ -1,6 +1,12 @@
 // Place all the styles related to the dashboard controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.raw {
+	display: inline-table;
+	width: 33%;
+}
+
 .charts_raw {
   display: inline-block;
   width: 33%;

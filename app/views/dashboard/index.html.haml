@@ -3,55 +3,6 @@
 
   .container
     .raw
-      %h4= "By Branch"
-      %ul.list-group
-        -@branches.each do |b|
-          %li.list-group-item
-            %span.badge= b.second
-            =link_to b.first, "/reports?branch=#{b.first}"
-
-    .raw
-      %h4= "By Platform"
-      %ul.list-group
-        -@platforms.each do |p|
-          %li.list-group-item
-            %span.badge= p.second
-            =link_to p.first, "/reports?platform=#{p.first}"
-
-    .raw
-      %h4= "By App Type"
-      %ul.list-group
-        -@app_types.each do |t|
-          %li.list-group-item
-            %span.badge= t.second
-            =link_to t.first, "/reports?app_type=#{t.first}"
-
-    .raw
-      %h4= "By Locale"
-      %ul.list-group
-        -@locales.each do |l|
-          %li.list-group-item
-            %span.badge= l.second
-            =link_to l.first, "/reports?locale=#{l.first}"
-
-    .raw
-      %h4= "By Suite"
-      %ul.list-group
-        -@suites.each do |s|
-          %li.list-group-item
-            %span.badge= s.second
-            =link_to s.first, "/reports?suite=#{s.first}"
-
-    .raw
-      %h4= "By Server"
-      %ul.list-group
-        -@servers.each do |s|
-          %li.list-group-item
-            %span.badge= s.second
-            =link_to s.first, "/reports?server=#{s.first}"
-
-  .container
-    .raw
       =pie_chart @branches
     .raw
       =pie_chart @platforms
