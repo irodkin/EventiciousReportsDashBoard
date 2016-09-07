@@ -284,12 +284,6 @@ $(document).on "page:change", ->
 $(document).on "page:change", ->
   $('#addSuite').click ->
     $('#SuitesEdit').modal("show")
-    $.ajax
-      url: 'testrunner/add_feature'
-      type: 'GET'
-      dataType: 'html'
-      success: (response) ->
-        $('#suitemodalbody').html(response)
 
 $(document).on "page:change", ->
   $('#get_tests').click ->

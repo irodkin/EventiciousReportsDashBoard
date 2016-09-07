@@ -16,10 +16,6 @@ class TestrunnerController < ApplicationController
 		end
 		render partial: 'shared/scenarios', locals: {scenarios: scenarios, edit: edit, suite_title: suite_title, suite_tag: suite_tag}
 	end
-	def add_feature
-		suites = Suite.all
-		render partial: 'shared/addfeature', locals: {suites: suites}
-	end
 	def reply_run_params
 		report = Report.find(params[:report_id])
 		render json: {

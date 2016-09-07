@@ -1,4 +1,3 @@
-
 class DashboardController < ApplicationController
   before_filter :find_by, only: [:index]
   def index

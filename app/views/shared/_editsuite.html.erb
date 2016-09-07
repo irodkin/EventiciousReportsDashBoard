@@ -5,6 +5,7 @@
         <h4 class="modal-title">Add new tests</h4>
       </div>
       <div class="modal-body" id="suitemodalbody">
+        <%= render partial: 'shared/addfeature', locals: {suites: @feature} %>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
