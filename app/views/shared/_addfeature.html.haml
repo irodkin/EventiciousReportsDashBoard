@@ -5,18 +5,6 @@
       $('.addContainer').fadeIn(1400)
 
   $ ->
-    [first, ..., last] = $('.feature')
-    $(first).addClass("active")
-    title = $(first).text()
-    $.ajax
-      url: 'testrunner/get_scenario_of_feature'
-      type: 'GET'
-      dataType: 'html'
-      data: suite: title
-      success: (response) ->
-        $('.tests_container').html(response)
-
-  $ ->
     $('#addNewFeature').click ->
       title = $('#title').val()
       tag = $('#tag').val()

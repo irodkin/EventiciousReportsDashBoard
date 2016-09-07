@@ -14,6 +14,8 @@
           success: (response) ->
             $('.tests_container').html(response)
 
+    $($('.feature')[0]).trigger("click")
+
   $ ->
     $('.delete_feature').click ->
       id = $(this).attr("id")
