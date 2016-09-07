@@ -293,17 +293,3 @@ $(document).on "page:change", ->
       type: 'GET'
       dataType: 'json'
       data: suite: find
-
-$(document).on "page:change", ->
-  $('.feature').click ->
-      active = $(this).siblings('.active')[0]
-      $(active).removeClass('active')
-      $(this).addClass('active')
-      suite = $(this).text()
-      $.ajax
-        url: 'testrunner/get_scenario_of_feature'
-        type: 'GET'
-        dataType: 'html'
-        data: suite: suite
-        success: (response) ->
-          $('.test_container').html(response)
