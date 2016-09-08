@@ -12,10 +12,9 @@
         url: 'api/scenarioparser/add_feature'
         type: 'POST'
         dataType: 'html'
-        data: {
-        title: title
-        tag: tag
-        }
+        data:
+          title: title
+          tag: tag
         success: (response) ->
           $('#featurelist').html(response)
           $('.feature').removeClass('active')
