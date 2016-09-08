@@ -12,10 +12,8 @@
         success: (response) ->
           $('.tests_container').html(response)
 
-  $ ->
     $($('.feature')[0]).trigger("click")
 
-  $ ->
     $('.delete_feature').click ->
       id = $(this).attr("id")
       parent_div = $(this).parents("div")[2]
@@ -26,7 +24,7 @@
         data: id: id
         success: () ->
           $(parent_div).fadeOut(200)
-  $ ->
+
     $('.add_scenarios').click ->
       $.ajax
         url: 'testrunner/get_scenario_of_feature'

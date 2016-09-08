@@ -1,5 +1,5 @@
 <script>
-  (function() {
+(function() {
   $(function() {
     return $('#tests .label-info').click(function() {
       if (this.className.indexOf('test-active') > -1) {
@@ -25,6 +25,7 @@
       }
     });
   });
+
   getParams = function() {
     var j, key, len, params, query, raw_vars, ref, v, val;
     query = window.location.search.substring(1);
@@ -51,81 +52,81 @@
   });
 
   $(function() {
-      var params, tests;
-      params = getParams();
-      if (params['reply'] === 'true') {
-        return $.ajax({
-          url: 'testrunner/reply_all',
-          type: 'GET',
-          dataType: 'json',
-          data: {
-            report_id: params['report_id']
-          },
-          success: function(response) {
-            tests = response['tests'].split(",");
-            if (tests == "") {
-              $("#all").addClass('test-active');
+    var params, tests;
+    params = getParams();
+    if (params['reply'] === 'true') {
+      return $.ajax({
+        url: 'testrunner/reply_all',
+        type: 'GET',
+        dataType: 'json',
+        data: {
+          report_id: params['report_id']
+        },
+        success: function(response) {
+          tests = response['tests'].split(",");
+          if (tests == "") {
+            $("#all").addClass('test-active');
+          }
+          else {
+            $('.test-active').removeClass('test-active');
+            $.each(tests, function(e) {
+               $("#" + tests[e]).addClass('test-active');
+               $("span." + tests[e]).addClass('test-active');
+            });
+          }
+        }
+      });
+    }
+  });
+
+  $(function() {
+    var params, tests;
+    var failed_tests, pending_tests;
+    params = getParams();
+    if (params['rerun'] === 'true') {
+      return $.ajax({
+        url: 'testrunner/reply_failed',
+        type: 'GET',
+        dataType: 'json',
+        data: {
+          report_id: params['report_id']
+        },
+        success: function(response) {
+          if (response['failed_tests'] != null) {
+            failed_tests = response['failed_tests'].split("&&");
+            for (var i = 0; i < failed_tests.length; i++) { //to delete common tags //temporary measure
+              failed_tests[i] = failed_tests[i].replace(/\w*,/g, "")
             }
-            else {
-              $('.test-active').removeClass('test-active');
-              $.each(tests, function(e) {
-                 $("#" + tests[e]).addClass('test-active');
-                 $("span." + tests[e]).addClass('test-active');
+          }
+          if (response['pending_tests'] != null) {
+            pending_tests = response['pending_tests'].split("&&");
+            for (var i = 0; i < pending_tests.length; i++) { //to delete common tags //temporary measure
+              pending_tests[i] = pending_tests[i].replace(/\w*,/g, "")
+            }
+          }
+          if (failed_tests == "" && pending_tests == "" && failed_tests == null && pending_tests == null) {
+            $("#all").addClass('test-active');
+          }
+          else {
+            $('.test-active').removeClass('test-active');
+            if (failed_tests != "" && failed_tests != null) {
+              $.each(failed_tests, function(e) {
+                 $("#" + failed_tests[e]).addClass('test-active test-failed');
+              });
+            }
+            if (pending_tests != "" && pending_tests != null) {
+              $.each(pending_tests, function(e) {
+                 $("#" + pending_tests[e]).addClass('test-active test-pending');
               });
             }
           }
-        });
-      }
-    });
-
-  $(function() {
-      var params, tests;
-      var failed_tests, pending_tests;
-      params = getParams();
-      if (params['rerun'] === 'true') {
-        return $.ajax({
-          url: 'testrunner/reply_failed',
-          type: 'GET',
-          dataType: 'json',
-          data: {
-            report_id: params['report_id']
-          },
-          success: function(response) {
-            if (response['failed_tests'] != null) {
-              failed_tests = response['failed_tests'].split("&&");
-              for (var i = 0; i < failed_tests.length; i++) { //to delete common tags //temporary measure
-                failed_tests[i] = failed_tests[i].replace(/\w*,/g, "")
-              }
-            }
-            if (response['pending_tests'] != null) {
-              pending_tests = response['pending_tests'].split("&&");
-              for (var i = 0; i < pending_tests.length; i++) { //to delete common tags //temporary measure
-                pending_tests[i] = pending_tests[i].replace(/\w*,/g, "")
-              }
-            }
-            if (failed_tests == "" && pending_tests == "" && failed_tests == null && pending_tests == null) {
-              $("#all").addClass('test-active');
-            }
-            else {
-              $('.test-active').removeClass('test-active');
-              if (failed_tests != "" && failed_tests != null) {
-                $.each(failed_tests, function(e) {
-                   $("#" + failed_tests[e]).addClass('test-active test-failed');
-                });
-              }
-              if (pending_tests != "" && pending_tests != null) {
-                $.each(pending_tests, function(e) {
-                   $("#" + pending_tests[e]).addClass('test-active test-pending');
-                });
-              }
-            }
-          }
-        });
-      }
-    });
-  }).call(this);
-
+        }
+      });
+    }
+  });
+}).call(this);
 </script>
+
 <h4>Tests <span class="badge"><%= tests.size %></span></h4>
 <div class="tag">
 <%= ("<span id=\"all\" class=\"label label-info #{head_tag} test-active\">").html_safe %><%= head_tag %></span>
