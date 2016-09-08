@@ -82,9 +82,13 @@ $(document).on "page:change", ->
 
 $(document).on "page:change", ->
   $('.list-group-item-info').click ->
-    active = $(this).siblings('.active')[0]
-    $(active).removeClass('active')
+    $(this).siblings('.active').removeClass('active')
     $(this).addClass('active')
+
+$(document).on "page:change", ->
+  $('#platform span.label').click ->
+      $('.activeDevice').removeClass("activeDevice")
+      $(this).addClass("activeDevice")
 
 $(document).on "page:change", ->
   $('.toggle').toggles({
@@ -143,21 +147,16 @@ $(document).on "page:change", ->
           console.log "something going wrong"
         success: (response) ->
           $('#current_job').text(response['job'])
-          $('#server .list-group-item-info').removeClass('active')
-          $("#server .#{response['server']}").addClass('active')
+          $("#server .#{response['server']}").trigger('click')
           if params['rerun'] == 'true'
             $('.toggle').toggles(false)
             $('#appId').fadeIn(500)
-          $('.activeDevice').removeClass("activeDevice")
-          $("##{response['platform']}").addClass('activeDevice')
+          $("##{response['platform']}").trigger('click')
           $('#branch').val(response['branch'])
-          $('#appType .list-group-item-info').removeClass('active')
-          $("#appType ##{response['app_type']}").addClass('active')
-          $('#locale .list-group-item-info').removeClass('active')
-          $("#locale ##{response['locale']}").addClass('active')
+          $("#appType ##{response['app_type']}").trigger('click')
+          $("#locale ##{response['locale']}").trigger('click')
           $('#appId').val(response['appid'])
-          $('#suite .list-group-item-info').removeClass('active')
-          $("#suite .#{response['suite']}").addClass('active')
+          $("#suite .#{response['suite']}").trigger('click')
           getTest(response['suite'])
     else
       getTest($('#suite .active').text())
@@ -202,11 +201,6 @@ $(document).on "page:change", ->
     else
       login($('#username').val(), $('#password').val())
       $('#login').modal('hide')
-
-$(document).on "page:change", ->
-  $('#platform span.label').click ->
-      $('.activeDevice').removeClass("activeDevice")
-      $(this).addClass("activeDevice")
 
 run_after_login = ->
   #console.log("inside run_after_login")

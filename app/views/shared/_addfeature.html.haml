@@ -16,18 +16,8 @@
           tag: tag
         success: (response) ->
           $('#featurelist').html(response)
-          $('.feature').removeClass('active')
-          $('.feature').last().addClass("active")
           $('.addContainer').fadeOut(100)
-          $('.addScenarioContainer').fadeIn(1400)
-          $('#addNewFeatureForm').fadeIn(500)
-          $.ajax
-            url: 'testrunner/get_scenario_of_feature'
-            type: 'GET'
-            dataType: 'html'
-            data: suite: title
-            success: (response) ->
-              $('.tests_container').html(response)
+          $('.feature').last().trigger('click')
 
 
 %h4="Edit Suites"

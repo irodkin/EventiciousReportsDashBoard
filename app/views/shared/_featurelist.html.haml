@@ -1,7 +1,7 @@
 :coffeescript
   $ ->
     $('.feature').click ->
-      $('.feature').removeClass('active')
+      $('.feature.active').removeClass('active')
       $(this).addClass('active')
       suite = $(this).text()
       $.ajax
