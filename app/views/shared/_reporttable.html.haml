@@ -76,10 +76,10 @@
 								-else
 									%span{:class=>"label label-success result"}="#{r.all}/#{r.all}"
 					%div
-						%span{:class=>"label label-info rerun"}= "rerun"
+						%a{:href=>"/testrunner?rerun=true&report_id=#{r.id}", :class=>"label label-info rerun"}= "rerun"
 				%td= link_to "#{r.job} ##{r.build}", r.buildurl, :target => "_blank"
 				%td{:style=>"text-align: center"}
 					%div
 						%span{:class=>"label label-danger deleteButton"}= "delete"
 					%div
-						%span{:class=>"label label-info reply"}= "reply"
+						%a{:href=>"/testrunner?reply=true&report_id=#{r.id}", :class=>"label label-info reply"}= "reply"
