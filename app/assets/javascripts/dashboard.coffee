@@ -9,6 +9,10 @@ $(document).on "page:change", ->
       url: 'dashboard/' + $(current_record_tr).attr('recordid')
       type: 'DELETE'
       $(current_record_tr).fadeOut(700)
+      setTimeout (()->
+        $(current_record_tr).remove()
+        $("#reports_number_to_display").trigger("change")), 700
+      
 
   $("#refresh").click ->
     window.location.reload()
