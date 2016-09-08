@@ -2,17 +2,6 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
-applyFilters = () ->
-  all_empty=true
-  $("tr th input").each(
-    (inp)->
-      if $(this).val()!=''
-        all_empty=false
-        $(this).trigger("change")
-  )
-  if all_empty
-    $("#reports_number_to_display").trigger("change")
-
 $(document).on "page:change", ->
   $(".deleteButton").click ->
     current_record_tr = $(this).parents('tr')[0]
@@ -71,8 +60,17 @@ $(document).on "page:change", ->
     rows.has("td:nth-child(#{column_number}):not(:contains(#{value}))").addClass("rejectedBy#{column_number}")
     $("#reports_number_to_display").trigger("change")
 
+  #filters on page load
   $("tr th input").each(
     (inp)->$(this).val(localStorage.getItem($(this).parent().text().trim()))
   )
   $("#reports_number_to_display").val(localStorage.getItem("reports_number_to_display"))
-  applyFilters()
+  all_empty=true
+  $("tr th input").each(
+    (inp)->
+      if $(this).val()!=''
+        all_empty=false
+        $(this).trigger("change")
+  )
+  if all_empty
+    $("#reports_number_to_display").trigger("change")
