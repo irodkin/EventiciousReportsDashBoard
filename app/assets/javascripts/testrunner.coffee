@@ -35,16 +35,29 @@ getTest = (suite) ->
     success: (response) ->
       $('#tests').html(response)
 
+getParams = ->
+  query = window.location.search.substring(1)
+  raw_vars = query.split("&")
+  params = {}
+  for v in raw_vars
+    [key, val] = v.split("=")
+    params[key] = decodeURIComponent(val)
+  params
+
+run_after_login = ->
+  #console.log("inside run_after_login")
+  $('#run').trigger("click")
+  #console.log("removing run_after_login")
+  $('#loginButton').off("click", run_after_login)
+
 
 $(document).on "page:change", ->
   $('.select-job').click ->
     $('#current_job').text($(this).text())
 
-$(document).on "page:change", ->
   $('#addJob').click ->
     $('#addJobContainer').modal('show')
 
-$(document).on "page:change", ->
   $('#addJobButton').click ->
     addJob = {
     title: $('#jobName').val()
@@ -60,15 +73,12 @@ $(document).on "page:change", ->
         $('#addJobContainer').modal('hide')
         $('.dropdown-menu').append('<li><a class="select-job">' + response['title'] + '</a></li>')
 
-$(document).on "page:change", ->
   $('#signIn').click ->
     $('#login').modal('show')
 
-$(document).on "page:change", ->
   if readCookie("username") && readCookie("password")
     $('#signIn').text("Logged In")
 
-$(document).on "page:change", ->
   if $('#username').val() == '' || $('#password').val() == ''
     $('#loginButton').addClass('disabled')
   $('#username').change ->
@@ -80,17 +90,14 @@ $(document).on "page:change", ->
     unless $('#password').val() == ''
       $('#loginButton').removeClass('disabled')
 
-$(document).on "page:change", ->
   $('.list-group-item-info').click ->
     $(this).siblings('.active').removeClass('active')
     $(this).addClass('active')
 
-$(document).on "page:change", ->
   $('#platform span.label').click ->
       $('.activeDevice').removeClass("activeDevice")
       $(this).addClass("activeDevice")
 
-$(document).on "page:change", ->
   $('.toggle').toggles({
     drag: true,
     click: true,
@@ -107,7 +114,6 @@ $(document).on "page:change", ->
     height: 20
     })
 
-$(document).on "page:change", ->
   $('.toggle').click ->
     toggle = $(this).data('toggles')
     if $(toggle).attr("active")
@@ -119,21 +125,6 @@ $(document).on "page:change", ->
       #$('#appType').fadeOut(300)
       #$('#appType').prev().fadeOut(300)
 
-
-
-getParams = ->
-  query = window.location.search.substring(1)
-  raw_vars = query.split("&")
-
-  params = {}
-
-  for v in raw_vars
-    [key, val] = v.split("=")
-    params[key] = decodeURIComponent(val)
-
-  params
-
-$(document).on "page:change", ->
   if window.location.href.includes("/testrunner")
     params = getParams()
     if params['rerun'] == 'true' || params['reply'] == 'true'
@@ -161,11 +152,9 @@ $(document).on "page:change", ->
     else
       getTest($('#suite .active').text())
 
-$(document).on "page:change", ->
   $('#suite .list-group-item-info').click ->
     getTest($(this).text())
 
-$(document).on "page:change", ->
   $('#server .list-group-item-info').click ->
     server = $(this).text()
     locale = $('#locale .active').attr('id')
@@ -179,7 +168,6 @@ $(document).on "page:change", ->
           when "ru" then $('#appId').val('4389 or 4452')
           when "en" then $('#appId').val('4454 or 4455')
 
-$(document).on "page:change", ->
   $('#locale .list-group-item-info').click ->
     locale = $(this).attr('id')
     server = $('#server .active').text()
@@ -193,7 +181,6 @@ $(document).on "page:change", ->
           when "Production" then $('#appId').val('4331 or 4332')
           when "Test" then $('#appId').val('4454 or 4455')
 
-$(document).on "page:change", ->
   $('#loginButton').click ->
     if $('#loginButton').hasClass('disabled')
       $('#username').addClass('empty')
@@ -202,13 +189,6 @@ $(document).on "page:change", ->
       login($('#username').val(), $('#password').val())
       $('#login').modal('hide')
 
-run_after_login = ->
-  #console.log("inside run_after_login")
-  $('#run').trigger("click")
-  #console.log("removing run_after_login")
-  $('#loginButton').off("click", run_after_login)
-
-$(document).on "page:change", ->
   $('#run').click ->
     username = readCookie("username")
     password = readCookie("password")
@@ -275,11 +255,9 @@ $(document).on "page:change", ->
           setTimeout (-> $('.alert-success').fadeIn(700)), 700
           setTimeout (-> $('.alert-success').fadeOut(700)), 5000
 
-$(document).on "page:change", ->
   $('#addSuite').click ->
     $('#SuitesEdit').modal("show")
 
-$(document).on "page:change", ->
   $('#get_tests').click ->
     find = $('#find_tests').val()
     $.ajax
