@@ -18,22 +18,14 @@
         url: 'api/scenarioparser/parse'
         type: 'POST'
         dataType: 'html'
-        data: {
-            suite: suite
-            feature: feature
-            }
+        data:
+          suite: suite
+          feature: feature
         success: (response) ->
           $('.tests_container').html(response)
 
 
--if scenarios.empty?
-  .addScenarioContainer
-    %h4="Copy your scenario here"
-    %div
-      %textarea{:class=>"parse_area"}
-    %div{:style=>"text-align: right"}
-      %button{:class=>"btn btn-success", :id=>"parse"}="Parse"
--elsif edit
+-if scenarios.empty? || edit
   .addScenarioContainer
     %h4="Copy your scenario for #{suite_title} here"
     %div
