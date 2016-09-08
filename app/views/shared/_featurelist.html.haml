@@ -1,18 +1,16 @@
 :coffeescript
   $ ->
     $('.feature').click ->
-        #active = $(this).parent().parent().parent().find('.active')[0]
-        active = $($(this).parents()[2]).find('.active')[0]
-        $(active).removeClass('active')
-        $(this).addClass('active')
-        suite = $(this).text()
-        $.ajax
-          url: 'testrunner/get_scenario_of_feature'
-          type: 'GET'
-          dataType: 'html'
-          data: suite: suite
-          success: (response) ->
-            $('.tests_container').html(response)
+      $('.feature').removeClass('active')
+      $(this).addClass('active')
+      suite = $(this).text()
+      $.ajax
+        url: 'testrunner/get_scenario_of_feature'
+        type: 'GET'
+        dataType: 'html'
+        data: suite: suite
+        success: (response) ->
+          $('.tests_container').html(response)
 
     $($('.feature')[0]).trigger("click")
 

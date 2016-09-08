@@ -18,8 +18,8 @@
         }
         success: (response) ->
           $('#featurelist').html(response)
-          [first, ..., last] = $('.feature')
-          $(last).addClass("active")
+          $('.feature').removeClass('active')
+          $('.feature').last().addClass("active")
           $('.addContainer').fadeOut(100)
           $('.addScenarioContainer').fadeIn(1400)
           $('#addNewFeatureForm').fadeIn(500)
