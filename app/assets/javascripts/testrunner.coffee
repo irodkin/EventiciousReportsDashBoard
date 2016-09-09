@@ -50,10 +50,20 @@ run_after_login = ->
   #console.log("removing run_after_login")
   $('#loginButton').off("click", run_after_login)
 
+getBuilds = ->
+  $.ajax
+    url: 'testrunner/builds'
+    type: 'GET'
+    dataType: 'html'
+    data: job: $('#current_job').text()
+    success: (response) ->
+      $('#builds').html(response)
 
 $(document).on "page:change", ->
+
   $('.select-job').click ->
     $('#current_job').text($(this).text())
+    getBuilds()
 
   $('#addJob').click ->
     $('#addJobContainer').modal('show')
@@ -126,6 +136,7 @@ $(document).on "page:change", ->
       #$('#appType').prev().fadeOut(300)
 
   if window.location.href.includes("/testrunner")
+    getBuilds()
     params = getParams()
     if params['rerun'] == 'true' || params['reply'] == 'true'
       $.ajax
@@ -138,6 +149,7 @@ $(document).on "page:change", ->
           console.log "something going wrong"
         success: (response) ->
           $('#current_job').text(response['job'])
+          getBuilds()
           $("#server .#{response['server']}").trigger('click')
           if params['rerun'] == 'true'
             $('.toggle').toggles(false)

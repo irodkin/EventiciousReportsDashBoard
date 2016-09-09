@@ -1,0 +1,10 @@
+%table
+	%tr
+		%th= "Status"
+		%th= "Number"
+		%th= "Params"
+	-builds.each do |b|
+		%tr
+			%td= b["status"]
+			%td= b["number"]
+			%td= b["params"]

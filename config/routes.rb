@@ -64,6 +64,7 @@ Rails.application.routes.draw do
       get :reply_failed
       get :reply_run_params
       get :reply_all
+      get :builds
     end
   end
   namespace :api do

@@ -1,3 +1,5 @@
+require 'rest-client'
+
 class TestrunnerController < ApplicationController
 	def index
 		@jobs = Job.all
@@ -70,5 +72,17 @@ class TestrunnerController < ApplicationController
 		end
 		head_tag = Suite.where(title: params[:suite]).first.tag
 		render partial: 'shared/tests', locals: {tests: scenarios, head_tag: head_tag}
+	end
+	def builds
+		job_info = JSON.parse(RestClient.get("http://jenkins.mercury.office:8080/job/#{params[:job]}/api/json?pretty=true&tree=builds[actions[parameters[*]],building,number,result,url,builtOn],inQueue,queueItem[actions[parameters[*]],blocked,id,inQueueSince,why,pending]"))
+		builds=[]
+		job_info["builds"][0..9].each {|b|
+			params=[]
+			b["actions"][0]["parameters"].each {|p|
+				params << "#{p["name"]}=#{p["value"]}"
+			}
+			builds << {"number"=>b["number"], "status"=>b["result"], "params"=>params.join(" ")}
+		}
+		render partial: 'shared/buildstable', locals: {builds: builds}
 	end
 end

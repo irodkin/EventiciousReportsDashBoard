@@ -18,6 +18,8 @@ gem 'bootstrap-sass'
 gem 'haml'
 #jenkins api client
 gem 'jenkins_api_client'
+#rest client
+gem 'rest-client'
 #mercurial
 gem 'mercurial-ruby'
 # Use jquery as the JavaScript library
