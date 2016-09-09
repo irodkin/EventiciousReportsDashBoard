@@ -1,3 +1,13 @@
+:coffeescript
+	$ ->
+		$('.show_build_params').click ->
+			build_params = $(this).siblings(".build_params")
+			#console.log build_params
+			if build_params.is(":visible")
+			  build_params.hide()
+			else
+			  build_params.show()
+
 %table
 	%tr
 		%th= "Status"
@@ -7,4 +17,8 @@
 		%tr
 			%td= b["status"]
 			%td= b["number"]
-			%td= b["params"]
+			%td
+				%button{class:"show_build_params"}= "Show"
+				%div{class:"build_params", style:"display:none;"}
+					-b["params"].each do |p|
+						%p=p

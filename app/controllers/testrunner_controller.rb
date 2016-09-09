@@ -76,12 +76,12 @@ class TestrunnerController < ApplicationController
 	def builds
 		job_info = JSON.parse(RestClient.get("http://jenkins.mercury.office:8080/job/#{params[:job]}/api/json?pretty=true&tree=builds[actions[parameters[*]],building,number,result,url,builtOn],inQueue,queueItem[actions[parameters[*]],blocked,id,inQueueSince,why,pending]"))
 		builds=[]
-		job_info["builds"][0..9].each {|b|
+		job_info["builds"][0..19].each {|b|
 			params=[]
 			b["actions"][0]["parameters"].each {|p|
 				params << "#{p["name"]}=#{p["value"]}"
 			}
-			builds << {"number"=>b["number"], "status"=>b["result"], "params"=>params.join(" ")}
+			builds << {"number"=>b["number"], "status"=>b["result"], "params"=>params}
 		}
 		render partial: 'shared/buildstable', locals: {builds: builds}
 	end
