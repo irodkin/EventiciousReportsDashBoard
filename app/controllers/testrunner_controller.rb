@@ -79,7 +79,7 @@ class TestrunnerController < ApplicationController
 			b["actions"][0]["parameters"].each {|p|
 				params << "#{p["name"]}=#{p["value"]}"
 			}
-			builds << {"number"=>b["number"], "status"=>b["result"], "params"=>params}
+			builds << {"number"=>b["number"], "status"=>b["building"] ? "IN_PROGRESS" : b["result"], "params"=>params}
 		}
 		render partial: 'shared/buildstable', locals: {builds: builds}
 	end

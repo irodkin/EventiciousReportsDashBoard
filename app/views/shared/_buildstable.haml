@@ -14,7 +14,9 @@
 		%th= "Params"
 	-builds.each do |b|
 		%tr
-			%td= b["status"]
+			%td{title:b["status"]}
+				-status_images={"ABORTED"=>"http://jenkins.mercury.office:8080/static/aaf3e3e1/images/16x16/aborted.png", "SUCCESS"=>"http://jenkins.mercury.office:8080/static/aaf3e3e1/images/16x16/blue.png", "FAILURE"=>"http://jenkins.mercury.office:8080/static/aaf3e3e1/images/16x16/red.png", "IN_PROGRESS"=>"http://jenkins.mercury.office:8080/static/aaf3e3e1/images/16x16/blue_anime.gif", "IN_QUEUE"=>"http://jenkins.mercury.office:8080/static/aaf3e3e1/images/16x16/hourglass.png"}
+				%img{src:status_images[b["status"]]}
 			%td= b["number"]
 			%td
 				%button{class:"show_build_params"}= "Show"
