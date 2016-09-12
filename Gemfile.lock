@@ -194,6 +194,7 @@ DEPENDENCIES
   jenkins_api_client
   jquery-rails
   mercurial-ruby
+  nokogiri
   rails (= 4.2.4)
   rest-client
   sass-rails

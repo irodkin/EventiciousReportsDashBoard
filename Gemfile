@@ -20,6 +20,8 @@ gem 'haml'
 gem 'jenkins_api_client'
 #rest client
 gem 'rest-client'
+#nokogiri for parsing xml
+gem 'nokogiri'
 #mercurial
 gem 'mercurial-ruby'
 # Use jquery as the JavaScript library
