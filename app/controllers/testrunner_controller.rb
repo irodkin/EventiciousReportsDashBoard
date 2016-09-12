@@ -72,6 +72,7 @@ class TestrunnerController < ApplicationController
 		render partial: 'shared/tests', locals: {tests: scenarios, head_tag: head_tag}
 	end
 	def builds
+		#RestClient::Exceptions::ReadTimeout
 		job_info = JSON.parse(RestClient.get("http://jenkins.mercury.office:8080/job/#{params[:job]}/api/json?pretty=true&tree=builds[actions[parameters[*]],building,number,result,url,builtOn]{0,20},inQueue"))
 		builds=[]
 		queue_count=0
