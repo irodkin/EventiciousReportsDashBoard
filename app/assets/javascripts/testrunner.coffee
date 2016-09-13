@@ -135,6 +135,22 @@ $(document).on "page:change", ->
       #$('#appType').fadeOut(300)
       #$('#appType').prev().fadeOut(300)
 
+  $('#rebuildApp-toggle').toggles({
+    drag: false,
+    click: true,
+    text: {
+      on: 'yes',
+      off: "no"
+    },
+    on: true,
+    animate: 250,
+    easing: 'swing',
+    checkbox: null,
+    clicker: null,
+    width: 65,
+    height: 20
+    })
+
   if window.location.href.includes("/testrunner")
     getBuilds()
     params = getParams()
@@ -154,6 +170,7 @@ $(document).on "page:change", ->
           if params['rerun'] == 'true'
             $('#appId-toggle').toggles(false)
             $('#appId').fadeIn(500)
+            $('#rebuildApp-toggle').toggles(false)
           $("##{response['platform']}").trigger('click')
           $('#branch').val(response['branch'])
           $("#appType ##{response['app_type']}").trigger('click')
@@ -205,6 +222,7 @@ $(document).on "page:change", ->
     username = readCookie("username")
     password = readCookie("password")
     appId_toggle = $('#appId-toggle').data('toggles')
+    rebuildApp_toggle = $('#rebuildApp-toggle').data('toggles')
     if !username || !password
       $('#login').modal('show')
       #console.log("adding run_after_login")
@@ -222,6 +240,10 @@ $(document).on "page:change", ->
         appId = 0
       else
         appId = $('#appId').val()
+      if $(rebuildApp_toggle).attr('active')
+        rebuildApp = true
+      else
+        rebuildApp = false
       suite = $('#suite .active').text()
       tests = $('.test-active')
       testsArray = []
@@ -245,6 +267,7 @@ $(document).on "page:change", ->
         suite: suite
         tests: testsArray
         iterations: iterations
+        rebuildApp: rebuildApp
         username: username
         password: password
         rerun: rerun

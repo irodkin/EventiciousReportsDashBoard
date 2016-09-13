@@ -30,7 +30,8 @@ class Api::TestrunController < ApplicationController
                   :locale => params[:locale],
                   :suite => params[:suite],
                   :tests => tests,
-                  :iterations => params[:iterations]}
+                  :iterations => params[:iterations],
+                  :rebuild_app => params[:rebuildApp]}
 
     job_params[:TestBranch] = testBranch unless testBranch.nil?
 
