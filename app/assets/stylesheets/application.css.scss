@@ -15,6 +15,18 @@
  */
 @import "bootstrap";
 
+.page-header {
+    border-bottom: 1px solid #eeeeee;
+    margin: 5px 0 10px;
+    padding-bottom: 1px;
+}
+.pager {
+    list-style: outside none none;
+    margin: 0 0;
+    padding-left: 0;
+    text-align: center;
+}
+
 .test_container {
 	margin: 10px 10px 10px 10px;
 }
