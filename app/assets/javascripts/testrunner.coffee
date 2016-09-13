@@ -108,8 +108,8 @@ $(document).on "page:change", ->
       $('.activeDevice').removeClass("activeDevice")
       $(this).addClass("activeDevice")
 
-  $('.toggle').toggles({
-    drag: true,
+  $('#appId-toggle').toggles({
+    drag: false,
     click: true,
     text: {
       on: 'auto',
@@ -124,7 +124,7 @@ $(document).on "page:change", ->
     height: 20
     })
 
-  $('.toggle').click ->
+  $('#appId-toggle').click ->
     toggle = $(this).data('toggles')
     if $(toggle).attr("active")
       $('#appId').fadeOut(300)
@@ -152,7 +152,7 @@ $(document).on "page:change", ->
           getBuilds()
           $("#server .#{response['server']}").trigger('click')
           if params['rerun'] == 'true'
-            $('.toggle').toggles(false)
+            $('#appId-toggle').toggles(false)
             $('#appId').fadeIn(500)
           $("##{response['platform']}").trigger('click')
           $('#branch').val(response['branch'])
@@ -204,7 +204,7 @@ $(document).on "page:change", ->
   $('#run').click ->
     username = readCookie("username")
     password = readCookie("password")
-    toggle = $('.toggle').data('toggles')
+    appId_toggle = $('#appId-toggle').data('toggles')
     if !username || !password
       $('#login').modal('show')
       #console.log("adding run_after_login")
@@ -218,7 +218,7 @@ $(document).on "page:change", ->
       appType = $('#appType .active').attr('id')
       locale = $('#locale .active').attr('id')
       branch = $('#branch').val()
-      if $(toggle).attr('active')
+      if $(appId_toggle).attr('active')
         appId = 0
       else
         appId = $('#appId').val()
