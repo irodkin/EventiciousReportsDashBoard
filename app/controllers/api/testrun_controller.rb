@@ -6,6 +6,9 @@ class Api::TestrunController < ApplicationController
   def index
     render text: params.to_json
   end
+  def where_run_without_rebuilding?(params)
+    nil
+  end
   def run
     tests = params[:tests].join(",")
 
@@ -30,8 +33,17 @@ class Api::TestrunController < ApplicationController
                   :locale => params[:locale],
                   :suite => params[:suite],
                   :tests => tests,
-                  :iterations => params[:iterations],
-                  :rebuild_app => params[:rebuildApp]}
+                  :iterations => params[:iterations]}
+
+    unless params[:rebuildApp]
+      node_label = where_run_without_rebuilding?(params)
+      if node_label
+        job_params[:rebuild_app] = false
+        job_params[:Node_label] = node_label
+      else
+        job_params[:rebuild_app] = true
+      end
+    end
 
     job_params[:TestBranch] = testBranch unless testBranch.nil?
 
