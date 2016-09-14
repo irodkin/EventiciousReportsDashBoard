@@ -40,8 +40,6 @@ class Api::TestrunController < ApplicationController
       if node_label
         job_params[:rebuild_app] = false
         job_params[:Node_label] = node_label
-      else
-        job_params[:rebuild_app] = true
       end
     end
 
