@@ -21,11 +21,11 @@ class Api::TestrunController < ApplicationController
 
     job_name = params[:job]
 
-    job_params = {:BuildConfiguration => "Release",
+    job_params = {#:BuildConfiguration => "Release",
                   :ServerConfig => params[:server],
-                  :Preview => false,
+                  #:Preview => false,
                   :OS_Platform => params[:platform],
-                  :ConferenceName => "TEST_CONF",
+                  #:ConferenceName => "TEST_CONF",
                   :ApplicationId => params[:appId][/\d+/],
                   :Branch => params[:branch],
                   #:API_version => "v3",
