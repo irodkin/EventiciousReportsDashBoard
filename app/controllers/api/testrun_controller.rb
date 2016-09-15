@@ -39,7 +39,7 @@ class Api::TestrunController < ApplicationController
       node_label = where_run_without_rebuilding?(params)
       if node_label
         job_params[:rebuild_app] = false
-        job_params[:Node_label] = node_label
+        job_params[:node_label] = node_label
       end
     end
 
