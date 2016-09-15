@@ -289,6 +289,7 @@ $(document).on "page:change", ->
           $('.buildNumber').text(response['build'])
           setTimeout (-> $('.alert-success').fadeIn(700)), 700
           setTimeout (-> $('.alert-success').fadeOut(700)), 5000
+          setTimeout (-> getBuilds()), 2000
 
   $('#addSuite').click ->
     $('#SuitesEdit').modal("show")
