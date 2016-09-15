@@ -101,7 +101,59 @@ class Api::TestrunController < ApplicationController
     return branch_exist
   end
   def where_run_without_rebuilding?(params)
+    #nodes_label = Nokogiri::XML(RestClient.get("http://jenkins.mercury.office:8080/job/Eventicious_UITests_MultipileSCM/api/xml?tree=actions[parameterDefinitions[name,defaultParameterValue[value]]]&xpath=/freeStyleProject/action/parameterDefinition[name='Node_label']/defaultParameterValue/value")).text() #not working because of bug in plugin; need update to version 1.6 minimum
+    nodes_label = Nokogiri::XML(RestClient.get("http://jenkins.mercury.office:8080/job/#{params[:job]}/api/xml?tree=actions[parameterDefinitions[name,description]]&xpath=/freeStyleProject/action/parameterDefinition[name='node_label']/description")).text()
+    nodes_names = Nokogiri::XML(RestClient.get("http://jenkins.mercury.office:8080/label/#{nodes_label}/api/xml?tree=nodes[nodeName]&xpath=/labelAtom/node/nodeName&wrapper=nodes")).xpath("./nodes/nodeName").collect {|n| n.text}
+    last_builds_for_platform = {}
+    nodes_names.each {|n|
+      begin
+        last_builds_for_platform[n] = Nokogiri::XML(RestClient.get("http://jenkins.mercury.office:8080/job/#{params[:job]}/api/xml?tree=builds[actions[parameters[*]],result,builtOn]&xpath=/freeStyleProject/build[builtOn='#{n}'][action/parameter[name='OS_Platform'][value='#{params[:platform]}']][1]"))
+      rescue RestClient::NotFound
+        #do nothing
+      end
+    }
     where_run_without_rebuilding = nil
+    #getting queue
+    builds_in_queue_for_platform = nil
+    if JSON.parse(RestClient.get("http://jenkins.mercury.office:8080/job/#{params[:job]}/api/json?tree=inQueue"))["inQueue"]
+      begin
+        builds_in_queue_for_platform = Nokogiri::XML(RestClient.get("http://jenkins.mercury.office:8080/queue/api/xml?tree=items[actions[parameters[*]],task[name]]&xpath=/queue/item[task/name='#{params[:job]}'][action/parameter[name='OS_Platform'][value='#{params[:platform]}']]"))
+      rescue RestClient::NotFound
+        #do nothing
+      end
+    end
+    #getting builds
+    unless builds_in_queue_for_platform
+      last_builds_for_platform.each {|key,value|
+        if build_params_equal?(params, value)
+          if value.xpath('.//result').text() == 'SUCCESS'
+            where_run_without_rebuilding = key
+          else
+            if value.xpath(".//parameter[name='rebuild_app']/value").text() == 'false'
+              where_run_without_rebuilding = key
+            end
+          end
+        end
+
+        break if where_run_without_rebuilding
+      }
+    end
+
     where_run_without_rebuilding
+  end
+  def build_params_equal?(params, xml_params)
+    autotest_apps = ['0','4193','4330','4331','4332','4389','4452','4454','4455']
+    if params[:server] == xml_params.xpath(".//parameter[name='ServerConfig']/value").text() &&
+       params[:platform] == xml_params.xpath(".//parameter[name='OS_Platform']/value").text() &&
+       (autotest_apps.include?(params[:appId][/\d+/]) &&
+        autotest_apps.include?(xml_params.xpath(".//parameter[name='ApplicationId']/value").text()) ||
+        params[:appId][/\d+/] == xml_params.xpath(".//parameter[name='ApplicationId']/value").text()) &&
+       params[:branch] == xml_params.xpath(".//parameter[name='Branch']/value").text() &&
+       params[:appType] == xml_params.xpath(".//parameter[name='app_type']/value").text() &&
+       params[:locale] == xml_params.xpath(".//parameter[name='locale']/value").text()
+      true
+    else
+      false
+    end
   end
 end
