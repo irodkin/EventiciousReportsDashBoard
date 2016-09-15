@@ -6,9 +6,6 @@ class Api::TestrunController < ApplicationController
   def index
     render text: params.to_json
   end
-  def where_run_without_rebuilding?(params)
-    nil
-  end
   def run
     tests = params[:tests].join(",")
 
@@ -102,5 +99,9 @@ class Api::TestrunController < ApplicationController
     branch_exist = "default"
     branch_exist = dev_branch if active_branches.include? dev_branch
     return branch_exist
+  end
+  def where_run_without_rebuilding?(params)
+    where_run_without_rebuilding = nil
+    where_run_without_rebuilding
   end
 end
