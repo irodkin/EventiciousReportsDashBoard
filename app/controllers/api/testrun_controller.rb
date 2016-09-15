@@ -32,7 +32,7 @@ class Api::TestrunController < ApplicationController
                   :tests => tests,
                   :iterations => params[:iterations]}
 
-    unless params[:rebuildApp]
+    if params[:rebuildApp] == "false"
       node_label = where_run_without_rebuilding?(params)
       if node_label
         job_params[:rebuild_app] = false
