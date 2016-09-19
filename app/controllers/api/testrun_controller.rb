@@ -114,16 +114,16 @@ class Api::TestrunController < ApplicationController
     }
     where_run_without_rebuilding = nil
     #getting queue
-    builds_in_queue_for_platform = nil
+    builds_in_queue_for_platform_with_rebuild = nil
     if JSON.parse(RestClient.get("http://jenkins.mercury.office:8080/job/#{params[:job]}/api/json?tree=inQueue"))["inQueue"]
       begin
-        builds_in_queue_for_platform = Nokogiri::XML(RestClient.get("http://jenkins.mercury.office:8080/queue/api/xml?tree=items[actions[parameters[*]],task[name]]&xpath=/queue/item[task/name='#{params[:job]}'][action/parameter[name='OS_Platform'][value='#{params[:platform]}']]"))
+        builds_in_queue_for_platform_with_rebuild = Nokogiri::XML(RestClient.get("http://jenkins.mercury.office:8080/queue/api/xml?tree=items[actions[parameters[*]],task[name]]&xpath=/queue/item[task/name='#{params[:job]}'][action/parameter[name='OS_Platform'][value='#{params[:platform]}']][action/parameter[name='rebuild_app'][value='true']]"))
       rescue RestClient::NotFound
         #do nothing
       end
     end
     #getting builds
-    unless builds_in_queue_for_platform
+    unless builds_in_queue_for_platform_with_rebuild
       last_builds_for_platform.each {|key,value|
         if build_params_equal?(params, value)
           if value.xpath('.//result').text() == 'SUCCESS'
