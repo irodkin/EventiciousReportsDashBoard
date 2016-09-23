@@ -73,7 +73,7 @@ class TestrunnerController < ApplicationController
 	end
 	def builds
 		#RestClient::Exceptions::ReadTimeout
-		job_info = JSON.parse(RestClient.get("http://jenkins.mercury.office:8080/job/#{params[:job]}/api/json?pretty=true&tree=builds[actions[parameters[*]],building,number,result,url,builtOn]{0,20},inQueue"))
+		job_info = JSON.parse(RestClient.get("http://jenkins.mercury.office:8080/job/#{params[:job]}/api/json?pretty=true&tree=builds[actions[parameters[*]],building,number,result,url,builtOn]{0,20},nextBuildNumber,inQueue"))
 		builds=[]
 		queue_count=0
 		if job_info["inQueue"]
@@ -82,15 +82,17 @@ class TestrunnerController < ApplicationController
 				builds << {"status"=>"IN_QUEUE", "params"=>params}
 				queue_count+=1
 			}
+			queue_count-=1
+			builds[queue_count]["number"] = job_info["nextBuildNumber"]
+			while queue_count>0
+				queue_count-=1
+				builds[queue_count]["number"] = builds[queue_count+1]["number"]+1
+			end
 		end
 		job_info["builds"].each {|b|
 			params = b["actions"][0]["parameters"].collect {|p| "#{p["name"]}=#{p["value"]}"}
 			builds << {"number"=>b["number"], "status"=>b["building"] ? "IN_PROGRESS" : b["result"], "params"=>params}
 		}
-		while queue_count>0
-			queue_count-=1
-			builds[queue_count]["number"] = builds[queue_count+1]["number"]+1
-		end
 		render partial: 'shared/buildstable', locals: {builds: builds}
 	end
 end
