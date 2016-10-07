@@ -232,6 +232,7 @@ $(document).on "page:change", ->
       $('.ajaxBusy').fadeIn(700)
       job = $('#current_job').text()
       server = $('#server .active').text()
+      apiVersion = $('#apiVersion .active').text()
       platform = $('.activeDevice').attr('id')
       appType = $('#appType .active').attr('id')
       locale = $('#locale .active').attr('id')
@@ -259,6 +260,7 @@ $(document).on "page:change", ->
       testRun = {
         job: job
         server: server
+        apiVersion: apiVersion
         platform: platform
         branch: branch
         appType: appType
