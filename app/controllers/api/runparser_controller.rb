@@ -34,6 +34,7 @@ class Api::RunparserController < ApplicationController
                    :appid=>params[:appid],
                    :app_type=>params[:app_type],
                    :locale=>params[:locale],
+                   :api_version=>params[:api_version],
                    :all => params[:all],
                    :failed => params[:failed],
                    :failed_tests => failed_tests.join("&&"),

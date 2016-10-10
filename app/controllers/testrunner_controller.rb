@@ -19,6 +19,7 @@ class TestrunnerController < ApplicationController
 			branch: report.branch,
 			appid: report.appid,
 			app_type: report.app_type,
+			api_version: report.api_version,
 			locale: report.locale,
 			suite: report.suite,
 			server: report.server,

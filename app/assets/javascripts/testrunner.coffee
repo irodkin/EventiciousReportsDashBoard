@@ -175,6 +175,7 @@ $(document).on "page:change", ->
           $('#branch').val(response['branch'])
           $("#appType ##{response['app_type']}").trigger('click')
           $("#locale ##{response['locale']}").trigger('click')
+          $("#apiVersion ##{response['api_version']}").trigger('click')
           $('#appId').val(response['appid'])
           $("#suite .#{response['suite']}").trigger('click')
           getTest(response['suite'])

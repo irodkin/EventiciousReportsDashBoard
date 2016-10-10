@@ -26,6 +26,10 @@
 				%br
 				%input{:type=>'text', :style=>'width:11ch', :list=>'servers_list'}
 			%th
+				API_v
+				%br
+				%input{:type=>'text', :style=>'width:5ch'}
+			%th
 				App
 				%br
 				%input{:type=>'text', :style=>'width:5ch'}
@@ -57,6 +61,7 @@
 				%td= r.date.strftime("%d %b, %H:%M")
 				%td= r.platform
 				%td= r.server
+				%td= r.api_version
 				%td= r.appid
 				%td= r.app_type
 				%td= r.locale
