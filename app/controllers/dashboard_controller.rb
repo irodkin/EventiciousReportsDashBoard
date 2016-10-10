@@ -7,6 +7,7 @@ class DashboardController < ApplicationController
     @branches = find_by(:branch)
     @platforms = find_by(:platform)
     @app_types = find_by(:app_type)
+    @api_versions = find_by(:api_version)
     @locales = find_by(:locale)
     @suites = find_by(:suite)
     @servers = find_by(:server)
