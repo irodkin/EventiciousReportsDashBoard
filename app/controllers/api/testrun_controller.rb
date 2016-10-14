@@ -80,7 +80,7 @@ class Api::TestrunController < ApplicationController
   def check_branch_exists(branch, job)
     dev_branch = branch.sub(/^.+?\//,"").sub(/\/.+$/,"").sub(".","_") #get rid of various pre- and postfixes
     #repository = Mercurial::Repository.open("#{Dir.home}/Jenkins/workspace/#{job}/Events.tests")
-    repository = Git.open("#{Dir.home}/Jenkins/workspace/#{job}/events-tests")
+    repository = Git.open("#{Dir.home}/Jenkins/workspace/#{job}/Events.tests")
     ##Override of private method in Mercurial-Ruby
     #Mercurial::BranchFactory.class_eval do
     #    def build(data)
