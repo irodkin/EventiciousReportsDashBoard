@@ -1,6 +1,7 @@
 require 'jenkins_api_client'
 require 'uri'
-require 'mercurial-ruby'
+#require 'mercurial-ruby'
+require 'git'
 
 class Api::TestrunController < ApplicationController
   def index
@@ -77,27 +78,31 @@ class Api::TestrunController < ApplicationController
   private
 
   def check_branch_exists(branch, job)
-    dev_branch = branch.sub(/^.+?\//,"").sub(/\/.+$/,"").sub(".","_")
-    repository = Mercurial::Repository.open("#{Dir.home}/Jenkins/workspace/#{job}/Events.tests")
-    #Override of private method in Mercurial-Ruby
-    Mercurial::BranchFactory.class_eval do
-        def build(data)
-          name, last_commit, status = *data.scan(/([\w*\/\w*\- ]+)\s+\d+:(\w+)\s*\(*(\w*)\)*/).first
-          Mercurial::Branch.new(
-            repository,
-            name,
-            :commit => last_commit,
-            :status => status
-          )
-        end
-    end
-    branches = repository.branches.all
-    active_branches = []
-    branches.each do |b|
-      active_branches.push b.name.gsub("Mobile/", "") if b.name.include? "Mobile/" unless b.closed?
-    end
+    dev_branch = branch.sub(/^.+?\//,"").sub(/\/.+$/,"").sub(".","_") #get rid of various pre- and postfixes
+    #repository = Mercurial::Repository.open("#{Dir.home}/Jenkins/workspace/#{job}/Events.tests")
+    repository = Git.open("#{Dir.home}/Jenkins/workspace/#{job}/events-tests")
+    ##Override of private method in Mercurial-Ruby
+    #Mercurial::BranchFactory.class_eval do
+    #    def build(data)
+    #      name, last_commit, status = *data.scan(/([\w*\/\w*\- ]+)\s+\d+:(\w+)\s*\(*(\w*)\)*/).first
+    #      Mercurial::Branch.new(
+    #        repository,
+    #        name,
+    #        :commit => last_commit,
+    #        :status => status
+    #      )
+    #    end
+    #end
+    #branches = repository.branches.all
+    #active_branches = []
+    #branches.each do |b|
+    #  active_branches.push b.name.gsub("Mobile/", "") if b.name.include? "Mobile/" unless b.closed?
+    #end
+    mobile_branch_names = []
+    repository.branches.remote.each {|b| mobile_branch_names << b.name.sub("Mobile/", "") if b.name.start_with?("Mobile")}
     branch_exist = "default"
-    branch_exist = dev_branch if active_branches.include? dev_branch
+    #branch_exist = dev_branch if active_branches.include? dev_branch
+    branch_exist = dev_branch if mobile_branch_names.include? dev_branch
     return branch_exist
   end
   def where_run_without_rebuilding?(params)

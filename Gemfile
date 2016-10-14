@@ -23,7 +23,9 @@ gem 'rest-client'
 #nokogiri for parsing xml
 gem 'nokogiri'
 #mercurial
-gem 'mercurial-ruby'
+#gem 'mercurial-ruby'
+#git
+gem 'git'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 # Chart
