@@ -155,7 +155,8 @@ class Api::TestrunController < ApplicationController
         params[:appId][/\d+/] == xml_params.xpath(".//parameter[name='ApplicationId']/value").text()) &&
        params[:branch] == xml_params.xpath(".//parameter[name='Branch']/value").text() &&
        params[:appType] == xml_params.xpath(".//parameter[name='app_type']/value").text() &&
-       params[:locale] == xml_params.xpath(".//parameter[name='locale']/value").text()
+       params[:locale] == xml_params.xpath(".//parameter[name='locale']/value").text() &&
+       params[:apiVersion] == xml_params.xpath(".//parameter[name='API_version']/value").text()
       true
     else
       false
