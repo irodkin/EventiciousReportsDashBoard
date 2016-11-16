@@ -146,11 +146,11 @@ class Api::TestrunController < ApplicationController
     where_run_without_rebuilding
   end
   def build_params_equal?(params, xml_params)
-    autotest_apps = ['0','4193','4330','4331','4332','4389','4452','4454','4455']
+    autotest_apps = {"Production"=>['0','4193','4330','4331','4332'],"Test"=>['0','4389','4452','4454','4455']}
     if params[:server] == xml_params.xpath(".//parameter[name='ServerConfig']/value").text() &&
        params[:platform] == xml_params.xpath(".//parameter[name='OS_Platform']/value").text() &&
-       (autotest_apps.include?(params[:appId][/\d+/]) &&
-        autotest_apps.include?(xml_params.xpath(".//parameter[name='ApplicationId']/value").text()) ||
+       (autotest_apps[params[:server]].include?(params[:appId][/\d+/]) &&
+        autotest_apps[params[:server]].include?(xml_params.xpath(".//parameter[name='ApplicationId']/value").text()) ||
         params[:appId][/\d+/] == xml_params.xpath(".//parameter[name='ApplicationId']/value").text()) &&
        params[:branch] == xml_params.xpath(".//parameter[name='Branch']/value").text() &&
        params[:appType] == xml_params.xpath(".//parameter[name='app_type']/value").text() &&
