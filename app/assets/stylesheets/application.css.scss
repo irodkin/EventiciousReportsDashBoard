@@ -166,7 +166,8 @@
 }
 
 .run_section {
-  padding-top: 30px;
+  padding-top: 10px;
+  padding-bottom: 70px;
   padding-left: 220px;
 }
 
@@ -176,27 +177,27 @@
   border-radius: 2em;
 }
 
-.alert-success {
+.alert {
+  float: left;
   text-align: center;
   display: none;
-  position: absolute;
-  width: 100%;
-  height: 6%;
+  width: 260px;
+  height: 50px;
+}
+
+.alert-success {
+  padding-top: 10px;
 }
 
 .alert-danger {
-  text-align: center;
-  display: none;
-  position: absolute;
-  width: 100%;
-  height: 6%;
+  padding-top: 1px;
 }
 
 .bg_layer {
   position: absolute;
   z-index: 15;
   width: 100%;
-  height: 120%;
+  height: 100%;
   background: #000;
   opacity: 0.5;
   display: none;

@@ -16,7 +16,6 @@ class Api::TestrunController < ApplicationController
                                      :username => URI.decode_www_form_component(params[:username]),
                                      :password => URI.decode_www_form_component(params[:password]))
 
-
     job_name = params[:job]
 
     job_params = {#:BuildConfiguration => "Release",

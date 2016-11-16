@@ -281,9 +281,12 @@ $(document).on "page:change", ->
         type: 'POST'
         dataType: 'json'
         data: testRun
-        error: ->
+        error: (jqXHR,textStatus,errorThrown) ->
           $('.ajaxBusy').fadeOut(200)
           $('.bg_layer').fadeOut(500)
+          message = jqXHR.responseText.match(/^[^\n]*\n[^\n]*\n[^\n]*/)[0]
+          console.log message
+          $('.alert-danger p').text(message.match(/[^\n]*$/)[0])
           setTimeout (-> $('.alert-danger').fadeIn(700)), 700
           setTimeout (-> $('.alert-danger').fadeOut(700)), 5000
         success: (response) ->
