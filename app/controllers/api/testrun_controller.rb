@@ -26,7 +26,7 @@ class Api::TestrunController < ApplicationController
                   #:ConferenceName => "TEST_CONF",
                   :ApplicationId => params[:appId][/\d+/],
                   :Branch => params[:branch],
-                  :API_version => params[:apiVersion],
+                  #:API_version => params[:apiVersion],
                   :app_type => params[:appType],
                   :locale => params[:locale],
                   :suite => params[:suite],

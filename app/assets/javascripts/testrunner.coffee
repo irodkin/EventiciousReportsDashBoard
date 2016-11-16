@@ -175,7 +175,7 @@ $(document).on "page:change", ->
           $('#branch').val(response['branch'])
           $("#appType ##{response['app_type']}").trigger('click')
           $("#locale ##{response['locale']}").trigger('click')
-          $("#apiVersion ##{response['api_version']}").trigger('click')
+          #$("#apiVersion ##{response['api_version']}").trigger('click')
           $('#appId').val(response['appid'])
           $("#suite .#{response['suite']}").trigger('click')
           getTest(response['suite'])
@@ -233,7 +233,7 @@ $(document).on "page:change", ->
       $('.ajaxBusy').fadeIn(700)
       job = $('#current_job').text()
       server = $('#server .active').text()
-      apiVersion = $('#apiVersion .active').text()
+      #apiVersion = $('#apiVersion .active').text()
       platform = $('.activeDevice').attr('id')
       appType = $('#appType .active').attr('id')
       locale = $('#locale .active').attr('id')
@@ -261,7 +261,7 @@ $(document).on "page:change", ->
       testRun = {
         job: job
         server: server
-        apiVersion: apiVersion
+        #apiVersion: apiVersion
         platform: platform
         branch: branch
         appType: appType
