@@ -91,7 +91,8 @@ class TestrunnerController < ApplicationController
 			end
 		end
 		job_info["builds"].each {|b|
-			params = b["actions"][0]["parameters"].collect {|p| "#{p["name"]}=#{p["value"]}"}
+			#find because order of hash with parameters key is not constant in array
+			params = b["actions"].find {|h| h.has_key?("parameters")}["parameters"].collect {|p| "#{p["name"]}=#{p["value"]}"}
 			builds << {"number"=>b["number"], "status"=>b["building"] ? "IN_PROGRESS" : b["result"], "params"=>params}
 		}
 		render partial: 'shared/buildstable', locals: {builds: builds}
