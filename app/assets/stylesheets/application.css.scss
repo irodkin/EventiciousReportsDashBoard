@@ -31,10 +31,6 @@
 	margin: 10px 10px 10px 10px;
 }
 
-.panel-primary {
-	width: 1280px;
-}
-
 .keyword {
 	color: #8495CC;
 	font-weight: 700;
@@ -214,8 +210,9 @@
 
 .container {
   padding-bottom: 10px;
-	padding-top: 10px;
-	width: 1300px;
+  padding-top: 10px;
+  width: auto;
+  max-width: 1450px;
 }
 
 .row-fluid {
