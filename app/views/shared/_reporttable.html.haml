@@ -74,13 +74,14 @@
 					%div
 						%a{:href=>r.link, :target=>"_blank"}
 							-unless r.failed.nil? && r.all.nil?
-							-passed = (r.all.to_f - r.failed.to_f).to_i
-								-if r.failed.to_f/r.all.to_f*100 > 25
-									%span{:class=>"label label-danger result"}="#{passed}/#{r.all}"
-								-elsif r.failed.to_f/r.all.to_f*100 <= 25 && r.failed.to_f/r.all.to_f*100 < 100 && r.failed.to_f != 0
-									%span{:class=>"label label-warning result"}="#{passed}/#{r.all}"
+							-passed = (r.all.to_i - r.failed.to_i - r.pending_tests.split("&&").length.to_i).to_i
+								-if passed.to_f/r.all.to_f < 0.75
+									-label_status_class = "label-danger"
+								-elsif passed.to_f/r.all.to_f < 1
+									-label_status_class = "label-warning"
 								-else
-									%span{:class=>"label label-success result"}="#{r.all}/#{r.all}"
+									-label_status_class = "label-success"
+								%span{:class=>"label #{label_status_class} result"}="#{passed}/#{r.all}"
 					%div
 						%a{:href=>"/testrunner?rerun=true&report_id=#{r.id}", :class=>"label label-info rerun"}= "rerun"
 				%td= link_to "#{r.job} ##{r.build}", r.buildurl, :target => "_blank"
