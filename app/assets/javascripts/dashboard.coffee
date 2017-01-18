@@ -52,7 +52,10 @@ $(document).on "page:change", ->
   $("tr th input").each(
     (inp)->$(this).val(localStorage.getItem($(this).parent().text().trim()))
   )
-  $("#reports_number_to_display").val(localStorage.getItem("reports_number_to_display"))
+  if (r_n_t_d = localStorage.getItem("reports_number_to_display")) == null
+    $("#reports_number_to_display").val(8) 
+  else
+    $("#reports_number_to_display").val(r_n_t_d)
   all_empty=true
   $("tr th input").each(
     (inp)->
