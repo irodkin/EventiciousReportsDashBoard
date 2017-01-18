@@ -1,0 +1,33 @@
+-@reports.each do |r|
+	%tr{:recordId=>r.id, :style=>"display:none"}
+		%td= r.date.strftime("%d %b, %H:%M")
+		%td= r.platform
+		%td= r.server
+		-#%td= r.api_version
+		%td= r.appid
+		%td= r.app_type
+		%td= r.locale
+		%td= r.branch
+		%td= r.suite
+		%td= r.tests.gsub(",", " ") unless r.tests.nil?
+		%td= r.user
+		%td{:style=>"text-align: center"}
+			%div
+				%a{:href=>r.link, :target=>"_blank"}
+					-unless r.failed.nil? && r.all.nil?
+					-passed = (r.all.to_i - r.failed.to_i - r.pending_tests.split("&&").length.to_i).to_i
+						-if passed.to_f/r.all.to_f < 0.75
+							-label_status_class = "label-danger"
+						-elsif passed.to_f/r.all.to_f < 1
+							-label_status_class = "label-warning"
+						-else
+							-label_status_class = "label-success"
+						%span{:class=>"label #{label_status_class} result"}="#{passed}/#{r.all}"
+			%div
+				%a{:href=>"/testrunner?rerun=true&report_id=#{r.id}", :class=>"label label-info rerun"}= "rerun"
+		%td= link_to "#{r.job} ##{r.build}", r.buildurl, :target => "_blank"
+		%td{:style=>"text-align: center"}
+			%div
+				%span{:class=>"label label-danger deleteButton"}= "delete"
+			%div
+				%a{:href=>"/testrunner?reply=true&report_id=#{r.id}", :class=>"label label-info reply"}= "reply"
