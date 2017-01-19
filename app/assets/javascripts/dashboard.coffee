@@ -30,34 +30,35 @@ $(document).on "click", ".deleteButton", () ->
 		setTimeout(get_report_table_body, 700)
 
 $(document).on "page:change", ->
+	if !window.location.href.includes("/testrunner")
+		
+		$("#refresh").click ->
+			get_report_table_body()
 
-	$("#refresh").click ->
-		get_report_table_body()
+		$("#reset_filters").click ->
+			$("tr th input").each(
+				(inp)->
+					if this.value != ''
+						this.value = ''
+						localStorage.setItem(this.id, '')
+			)
+			get_report_table_body()
 
-	$("#reset_filters").click ->
-		$("tr th input").each(
-			(inp)->
-				if this.value != ''
-					this.value = ''
-					localStorage.setItem(this.id, '')
-		)
-		get_report_table_body()
+		$("#reports_number_to_display").change ->
+			value = this.value
+			localStorage.setItem(this.id, value)
+			get_report_table_body()
 
-	$("#reports_number_to_display").change ->
-		value = this.value
-		localStorage.setItem(this.id, value)
-		get_report_table_body()
+		$("tr th input").change -> #filter by column
+			value = this.value
+			localStorage.setItem(this.id, value)
+			get_report_table_body()
+			#column_number=$(this).parent().index()+1
+			#rows=$("table.table tr").slice(1, -1)
+			#rows_contains=rows.has("td:nth-child(#{column_number}):contains(#{value})")
+			#$(this).parent().attr('title', "Total number of reports with this parameter: #{rows_contains.size()}")
 
-	$("tr th input").change -> #filter by column
-		value = this.value
-		localStorage.setItem(this.id, value)
-		get_report_table_body()
-		#column_number=$(this).parent().index()+1
-		#rows=$("table.table tr").slice(1, -1)
-		#rows_contains=rows.has("td:nth-child(#{column_number}):contains(#{value})")
-		#$(this).parent().attr('title', "Total number of reports with this parameter: #{rows_contains.size()}")
-
-	##
+		##
 		r_n_t_d = localStorage.getItem("reports_number_to_display")
 		if r_n_t_d == null
 			$("#reports_number_to_display").val(8) 
