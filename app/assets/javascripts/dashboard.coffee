@@ -20,13 +20,14 @@ get_report_table_body = () ->
 			$('.result').tooltip({title: "<div><div><strong>click me to see a report</strong></div><span class=\"label label-success\">green</span> is awesome :)</div><div><span class=\"label label-warning\">yellow</span> is good :|</div><div><span class=\"label label-danger\">red</span> it is bad :(</div>", html: true})
 			$('.rerun').tooltip({title: "<strong>rerun only failed tests in run with <i>no</i> build again</strong>", html: true})
 			$('.reply').tooltip({title: "<strong>reply all tests in run with build again</strong>", html: true})
-			$(".deleteButton").click ->
-				current_record_tr = $(this).parents('tr')[0]
-				$.ajax
-					url: 'dashboard/' + $(current_record_tr).attr('recordid')
-					type: 'DELETE'
-					$(current_record_tr).fadeOut(700)
-					setTimeout(get_report_table_body, 700)
+
+$(document).on "click", ".deleteButton", () ->
+	current_record_tr = $(this).parents('tr')[0]
+	$.ajax
+		url: 'dashboard/' + $(current_record_tr).attr('recordid')
+		type: 'DELETE'
+		$(current_record_tr).fadeOut(700)
+		setTimeout(get_report_table_body, 700)
 
 $(document).on "page:change", ->
 
@@ -57,15 +58,15 @@ $(document).on "page:change", ->
 		#$(this).parent().attr('title', "Total number of reports with this parameter: #{rows_contains.size()}")
 
 	##
-	r_n_t_d = localStorage.getItem("reports_number_to_display")
-	if r_n_t_d == null
-		$("#reports_number_to_display").val(8) 
-		localStorage.setItem("reports_number_to_display", 8)
-	else
-		$("#reports_number_to_display").val(r_n_t_d)
+		r_n_t_d = localStorage.getItem("reports_number_to_display")
+		if r_n_t_d == null
+			$("#reports_number_to_display").val(8) 
+			localStorage.setItem("reports_number_to_display", 8)
+		else
+			$("#reports_number_to_display").val(r_n_t_d)
 
-	$("tr th input").each(
-		(inp)-> this.value = localStorage.getItem(this.id)
-	)
-	
-	get_report_table_body()
+		$("tr th input").each(
+			(inp)-> this.value = localStorage.getItem(this.id)
+		)
+		
+		get_report_table_body()
