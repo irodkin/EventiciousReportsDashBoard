@@ -1,9 +1,7 @@
 class DashboardController < ApplicationController
   before_filter :find_by, only: [:index]
   def index
-    r = Report.all
-  	@title = "Last Reports"
-    @reports = by_date(r.size)
+    @title = "Last Reports"
     @branches = find_by(:branch)
     @platforms = find_by(:platform)
     @app_types = find_by(:app_type)
@@ -12,10 +10,21 @@ class DashboardController < ApplicationController
     @suites = find_by(:suite)
     @servers = find_by(:server)
     @users = find_by(:user)
-    @total_count = r.size
+    @total_count = Report.all.size
     @total_results = total_results
     @result_per_run = result_per_run
     render 'dashboard/index'
+  end
+  def get_report_table_body
+    @reports = Report.order("date DESC")
+    count = params[:filters].delete(:count).to_i
+    params[:filters].each {|key,value|
+      #p key.to_sym
+      #p value
+      @reports = @reports.select {|r| r[key.to_sym].to_s.include?(value)}
+    }
+    @reports = @reports[0..count-1]
+    render partial: 'shared/reporttablebody'
   end
   def destroy
     record = Report.find(params[:id])

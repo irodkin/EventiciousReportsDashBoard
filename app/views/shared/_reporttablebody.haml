@@ -1,5 +1,5 @@
 -@reports.each do |r|
-	%tr{:recordId=>r.id, :style=>"display:none"}
+	%tr{:recordId=>r.id}
 		%td= r.date.strftime("%d %b, %H:%M")
 		%td= r.platform
 		%td= r.server

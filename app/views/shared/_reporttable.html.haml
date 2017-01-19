@@ -22,41 +22,43 @@
 				%th
 					Platform
 					%br
-					%input{:type=>'text', :style=>'width:8ch', :list=>'platforms_list'}
+					%input{:type=>'text', :id=>"platform_filter_input", :style=>'width:8ch', :list=>'platforms_list'}
 				%th
 					Server
 					%br
-					%input{:type=>'text', :style=>'width:11ch', :list=>'servers_list'}
+					%input{:type=>'text', :id=>"server_filter_input", :style=>'width:11ch', :list=>'servers_list'}
 				-#%th
 					-#API_v
 					-#%br
-					-#%input{:type=>'text', :style=>'width:5ch', :list=>'api_versions_list'}
+					-#%input{:type=>'text', :id=>"api_version_filter_input", :style=>'width:5ch', :list=>'api_versions_list'}
 				%th
-					App
+					AppId
 					%br
-					%input{:type=>'text', :style=>'width:5ch'}
+					%input{:type=>'text', :id=>"appid_filter_input", :style=>'width:5ch'}
 				%th
-					Type
+					App Type
 					%br
-					%input{:type=>'text', :style=>'width:7ch', :list=>'app_types_list'}
+					%input{:type=>'text', :id=>"app_type_filter_input", :style=>'width:8ch', :list=>'app_types_list'}
 				%th
 					Locale
 					%br
-					%input{:type=>'text', :style=>'width:3ch', :list=>'locales_list'}
+					%input{:type=>'text', :id=>"locale_filter_input", :style=>'width:6ch', :list=>'locales_list'}
 				%th
 					Branch
 					%br
-					%input{:type=>'text', :style=>'width:11ch', :list=>'branches_list'}
+					%input{:type=>'text', :id=>"branch_filter_input", :style=>'width:11ch', :list=>'branches_list'}
 				%th
 					Suite
 					%br
-					%input{:type=>'text', :style=>'width:11ch', :list=>'suites_list'}
-				%th= "Tests"
+					%input{:type=>'text', :id=>"suite_filter_input", :style=>'width:11ch', :list=>'suites_list'}
+				%th
+					Tests
+					%br
+					%input{:type=>'text', :id=>"tests_filter_input", :style=>'width:11ch'}
 				%th
 					User
 					%br
-					%input{:type=>'text', :style=>'width:11ch', :list=>'users_list'}
+					%input{:type=>'text', :id=>"user_filter_input", :style=>'width:11ch', :list=>'users_list'}
 				%th{:style=>"text-align: center"}= "Report"
 				%th= "Build"
 		%tbody
-			= render 'shared/reporttablebody'

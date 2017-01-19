@@ -54,7 +54,11 @@ Rails.application.routes.draw do
   #     resources :products
   #   end
   root 'dashboard#index'
-  resources :dashboard
+  resources :dashboard do 
+    collection do
+      get :get_report_table_body
+    end
+  end
   resources :testrunner do
     collection do
       get :custom
