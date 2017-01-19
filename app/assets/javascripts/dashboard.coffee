@@ -15,7 +15,7 @@ get_report_table_body = () ->
 		type: 'GET'
 		data: filters: filters
 		success: (response) ->
-			$('tbody').html(response)
+			$('table.table tbody').html(response)
 			#add some events to newly rendered html chunk
 			$('.result').tooltip({title: "<div><div><strong>click me to see a report</strong></div><span class=\"label label-success\">green</span> is awesome :)</div><div><span class=\"label label-warning\">yellow</span> is good :|</div><div><span class=\"label label-danger\">red</span> it is bad :(</div>", html: true})
 			$('.rerun').tooltip({title: "<strong>rerun only failed tests in run with <i>no</i> build again</strong>", html: true})
