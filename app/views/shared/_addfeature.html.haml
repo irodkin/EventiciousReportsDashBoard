@@ -1,36 +1,13 @@
-:coffeescript
-  $ ->
-    $('#addNewFeatureForm').click ->
-      $(this).fadeOut(500)
-      $('.addContainer').fadeIn(1400)
-
-    $('#addNewFeature').click ->
-      title = $('#title').val()
-      tag = $('#tag').val()
-      $.ajax
-        url: 'api/scenarioparser/add_feature'
-        type: 'POST'
-        dataType: 'html'
-        data:
-          title: title
-          tag: tag
-        success: (response) ->
-          $('#featurelist').html(response)
-          $('.addContainer').fadeOut(100)
-          $('.feature').last().trigger('click')
-          $('#addNewFeatureForm').fadeIn(500)
-
-
 %h4="Edit Suites"
-%div{:class=>"list-group inline feature_container"}
-  %div{:id=>"featurelist", :style=>"margin-bottom: 10px"}=render partial: 'shared/featurelist', locals: {suites: suites}
+.list-group.inline.feature_container
+  #featurelist{:style=>"margin-bottom: 10px"}=render partial: 'shared/featurelist', locals: {suites: suites}
   .addContainer
     .input-group
       %div
-        %input{:id=>'tag', :class=>"form-control awesome-input", :style=>"width: 150px; margin-bottom: 7px;", :placeholder=>"tag here without @"}
+        %input#tag.form-control.awesome-input{:style=>"width: 150px; margin-bottom: 7px;", :placeholder=>"tag here without @"}
       %div
-        %input{:id=>'title', :class=>"form-control awesome-input", :style=>"width: 150px; margin-bottom: 7px;", :placeholder=>"title here"}
-      %button{:id=>"addNewFeature", :class=>"btn btn-success"}="Add New Feature"
-  %button{:id=>"addNewFeatureForm", :class=>"btn btn-info"}="Add New Feature"
+        %input#title.form-control.awesome-input{:style=>"width: 150px; margin-bottom: 7px;", :placeholder=>"title here"}
+      %button#addNewFeature.btn.btn-success= "Add New Feature"
+  %button#addNewFeatureForm.btn.btn-info= "Add New Feature"
 
-%div{:class=>"inline tests_container"}
+%div.inline.tests_container

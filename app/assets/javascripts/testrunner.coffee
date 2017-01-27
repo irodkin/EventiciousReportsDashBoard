@@ -66,6 +66,7 @@ $(document).on "click", ".select-job", () ->
 $(document).on "click", "#addJob", () ->
 	$('#addJobContainer').modal('show')
 
+##_addjob.html
 $(document).on "click", "#addJobButton", () ->
 	addJob = {
 		title: $('#jobName').val()
@@ -80,6 +81,7 @@ $(document).on "click", "#addJobButton", () ->
 		success: (response) ->
 			$('#addJobContainer').modal('hide')
 			$('.dropdown-menu').append('<li><a class="select-job">' + response['title'] + '</a></li>')
+##
 
 $(document).on "click", "#signIn", () ->
 	$('#login').modal('show')
@@ -232,6 +234,99 @@ $(document).on "click", "#get_tests", () ->
 		dataType: 'json'
 		data: suite: find
 
+##_addfeature.html
+$(document).on "click", "#addNewFeatureForm", () ->
+  $(this).fadeOut(500)
+  $('.addContainer').fadeIn(1400)
+
+$(document).on "click", "#addNewFeature", () ->
+  title = $('#title').val()
+  tag = $('#tag').val()
+  $.ajax
+    url: 'api/scenarioparser/add_feature'
+    type: 'POST'
+    dataType: 'html'
+    data:
+      title: title
+      tag: tag
+    success: (response) ->
+      $('#featurelist').html(response)
+      $('.addContainer').fadeOut(100)
+      $('.feature').last().trigger('click')
+      $('#addNewFeatureForm').fadeIn(500)
+##
+
+##_buildstable.html
+$(document).on "click", ".show_build_params", () ->
+	build_params = $(this).siblings(".build_params")
+	if build_params.is(":visible")
+	  build_params.hide()
+	else
+	  build_params.show()
+##
+
+##_featurelist.html
+$(document).on "click", ".feature", () ->
+  $('.feature.active').removeClass('active')
+  $(this).addClass('active')
+  suite = $(this).text()
+  $.ajax
+    url: 'testrunner/get_scenario_of_feature'
+    type: 'GET'
+    dataType: 'html'
+    data: suite: suite
+    success: (response) ->
+      $('.tests_container').html(response)
+
+$(document).on "click", ".delete_feature", () ->
+  id = $(this).attr("id")
+  parent_div = $(this).parents("div")[2]
+  $.ajax
+    url: 'api/scenarioparser/delete_feature'
+    type: 'DELETE'
+    dataType: 'json'
+    data: id: id
+    success: () ->
+      $(parent_div).fadeOut(200)
+
+$(document).on "click", ".add_scenarios", () ->
+  $.ajax
+    url: 'testrunner/get_scenario_of_feature'
+    type: 'GET'
+    dataType: 'html'
+    data:
+      suite: $(this).attr("id")
+      edit: true
+    success: (response) ->
+      $('.tests_container').html(response)
+##
+
+##_scenarios.html
+$(document).on "click", ".delete_scenario", () ->
+  id = $(this).attr("id")
+  parent_div = $(this).parents("div")[0]
+  $.ajax
+    url: 'api/scenarioparser/delete_scenario'
+    type: 'DELETE'
+    dataType: 'json'
+    data: id: id
+    success: () ->
+      $(parent_div).fadeOut(200)
+
+$(document).on "click", "#parse", () ->
+  suite = $('.parse_area').val()
+  feature = $('.feature.active').text()
+  $.ajax
+    url: 'api/scenarioparser/parse'
+    type: 'POST'
+    dataType: 'html'
+    data:
+      suite: suite
+      feature: feature
+    success: (response) ->
+      $('.tests_container').html(response)
+##
+
 $(document).on "page:change", ->
 	if window.location.href.includes("/testrunner")
 
@@ -310,3 +405,7 @@ $(document).on "page:change", ->
 					getTest(response['suite'])
 		else
 			getTest($('#suite .active').text())
+
+		##_featurelist.html
+		$($('.feature')[0]).trigger("click")
+		##

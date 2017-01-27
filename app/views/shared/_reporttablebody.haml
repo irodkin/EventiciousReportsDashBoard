@@ -22,12 +22,12 @@
 							-label_status_class = "label-warning"
 						-else
 							-label_status_class = "label-success"
-						%span{:class=>"label #{label_status_class} result"}="#{passed}/#{r.all}"
+						%span.label.result{:class=>"#{label_status_class}"}="#{passed}/#{r.all}"
 			%div
-				%a{:href=>"/testrunner?rerun=true&report_id=#{r.id}", :class=>"label label-info rerun"}= "rerun"
+				%a.label.label-info.rerun{:href=>"/testrunner?rerun=true&report_id=#{r.id}"}= "rerun"
 		%td= link_to "#{r.job} ##{r.build}", r.buildurl, :target => "_blank"
 		%td{:style=>"text-align: center"}
 			%div
-				%span{:class=>"label label-danger deleteButton"}= "delete"
+				%span.label.label-danger.deleteButton= "delete"
 			%div
-				%a{:href=>"/testrunner?reply=true&report_id=#{r.id}", :class=>"label label-info reply"}= "reply"
+				%a.label.label-info.reply{:href=>"/testrunner?reply=true&report_id=#{r.id}"}= "reply"

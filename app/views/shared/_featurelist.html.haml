@@ -1,51 +1,11 @@
-:coffeescript
-  $ ->
-    $('.feature').click ->
-      $('.feature.active').removeClass('active')
-      $(this).addClass('active')
-      suite = $(this).text()
-      $.ajax
-        url: 'testrunner/get_scenario_of_feature'
-        type: 'GET'
-        dataType: 'html'
-        data: suite: suite
-        success: (response) ->
-          $('.tests_container').html(response)
-
-    $($('.feature')[0]).trigger("click")
-
-    $('.delete_feature').click ->
-      id = $(this).attr("id")
-      parent_div = $(this).parents("div")[2]
-      $.ajax
-        url: 'api/scenarioparser/delete_feature'
-        type: 'DELETE'
-        dataType: 'json'
-        data: id: id
-        success: () ->
-          $(parent_div).fadeOut(200)
-
-    $('.add_scenarios').click ->
-      $.ajax
-        url: 'testrunner/get_scenario_of_feature'
-        type: 'GET'
-        dataType: 'html'
-        data:
-          suite: $(this).attr("id")
-          edit: true
-        success: (response) ->
-          $('.tests_container').html(response)
-
-
-
 -suites.each do |f|
   %div{:style=>"margin-bottom: 15px"}
     %div
-      %span{:class=>"label label-info test"}= "@#{f.tag}"
-    %div{:class=>"inline", :style=>"padding-top: 5px;"}
-      %a{:class=>"list-group-item list-group-item-info feature"}= f.title
-    %div{:class=>"inline fixed", :style=>"padding-top: 5px;"}
+      %span.label.label-info.test @#{f.tag}
+    %div.inline{:style=>"padding-top: 5px;"}
+      %a.list-group-item.list-group-item-info.feature= f.title
+    %div.inline.fixed{:style=>"padding-top: 5px;"}
       .ticket
-        %span{:class=>"label label-info add_scenarios", :id=>f.title}= "add tests"
+        %span.label.label-info.add_scenarios{:id=>f.title}= "add tests"
       .ticket
-        %span{:class=>"badge delete_feature", :id=>f.id}= "delete"
+        %span.badge.delete_feature{:id=>f.id}= "delete"

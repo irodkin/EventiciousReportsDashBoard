@@ -3,12 +3,12 @@
 		.title-container
 			%h4= @title
 		.button-container
-			%button{:id=>'refresh', :type=>'button', :class=>'btn btn-success'}="Refresh"
+			%button#refresh.btn.btn-success{:type=>'button'}= "Refresh"
 		.button-container
-			%button{:id=>'reset_filters', :type=>'button', :class=>'btn btn-success'}="Reset filters"
+			%button#reset_filters.btn.btn-success{:type=>'button'}= "Reset filters"
 		.select-count-container{:style=>'float:right'}
-			%label{:for=>'reports_number_to_display', :style=>'float:left;'}="Number of reports to display:"
-			%input{:id=>'reports_number_to_display', :style=>'color:black;float:left;width:50px'}
+			%label{:for=>'reports_number_to_display', :style=>'float:left;'}= "Number of reports to display:"
+			%input#reports_number_to_display{:style=>'color:black;float:left;width:50px'}
 	%table.table
 		-# "api_versions",
 		-["platforms", "servers", "app_types", "locales", "branches", "suites", "users"].each do |param|
