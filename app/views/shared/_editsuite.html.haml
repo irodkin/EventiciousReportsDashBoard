@@ -1,0 +1,9 @@
+#SuitesEdit.modal.fade{"aria-labelledby"=>"myModalLabel", :role=>"dialog", :tabindex=>"-1"}
+  .modal-dialog.modal-lg{:role=>"document"}
+    .modal-content
+      .modal-header
+        %h4.modal-title= "Add new tests"
+      #suitemodalbody.modal-body
+        = render partial: 'shared/addfeature', locals: {suites: @feature}
+      .modal-footer
+        %button.btn.btn-default{"data-dismiss"=>"modal", :type=>"button"}= "Close"
