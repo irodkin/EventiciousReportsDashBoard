@@ -12,5 +12,5 @@
 			%td
 				%button.show_build_params= "Show"
 				%div.build_params{style:"display:none;"}
-					-b["params"].each do |p|
-						%p=p
+					-b["params"].each do |param|
+						%p= param
