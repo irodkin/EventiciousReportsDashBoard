@@ -70,7 +70,7 @@ class TestrunnerController < ApplicationController
 			scenarios.push([scenarios_b, t])
 		end
 		head_tag = Suite.where(title: params[:suite]).first.tag
-		render partial: 'shared/tests', locals: {tests: scenarios, head_tag: head_tag}
+		render partial: 'shared/tests', locals: {tags: scenarios, head_tag: head_tag}
 	end
 	def builds
 		#RestClient::Exceptions::ReadTimeout
