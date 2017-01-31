@@ -109,11 +109,11 @@ $(document).on "change", "#password", () ->
 		$('#loginButton').removeClass('disabled')
 
 $(document).on "click", "#suite .list-group-item-info", () ->
-	getTest($(this).text())
+	getTest($(this)[0].id)
 
 $(document).on "click", "#server .list-group-item-info", () ->
-	server = $(this).text()
-	locale = $('#locale .active').attr('id')
+	server = $(this)[0].id
+	locale = $('#locale .active')[0].id
 	switch server
 		when "Production"
 			switch locale
@@ -125,8 +125,8 @@ $(document).on "click", "#server .list-group-item-info", () ->
 				when "en" then $('#appId').val('4454 or 4455')
 
 $(document).on "click", "#locale .list-group-item-info", () ->
-	locale = $(this).attr('id')
-	server = $('#server .active').text()
+	locale = $(this)[0].id
+	server = $('#server .active')[0].id
 	switch locale
 		when "ru"
 			switch server
@@ -158,11 +158,11 @@ $(document).on "click", "#run", () ->
 		$('.bg_layer').fadeIn(1200)
 		$('.ajaxBusy').fadeIn(700)
 		job = $('#current_job').text()
-		server = $('#server .active').text()
-		#apiVersion = $('#apiVersion .active').text()
-		platform = $('.activeDevice').attr('id')
-		appType = $('#appType .active').attr('id')
-		locale = $('#locale .active').attr('id')
+		server = $('#server .active')[0].id
+		#apiVersion = $('#apiVersion .active')[0].id
+		platform = $('.activeDevice')[0].id
+		appType = $('#appType .active')[0].id
+		locale = $('#locale .active')[0].id
 		branch = $('#branch').val()
 		if $(appId_toggle).attr('active')
 			appId = 0
@@ -172,10 +172,10 @@ $(document).on "click", "#run", () ->
 			rebuildApp = true
 		else
 			rebuildApp = false
-		suite = $('#suite .active').text()
+		suite = $('#suite .active')[0].id
 		tests = $('.test-active')
 		testsArray = []
-		$.each tests, (e) -> testsArray.push("@" + $(tests[e]).text())
+		$.each tests, (e) -> testsArray.push("@" + $(tests[e])[0].id)
 		iterations = $('#iterations').val()
 		params = getParams()
 		if params['rerun'] == 'true'
@@ -335,10 +335,10 @@ $(document).on "click", "#tests .label-info", () ->
 		$(this).removeClass('test-pending')
 		if ($('.test-active').length < 1)
 			$('#all').addClass('test-active')
-	else if $(this).attr('id') != 'all'
+	else if $(this)[0].id != 'all'
 		$('#all').removeClass('test-active')
 		$(this).addClass('test-active')
-	else if $(this).attr('id') == 'all'
+	else if $(this)[0].id == 'all'
 		tags = $('#tests .label-info')
 		tags.removeClass('test-active')
 		tags.removeClass('test-failed')
@@ -479,7 +479,7 @@ $(document).on "page:change", ->
 												$("##{pending_test}").addClass('test-active test-pending')
 					)
 		else
-			getTest($('#suite .active').text())
+			getTest($('#suite .active')[0].id)
 
 		##_featurelist.html
 		$($('.feature')[0]).trigger("click")
