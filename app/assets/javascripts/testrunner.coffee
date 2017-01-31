@@ -236,95 +236,120 @@ $(document).on "click", "#get_tests", () ->
 
 ##_addfeature.html
 $(document).on "click", "#addNewFeatureForm", () ->
-  $(this).fadeOut(500)
-  $('.addContainer').fadeIn(1400)
+	$(this).fadeOut(500)
+	$('.addContainer').fadeIn(1400)
 
 $(document).on "click", "#addNewFeature", () ->
-  title = $('#title').val()
-  tag = $('#tag').val()
-  $.ajax
-    url: 'api/scenarioparser/add_feature'
-    type: 'POST'
-    dataType: 'html'
-    data:
-      title: title
-      tag: tag
-    success: (response) ->
-      $('#featurelist').html(response)
-      $('.addContainer').fadeOut(100)
-      $('.feature').last().trigger('click')
-      $('#addNewFeatureForm').fadeIn(500)
+	title = $('#title').val()
+	tag = $('#tag').val()
+	$.ajax
+		url: 'api/scenarioparser/add_feature'
+		type: 'POST'
+		dataType: 'html'
+		data:
+			title: title
+			tag: tag
+		success: (response) ->
+			$('#featurelist').html(response)
+			$('.addContainer').fadeOut(100)
+			$('.feature').last().trigger('click')
+			$('#addNewFeatureForm').fadeIn(500)
 ##
 
 ##_buildstable.html
 $(document).on "click", ".show_build_params", () ->
 	build_params = $(this).siblings(".build_params")
 	if build_params.is(":visible")
-	  build_params.hide()
+		build_params.hide()
 	else
-	  build_params.show()
+		build_params.show()
 ##
 
 ##_featurelist.html
 $(document).on "click", ".feature", () ->
-  $('.feature.active').removeClass('active')
-  $(this).addClass('active')
-  suite = $(this).text()
-  $.ajax
-    url: 'testrunner/get_scenario_of_feature'
-    type: 'GET'
-    dataType: 'html'
-    data: suite: suite
-    success: (response) ->
-      $('.tests_container').html(response)
+	$('.feature.active').removeClass('active')
+	$(this).addClass('active')
+	suite = $(this).text()
+	$.ajax
+		url: 'testrunner/get_scenario_of_feature'
+		type: 'GET'
+		dataType: 'html'
+		data: suite: suite
+		success: (response) ->
+			$('.tests_container').html(response)
 
 $(document).on "click", ".delete_feature", () ->
-  id = $(this).attr("id")
-  parent_div = $(this).parents("div")[2]
-  $.ajax
-    url: 'api/scenarioparser/delete_feature'
-    type: 'DELETE'
-    dataType: 'json'
-    data: id: id
-    success: () ->
-      $(parent_div).fadeOut(200)
+	id = $(this).attr("id")
+	parent_div = $(this).parents("div")[2]
+	$.ajax
+		url: 'api/scenarioparser/delete_feature'
+		type: 'DELETE'
+		dataType: 'json'
+		data: id: id
+		success: () ->
+			$(parent_div).fadeOut(200)
 
 $(document).on "click", ".add_scenarios", () ->
-  $.ajax
-    url: 'testrunner/get_scenario_of_feature'
-    type: 'GET'
-    dataType: 'html'
-    data:
-      suite: $(this).attr("id")
-      edit: true
-    success: (response) ->
-      $('.tests_container').html(response)
+	$.ajax
+		url: 'testrunner/get_scenario_of_feature'
+		type: 'GET'
+		dataType: 'html'
+		data:
+			suite: $(this).attr("id")
+			edit: true
+		success: (response) ->
+			$('.tests_container').html(response)
 ##
 
 ##_scenarios.html
 $(document).on "click", ".delete_scenario", () ->
-  id = $(this).attr("id")
-  parent_div = $(this).parents("div")[0]
-  $.ajax
-    url: 'api/scenarioparser/delete_scenario'
-    type: 'DELETE'
-    dataType: 'json'
-    data: id: id
-    success: () ->
-      $(parent_div).fadeOut(200)
+	id = $(this).attr("id")
+	parent_div = $(this).parents("div")[0]
+	$.ajax
+		url: 'api/scenarioparser/delete_scenario'
+		type: 'DELETE'
+		dataType: 'json'
+		data: id: id
+		success: () ->
+			$(parent_div).fadeOut(200)
 
 $(document).on "click", "#parse", () ->
-  suite = $('.parse_area').val()
-  feature = $('.feature.active').text()
-  $.ajax
-    url: 'api/scenarioparser/parse'
-    type: 'POST'
-    dataType: 'html'
-    data:
-      suite: suite
-      feature: feature
-    success: (response) ->
-      $('.tests_container').html(response)
+	suite = $('.parse_area').val()
+	feature = $('.feature.active').text()
+	$.ajax
+		url: 'api/scenarioparser/parse'
+		type: 'POST'
+		dataType: 'html'
+		data:
+			suite: suite
+			feature: feature
+		success: (response) ->
+			$('.tests_container').html(response)
+##
+
+##_tests.html
+$(document).on "click", "#tests .label-info", () ->
+	if $(this).hasClass('test-active')
+		$(this).removeClass('test-active')
+		$(this).removeClass('test-failed')
+		$(this).removeClass('test-pending')
+		if ($('.test-active').length < 1)
+			$('#all').addClass('test-active')
+	else if $(this).attr('id') != 'all'
+		$('#all').removeClass('test-active')
+		$(this).addClass('test-active')
+	else if $(this).attr('id') == 'all'
+		tags = $('#tests .label-info')
+		tags.removeClass('test-active')
+		tags.removeClass('test-failed')
+		tags.removeClass('test-pending')
+		$(this).addClass('test-active')
+
+$(document).on "mouseenter", ".tooltips", () ->
+	$(this).children('section').show();
+
+$(document).on "mouseleave", ".tooltips", () ->
+	$(this).children('section').hide();
 ##
 
 $(document).on "page:change", ->
@@ -385,9 +410,9 @@ $(document).on "page:change", ->
 				dataType: 'json'
 				data:
 					report_id: params['report_id']
-				error: () ->
+				error: ()->
 					console.log "something going wrong"
-				success: (response) ->
+				success: (response)->
 					$('#current_job').text(response['job'])
 					getBuilds()
 					$("#server .#{response['server']}").trigger('click')
@@ -402,7 +427,57 @@ $(document).on "page:change", ->
 					#$("#apiVersion ##{response['api_version']}").trigger('click')
 					$('#appId').val(response['appid'])
 					$("#suite .#{response['suite']}").trigger('click')
-					getTest(response['suite'])
+					getTest(response['suite']).done((data, textStatus, jqXHR)->
+						if params['reply'] == 'true'
+							$.ajax
+								url: 'testrunner/reply_all'
+								type: 'GET'
+								dataType: 'json'
+								data: report_id: params['report_id']
+								success: (response)->
+									tags = response['tests'].split(",")
+									if (tags == "")
+										$("#all").addClass('test-active')
+									else
+										$('.test-active').removeClass('test-active')
+										for tag in tags
+											$("##{tag}").addClass('test-active')
+						else if params['rerun'] == 'true'
+							$.ajax
+								url: 'testrunner/reply_failed'
+								type: 'GET'
+								dataType: 'json'
+								data: report_id: params['report_id']
+								success: (response)->
+									failed_tests = response['failed_tests']
+									pending_tests = response['pending_tests']
+									#console.log failed_tests
+									#console.log pending_tests
+									if failed_tests != ""
+										failed_tests = failed_tests.split("&&")
+										failed_tests.forEach(
+											(value,index,array)->
+												array[index] = array[index].replace(/\w*,/g, "") #to delete common tags #temporary measure
+										)
+									if pending_tests != ""
+										pending_tests = pending_tests.split("&&")
+										pending_tests.forEach(
+											(value,index,array)->
+												array[index] = array[index].replace(/\w*,/g, "") #to delete common tags #temporary measure
+										)
+									#console.log failed_tests
+									#console.log pending_tests
+									if failed_tests == "" && pending_tests == ""
+										$("#all").addClass('test-active')
+									else
+										$('.test-active').removeClass('test-active')
+										if failed_tests != ""
+											for failed_test in failed_tests
+												$("##{failed_test}").addClass('test-active test-failed')
+										if pending_tests != ""
+											for pending_test in pending_tests
+												$("##{pending_test}").addClass('test-active test-pending')
+					)
 		else
 			getTest($('#suite .active').text())
 
