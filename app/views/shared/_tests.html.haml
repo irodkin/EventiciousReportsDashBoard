@@ -1,0 +1,13 @@
+%h4
+	Tests
+	%span.badge= tags.size
+.tag
+	%span#all.label.label-info{:class=>"#{head_tag} test-active"}= head_tag
+-tags.each do |tag|
+	.tag
+		.tooltips{:href=>"#"}
+			%span.label.label-info.scenario.test{:id=>"#{tag[1]}"}= tag[1]
+			%section.tooltips-container
+				.test_container
+					-tag.first.each do |scenario|
+						= scenario.html_safe
