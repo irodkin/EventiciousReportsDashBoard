@@ -2,8 +2,8 @@ class TestrunnerController < ApplicationController
 	def index
 		@jobs = Job.all
 		@feature = Suite.all
-		@head_tag = Suite.first.tag unless Suite.first.nil?
-		@tests = Test.where(suite: @feature.first).all
+		#@head_tag = Suite.first.tag unless Suite.first.nil?
+		#@tests = Test.where(suite: @feature.first).all
 	end
 	def get_scenario_of_feature
 		scenarios = Test.where(suite: params[:suite]).all

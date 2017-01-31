@@ -95,9 +95,7 @@
         <li><button class="btn" id="addSuite" type="button" style="border-radius: 25px">+</button></li>
       </ul>
     </div>
-    <div class='tests' id="tests">
-      <%= render partial: 'shared/tests', locals: {tests: @tests, head_tag: @head_tag} %>
-    </div>
+    <div class='tests' id="tests"></div>
     <h4>Iterations <small>for MemoryLeaks tests only</small></h4>
     <div class="input-group">
       <input type="text" class="form-control" style="border-radius: 7px;" id="iterations" value="0" aria-describedby="basic-addon3">
