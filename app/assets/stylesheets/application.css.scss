@@ -70,7 +70,9 @@
 .navbar-fixed-bottom {
 	background-color: #F5F5F5;
 	height: 50px;
-	padding-top: 15px;
+	padding-top: 8px;
+  padding-right: 8px;
+  text-align: right;
 }
 
 .deleteRecord {
@@ -214,10 +216,6 @@
   padding-top: 10px;
   width: auto;
   max-width: 1450px;
-}
-
-.row-fluid {
-  padding-top: 10px;
 }
 
 .tick {

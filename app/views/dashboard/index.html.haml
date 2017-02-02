@@ -1,4 +1,4 @@
-.container
+.container{:style=>"padding-bottom: 50px"}
   = render 'shared/reporttable'
 
   .container
@@ -26,7 +26,6 @@
       %h4="Top users"
       =pie_chart @users, height: "200px"
 
-.navbar-fixed-bottom.row-fluid
-  .container{:style=>"text-align: right; padding-bottom: 0px; padding-top: 0px;"}
-    %a{:class=>"btn btn-success", :href=>"/testrunner"}= "Run Tests"
-    %span.badge= @total_count
+.navbar-fixed-bottom
+  %a{:class=>"btn btn-success", :href=>"/testrunner"}= "Run Tests"
+  %span.badge= @total_count
