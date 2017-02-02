@@ -258,11 +258,7 @@ $(document).on "click", "#addNewFeature", ()->
 
 ##_buildstable.html
 $(document).on "click", ".show_build_params", ()->
-	build_params = $(this).siblings(".build_params")
-	if build_params.is(":visible")
-		build_params.hide()
-	else
-		build_params.show()
+	$(this).siblings(".build_params").toggle()
 ##
 
 ##_featurelist.html
