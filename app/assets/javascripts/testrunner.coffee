@@ -2,7 +2,7 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
-readCookie = (name) ->
+readCookie = (name)->
 	ca = document.cookie.split("; ")
 	#console.log ca
 	i = 0
@@ -14,7 +14,7 @@ readCookie = (name) ->
 	else
 		return ca[i].match(/=(.+)/)[1]
 
-setCookie = (cookieName, cookieValue) ->
+setCookie = (cookieName, cookieValue)->
 	day = 1000 * 60 * 60  * 24
 	today = new Date()
 	expire = today + day
@@ -25,17 +25,17 @@ login = (username, password) ->
 	setCookie("password", password)
 	$('#signIn').text("Logged In")
 
-getTest = (suite) ->
+getTest = (suite)->
 	$.ajax
 		url: 'testrunner/tests'
 		type: 'GET'
 		dataType: 'html'
 		data:
 			suite: suite
-		success: (response) ->
+		success: (response)->
 			$('#tests').html(response)
 
-getParams = ->
+getParams = ()->
 	query = window.location.search.substring(1)
 	raw_vars = query.split("&")
 	params = {}
@@ -44,13 +44,13 @@ getParams = ->
 		params[key] = decodeURIComponent(val)
 	params
 
-run_after_login = ->
+run_after_login = ()->
 	#console.log("inside run_after_login")
 	$('#run').trigger("click")
 	#console.log("removing run_after_login")
 	$('#loginButton').off("click", run_after_login)
 
-getBuilds = ->
+getBuilds = ()->
 	$.ajax
 		url: 'testrunner/builds'
 		type: 'GET'
@@ -59,15 +59,15 @@ getBuilds = ->
 		success: (response) ->
 			$('#builds').html(response)
 
-$(document).on "click", ".select-job", () ->
+$(document).on "click", ".select-job", ()->
 	$('#current_job').text($(this).text())
 	getBuilds()
 
-$(document).on "click", "#addJob", () ->
+$(document).on "click", "#addJob", ()->
 	$('#addJobContainer').modal('show')
 
 ##_addjob.html
-$(document).on "click", "#addJobButton", () ->
+$(document).on "click", "#addJobButton", ()->
 	addJob = {
 		title: $('#jobName').val()
 	}
@@ -76,42 +76,42 @@ $(document).on "click", "#addJobButton", () ->
 		type: 'POST'
 		dataType: 'json'
 		data: addJob
-		error: () ->
+		error: ()->
 			alert "error!"
-		success: (response) ->
+		success: (response)->
 			$('#addJobContainer').modal('hide')
 			$('.dropdown-menu').append('<li><a class="select-job">' + response['title'] + '</a></li>')
 ##
 
-$(document).on "click", "#signIn", () ->
+$(document).on "click", "#signIn", ()->
 	$('#login').modal('show')
 
-$(document).on "click", ".list-group-item-info", () ->
+$(document).on "click", ".list-group-item-info", ()->
 	$(this).siblings('.active').removeClass('active')
 	$(this).addClass('active')
 
-$(document).on "click", "#platform span.label", () ->
+$(document).on "click", "#platform span.label", ()->
 	$('.activeDevice').removeClass("activeDevice")
 	$(this).addClass("activeDevice")
 
-$(document).on "change", "#username", () ->
+$(document).on "change", "#username", ()->
 	$(this).removeClass('empty')
 	if $('#password').val() == ''
 		$('#loginButton').addClass('disabled')
 	else
 		$('#loginButton').removeClass('disabled')
 
-$(document).on "change", "#password", () ->
+$(document).on "change", "#password", ()->
 	$(this).removeClass('empty')
 	if $('#username').val() == ''
 		$('#loginButton').addClass('disabled')
 	else
 		$('#loginButton').removeClass('disabled')
 
-$(document).on "click", "#suite .list-group-item-info", () ->
+$(document).on "click", "#suite .list-group-item-info", ()->
 	getTest($(this)[0].id)
 
-$(document).on "click", "#server .list-group-item-info", () ->
+$(document).on "click", "#server .list-group-item-info", ()->
 	server = $(this)[0].id
 	locale = $('#locale .active')[0].id
 	switch server
@@ -124,7 +124,7 @@ $(document).on "click", "#server .list-group-item-info", () ->
 				when "ru" then $('#appId').val('4389 or 4452')
 				when "en" then $('#appId').val('4454 or 4455')
 
-$(document).on "click", "#locale .list-group-item-info", () ->
+$(document).on "click", "#locale .list-group-item-info", ()->
 	locale = $(this)[0].id
 	server = $('#server .active')[0].id
 	switch locale
@@ -137,7 +137,7 @@ $(document).on "click", "#locale .list-group-item-info", () ->
 				when "Production" then $('#appId').val('4331 or 4332')
 				when "Test" then $('#appId').val('4454 or 4455')
 
-$(document).on "click", "#loginButton", () ->
+$(document).on "click", "#loginButton", ()->
 	if $('#loginButton').hasClass('disabled')
 		$('#username').addClass('empty')
 		$('#password').addClass('empty')
@@ -145,7 +145,7 @@ $(document).on "click", "#loginButton", () ->
 		login($('#username').val(), $('#password').val())
 		$('#login').modal('hide')
 
-$(document).on "click", "#run", () ->
+$(document).on "click", "#run", ()->
 	username = readCookie("username")
 	password = readCookie("password")
 	appId_toggle = $('#appId-toggle').data('toggles')
@@ -175,7 +175,7 @@ $(document).on "click", "#run", () ->
 		suite = $('#suite .active')[0].id
 		tests = $('.test-active')
 		testsArray = []
-		$.each tests, (e) -> testsArray.push("@" + $(tests[e])[0].id)
+		$.each tests, (e)-> testsArray.push("@" + $(tests[e])[0].id)
 		iterations = $('#iterations').val()
 		params = getParams()
 		if params['rerun'] == 'true'
@@ -207,26 +207,26 @@ $(document).on "click", "#run", () ->
 			type: 'POST'
 			dataType: 'json'
 			data: testRun
-			error: (jqXHR,textStatus,errorThrown) ->
+			error: (jqXHR,textStatus,errorThrown)->
 				$('.ajaxBusy').fadeOut(200)
 				$('.bg_layer').fadeOut(500)
 				message = jqXHR.responseText.match(/^[^\n]*\n[^\n]*\n[^\n]*/)[0]
 				console.log message
 				$('.alert-danger p').text(message.match(/[^\n]*$/)[0])
-				setTimeout (-> $('.alert-danger').fadeIn(700)), 700
-				setTimeout (-> $('.alert-danger').fadeOut(700)), 5000
-			success: (response) ->
+				setTimeout (()-> $('.alert-danger').fadeIn(700)), 700
+				setTimeout (()-> $('.alert-danger').fadeOut(700)), 5000
+			success: (response)->
 				$('.ajaxBusy').fadeOut(200)
 				$('.bg_layer').fadeOut(500)
 				$('.buildNumber').text(response['build'])
-				setTimeout (-> $('.alert-success').fadeIn(700)), 700
-				setTimeout (-> $('.alert-success').fadeOut(700)), 5000
-				setTimeout (-> getBuilds()), 2000
+				setTimeout (()-> $('.alert-success').fadeIn(700)), 700
+				setTimeout (()-> $('.alert-success').fadeOut(700)), 5000
+				setTimeout (()-> getBuilds()), 2000
 
-$(document).on "click", "#addSuite", () ->
+$(document).on "click", "#addSuite", ()->
 	$('#SuitesEdit').modal("show")
 
-$(document).on "click", "#get_tests", () ->
+$(document).on "click", "#get_tests", ()->
 	find = $('#find_tests').val()
 	$.ajax
 		url: 'api/scenarioparser/get_tests'
@@ -235,11 +235,11 @@ $(document).on "click", "#get_tests", () ->
 		data: suite: find
 
 ##_addfeature.html
-$(document).on "click", "#addNewFeatureForm", () ->
+$(document).on "click", "#addNewFeatureForm", ()->
 	$(this).fadeOut(500)
 	$('.addContainer').fadeIn(1400)
 
-$(document).on "click", "#addNewFeature", () ->
+$(document).on "click", "#addNewFeature", ()->
 	title = $('#title').val()
 	tag = $('#tag').val()
 	$.ajax
@@ -249,7 +249,7 @@ $(document).on "click", "#addNewFeature", () ->
 		data:
 			title: title
 			tag: tag
-		success: (response) ->
+		success: (response)->
 			$('#featurelist').html(response)
 			$('.addContainer').fadeOut(100)
 			$('.feature').last().trigger('click')
@@ -257,7 +257,7 @@ $(document).on "click", "#addNewFeature", () ->
 ##
 
 ##_buildstable.html
-$(document).on "click", ".show_build_params", () ->
+$(document).on "click", ".show_build_params", ()->
 	build_params = $(this).siblings(".build_params")
 	if build_params.is(":visible")
 		build_params.hide()
@@ -266,7 +266,7 @@ $(document).on "click", ".show_build_params", () ->
 ##
 
 ##_featurelist.html
-$(document).on "click", ".feature", () ->
+$(document).on "click", ".feature", ()->
 	$('.feature.active').removeClass('active')
 	$(this).addClass('active')
 	suite = $(this).text()
@@ -275,10 +275,10 @@ $(document).on "click", ".feature", () ->
 		type: 'GET'
 		dataType: 'html'
 		data: suite: suite
-		success: (response) ->
+		success: (response)->
 			$('.tests_container').html(response)
 
-$(document).on "click", ".delete_feature", () ->
+$(document).on "click", ".delete_feature", ()->
 	id = $(this).attr("id")
 	parent_div = $(this).parents("div")[2]
 	$.ajax
@@ -286,10 +286,10 @@ $(document).on "click", ".delete_feature", () ->
 		type: 'DELETE'
 		dataType: 'json'
 		data: id: id
-		success: () ->
+		success: ()->
 			$(parent_div).fadeOut(200)
 
-$(document).on "click", ".add_scenarios", () ->
+$(document).on "click", ".add_scenarios", ()->
 	$.ajax
 		url: 'testrunner/get_scenario_of_feature'
 		type: 'GET'
@@ -297,12 +297,12 @@ $(document).on "click", ".add_scenarios", () ->
 		data:
 			suite: $(this).attr("id")
 			edit: true
-		success: (response) ->
+		success: (response)->
 			$('.tests_container').html(response)
 ##
 
 ##_scenarios.html
-$(document).on "click", ".delete_scenario", () ->
+$(document).on "click", ".delete_scenario", ()->
 	id = $(this).attr("id")
 	parent_div = $(this).parents("div")[0]
 	$.ajax
@@ -310,10 +310,10 @@ $(document).on "click", ".delete_scenario", () ->
 		type: 'DELETE'
 		dataType: 'json'
 		data: id: id
-		success: () ->
+		success: ()->
 			$(parent_div).fadeOut(200)
 
-$(document).on "click", "#parse", () ->
+$(document).on "click", "#parse", ()->
 	suite = $('.parse_area').val()
 	feature = $('.feature.active').text()
 	$.ajax
@@ -323,12 +323,12 @@ $(document).on "click", "#parse", () ->
 		data:
 			suite: suite
 			feature: feature
-		success: (response) ->
+		success: (response)->
 			$('.tests_container').html(response)
 ##
 
 ##_tests.html
-$(document).on "click", "#tests .label-info", () ->
+$(document).on "click", "#tests .label-info", ()->
 	if $(this).hasClass('test-active')
 		$(this).removeClass('test-active')
 		$(this).removeClass('test-failed')
@@ -345,14 +345,14 @@ $(document).on "click", "#tests .label-info", () ->
 		tags.removeClass('test-pending')
 		$(this).addClass('test-active')
 
-$(document).on "mouseenter", ".tooltips", () ->
+$(document).on "mouseenter", ".tooltips", ()->
 	$(this).children('section').show();
 
-$(document).on "mouseleave", ".tooltips", () ->
+$(document).on "mouseleave", ".tooltips", ()->
 	$(this).children('section').hide();
 ##
 
-$(document).on "page:change", ->
+$(document).on "page:change", ()->
 	if window.location.href.includes("/testrunner")
 
 		if readCookie("username") && readCookie("password")
@@ -374,7 +374,7 @@ $(document).on "page:change", ->
 			height: 20
 			})
 
-		$('#appId-toggle').click ->
+		$('#appId-toggle').click ()->
 			toggle = $(this).data('toggles')
 			if $(toggle).attr("active")
 				$('#appId').fadeOut(300)
