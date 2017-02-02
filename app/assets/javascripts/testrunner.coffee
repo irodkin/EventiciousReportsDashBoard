@@ -401,7 +401,6 @@ $(document).on "page:change", ->
 			height: 20
 			})
 
-		getBuilds()
 		params = getParams()
 		if params['rerun'] == 'true' || params['reply'] == 'true'
 			$.ajax
@@ -481,6 +480,8 @@ $(document).on "page:change", ->
 		else
 			getTest($('#suite .active')[0].id)
 
+		getBuilds()
+
 		##_featurelist.html
-		$($('.feature')[0]).trigger("click")
+		#$($('.feature')[0]).trigger("click")
 		##
