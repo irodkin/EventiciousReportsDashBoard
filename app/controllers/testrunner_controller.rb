@@ -12,7 +12,7 @@ class TestrunnerController < ApplicationController
 		edit = params[:edit] == 'true' ? true : false
 		render partial: 'shared/scenarios', locals: {scenarios: scenarios, edit: edit, suite_title: suite_title, suite_tag: suite_tag}
 	end
-	def reply_run_params
+	def retry_run_params
 		report = Report.find(params[:report_id])
 		render json: {
 			platform: report.platform,
@@ -27,7 +27,7 @@ class TestrunnerController < ApplicationController
 		},
 		status: 200
 	end
-	def reply_all
+	def retry_all
 		report = Report.find(params[:report_id])
 		if report.tests.kind_of?(Array)
 			tests = report.tests.each { |t| t.delete("@")}
@@ -37,7 +37,7 @@ class TestrunnerController < ApplicationController
 		render json: {tests: tests},
 		status: 200
 	end
-	def reply_failed
+	def retry_failed
 		report = Report.find(params[:report_id])
 		render json: {
 			failed_tests: report.failed_tests,

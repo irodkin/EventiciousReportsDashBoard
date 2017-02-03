@@ -65,9 +65,9 @@ Rails.application.routes.draw do
       get :tests
       get :get_scenario_of_feature
       get :add_feature
-      get :reply_failed
-      get :reply_run_params
-      get :reply_all
+      get :retry_failed
+      get :retry_run_params
+      get :retry_all
       get :builds
     end
   end

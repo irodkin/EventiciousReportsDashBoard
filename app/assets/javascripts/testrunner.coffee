@@ -398,9 +398,9 @@ $(document).on "page:change", ()->
 			})
 
 		params = getParams()
-		if params['rerun'] == 'true' || params['reply'] == 'true'
+		if params['rerun'] == 'true' || params['retry'] == 'true'
 			$.ajax
-				url: 'testrunner/reply_run_params'
+				url: 'testrunner/retry_run_params'
 				type: 'GET'
 				dataType: 'json'
 				data:
@@ -423,9 +423,9 @@ $(document).on "page:change", ()->
 					$('#appId').val(response['appid'])
 					$("#suite .#{response['suite']}").trigger('click')
 					getTest(response['suite']).done((data, textStatus, jqXHR)->
-						if params['reply'] == 'true'
+						if params['retry'] == 'true'
 							$.ajax
-								url: 'testrunner/reply_all'
+								url: 'testrunner/retry_all'
 								type: 'GET'
 								dataType: 'json'
 								data: report_id: params['report_id']
@@ -439,7 +439,7 @@ $(document).on "page:change", ()->
 											$("##{tag}").addClass('test-active')
 						else if params['rerun'] == 'true'
 							$.ajax
-								url: 'testrunner/reply_failed'
+								url: 'testrunner/retry_failed'
 								type: 'GET'
 								dataType: 'json'
 								data: report_id: params['report_id']
