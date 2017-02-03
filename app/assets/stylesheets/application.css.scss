@@ -194,11 +194,10 @@
 
 .ajaxBusy {
   display: none;
-  z-index: 16;
-  position: absolute;
-  right: 45%;
-  top: 35%;
-  width: auto;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .container {

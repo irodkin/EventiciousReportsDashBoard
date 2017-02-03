@@ -3,6 +3,10 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 get_report_table_body = ()->
+	inputs = $(':enabled')
+	ajax_busy = $('.ajaxBusy')
+	inputs.prop('disabled', true)
+	ajax_busy.fadeIn(700)
 	filters = {}
 	filters["count"] = $("#reports_number_to_display").val()
 	filter_names = ["platform", "server", "appid", "app_type", "locale", "branch", "suite", "tests", "user"]
@@ -20,6 +24,9 @@ get_report_table_body = ()->
 			$('.result').tooltip({title: "<div><div><strong>click me to see a report</strong></div><span class=\"label label-success\">green</span> is awesome :)</div><div><span class=\"label label-warning\">yellow</span> is good :|</div><div><span class=\"label label-danger\">red</span> it is bad :(</div>", html: true})
 			$('.rerun').tooltip({title: "<strong>rerun only failed tests in run with <i>no</i> build again</strong>", html: true})
 			$('.retry').tooltip({title: "<strong>retry all tests in run with build again</strong>", html: true})
+		complete: (jqXHR, textStatus)->
+			ajax_busy.fadeOut(700)
+			inputs.prop('disabled', false)
 
 $(document).on "click", ".deleteButton", ()->
 	current_record_tr = $(this).parents('tr')[0]
