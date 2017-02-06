@@ -75,15 +75,9 @@
       %h4= "Suites"
       #suite
         %ul.nav.nav-pills
-          -first_feature = true
           -@feature.each do |f|
-            -if first_feature
-              -first_feature = false
-              %li.list-group-item-info.active{:id=>"#{f.title}"}
-                %a= f.title
-            -else
-              %li.list-group-item-info{:id=>"#{f.title}"}
-                %a= f.title
+            %li.list-group-item-info{:id=>"#{f.title}"}
+              %a= f.title
           %li
             %button#addSuite.btn{:type=>"button", :style=>"border-radius: 25px"}= "+"
       #tests.tests

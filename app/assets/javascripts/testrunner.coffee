@@ -413,7 +413,6 @@ $(document).on "page:change", ()->
 					console.log "something going wrong"
 				success: (response)->
 					$('#current_job').text(response['job'])
-					getBuilds()
 					$("#server .#{response['server']}").trigger('click')
 					if params['rerun'] == 'true'
 						$('#appId-toggle').toggles(false)
@@ -425,7 +424,8 @@ $(document).on "page:change", ()->
 					$("#locale ##{response['locale']}").trigger('click')
 					#$("#apiVersion ##{response['api_version']}").trigger('click')
 					$('#appId').val(response['appid'])
-					$("#suite ##{response['suite']}").trigger('click')
+					#$("#suite ##{response['suite']}").trigger('click')
+					$("#suite ##{response['suite']}").addClass('active') #addClass('active') instead of trigger('click') to not call getTest() twice
 					getTest(response['suite']).done((data, textStatus, jqXHR)->
 						if params['retry'] == 'true'
 							$.ajax
@@ -478,7 +478,7 @@ $(document).on "page:change", ()->
 												$("##{pending_test}").addClass('test-active test-pending')
 					)
 		else
-			getTest($('#suite .active')[0].id)
+			$('#suite li:first').trigger('click')
 
 		getBuilds()
 
