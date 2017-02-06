@@ -175,7 +175,7 @@ $(document).on "click", "#run", ()->
 		suite = $('#suite .active')[0].id
 		tests = $('.test-active')
 		testsArray = []
-		$.each tests, (e)-> testsArray.push("@" + $(tests[e])[0].id)
+		$.each tests, (e)-> testsArray.push("@" + $(tests[e]).text())
 		iterations = $('#iterations').val()
 		params = getParams()
 		if params['rerun'] == 'true'
