@@ -175,7 +175,11 @@ $(document).on "click", "#run", ()->
 		suite = $('#suite .active')[0].id
 		tests = $('.test-active')
 		testsArray = []
-		$.each tests, (e)-> testsArray.push("@" + $(tests[e]).text())
+		#$.each tests, (e)-> testsArray.push("@" + $(tests[e])[0].id) #which one is faster?
+		tests.each(
+			(index,element)->
+				testsArray.push("@" + element.id)
+		)
 		iterations = $('#iterations').val()
 		params = getParams()
 		if params['rerun'] == 'true'
@@ -330,11 +334,11 @@ $(document).on "click", "#tests .label-info", ()->
 		$(this).removeClass('test-failed')
 		$(this).removeClass('test-pending')
 		if ($('.test-active').length < 1)
-			$('#all').addClass('test-active')
-	else if $(this)[0].id != 'all'
-		$('#all').removeClass('test-active')
+			$('.headTag').addClass('test-active')
+	else if !$(this).hasClass('headTag')
+		$('.headTag').removeClass('test-active')
 		$(this).addClass('test-active')
-	else if $(this)[0].id == 'all'
+	else if $(this).hasClass('headTag')
 		tags = $('#tests .label-info')
 		tags.removeClass('test-active')
 		tags.removeClass('test-failed')
@@ -432,7 +436,7 @@ $(document).on "page:change", ()->
 								success: (response)->
 									tags = response['tests'].split(",")
 									if (tags == "")
-										$("#all").addClass('test-active')
+										$(".headTag").addClass('test-active')
 									else
 										$('.test-active').removeClass('test-active')
 										for tag in tags
@@ -463,7 +467,7 @@ $(document).on "page:change", ()->
 									#console.log failed_tests
 									#console.log pending_tests
 									if failed_tests == "" && pending_tests == ""
-										$("#all").addClass('test-active')
+										$(".headTag").addClass('test-active')
 									else
 										$('.test-active').removeClass('test-active')
 										if failed_tests != ""
