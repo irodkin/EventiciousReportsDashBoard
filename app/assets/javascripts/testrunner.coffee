@@ -425,7 +425,7 @@ $(document).on "page:change", ()->
 					$("#locale ##{response['locale']}").trigger('click')
 					#$("#apiVersion ##{response['api_version']}").trigger('click')
 					$('#appId').val(response['appid'])
-					$("#suite .#{response['suite']}").trigger('click')
+					$("#suite ##{response['suite']}").trigger('click')
 					getTest(response['suite']).done((data, textStatus, jqXHR)->
 						if params['retry'] == 'true'
 							$.ajax
