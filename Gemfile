@@ -43,6 +43,8 @@ gem 'gherkin3'
 # Use Thin as the app server
 gem 'thin'
 
+gem 'tzinfo-data'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
