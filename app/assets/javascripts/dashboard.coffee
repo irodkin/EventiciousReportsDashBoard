@@ -6,6 +6,7 @@ get_report_table_body = ()->
 	inputs = $(':enabled')
 	ajax_busy = $('.ajaxBusy')
 	inputs.prop('disabled', true)
+	ajax_busy.stop(true, true).fadeOut()
 	ajax_busy.fadeIn(700)
 	filters = {}
 	filters["count"] = $("#reports_number_to_display").val()
@@ -25,6 +26,7 @@ get_report_table_body = ()->
 			$('.rerun').tooltip({title: "<strong>rerun only failed tests in run with <i>no</i> build again</strong>", html: true})
 			$('.retry').tooltip({title: "<strong>retry all tests in run with build again</strong>", html: true})
 		complete: (jqXHR, textStatus)->
+			ajax_busy.stop(true, true).fadeIn()
 			ajax_busy.fadeOut(700)
 			inputs.prop('disabled', false)
 
