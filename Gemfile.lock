@@ -192,6 +192,7 @@ DEPENDENCIES
   jquery-rails
   nokogiri
   rails (= 4.2.4)
+  rdoc
   rest-client
   sass-rails
   sdoc (~> 0.4.0)
@@ -203,4 +204,4 @@ DEPENDENCIES
   web-console (~> 2.0)
 
 BUNDLED WITH
-   1.14.2
+   1.14.5
