@@ -74,7 +74,7 @@ class TestrunnerController < ApplicationController
 	end
 	def builds
 		#RestClient::Exceptions::ReadTimeout
-		job_info = JSON.parse(RestClient.get("http://jenkins.mercury.office:8080/job/#{params[:job]}/api/json?pretty=true&tree=builds[actions[parameters[*]],building,number,result,url,builtOn]{0,20},nextBuildNumber,inQueue"))
+		job_info = JSON.parse(RestClient::Request.execute(method: :get, url: "http://jenkins.mercury.office:8080/job/#{params[:job]}/api/json?pretty=true&tree=builds[actions[parameters[*]],building,number,result,url,builtOn]{0,20},nextBuildNumber,inQueue", timeout:5))
 		builds=[]
 		queue_count=0
 		if job_info["inQueue"]
