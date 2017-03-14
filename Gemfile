@@ -40,8 +40,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # gem 'bcrypt', '~> 3.1.7'
 #gherkin3
 gem 'gherkin3'
-# Use Thin as the app server
-gem 'thin'
+# Use Puma as the app server
+gem 'puma'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
