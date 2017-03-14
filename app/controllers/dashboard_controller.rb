@@ -1,5 +1,4 @@
 class DashboardController < ApplicationController
-  before_filter :find_by, only: [:index]
   def index
     @title = "Last Reports"
     @branches = find_by(:branch)
@@ -19,8 +18,6 @@ class DashboardController < ApplicationController
     @reports = Report.order("date DESC")
     count = params[:filters].delete(:count).to_i
     params[:filters].each {|key,value|
-      #p key.to_sym
-      #p value
       @reports = @reports.select {|r| r[key.to_sym].to_s.include?(value)}
     }
     @reports = @reports[0..count-1]
