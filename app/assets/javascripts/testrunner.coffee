@@ -2,6 +2,8 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
+window.run_after_login = false
+
 readCookie = (name)->
 	ca = document.cookie.split("; ")
 	#console.log ca
@@ -43,12 +45,6 @@ getParams = ()->
 		[key, val] = v.split("=")
 		params[key] = decodeURIComponent(val)
 	params
-
-run_after_login = ()->
-	#console.log("inside run_after_login")
-	$('#run').trigger("click")
-	#console.log("removing run_after_login")
-	$('#loginButton').off("click", run_after_login)
 
 getBuilds = ()->
 	$.ajax
@@ -148,6 +144,9 @@ $(document).on "click", "#loginButton", ()->
 	else
 		login($('#username').val(), $('#password').val())
 		$('#login').modal('hide')
+		if window.run_after_login
+			window.run_after_login = false
+			$('#run').trigger("click")
 
 $(document).on "click", "#run", ()->
 	username = readCookie("username")
@@ -155,9 +154,8 @@ $(document).on "click", "#run", ()->
 	appId_toggle = $('#appId-toggle').data('toggles')
 	rebuildApp_toggle = $('#rebuildApp-toggle').data('toggles')
 	if !username || !password
+		window.run_after_login = true
 		$('#login').modal('show')
-		#console.log("adding run_after_login")
-		$('#loginButton').on("click", run_after_login)
 	else
 		$('.bg_layer').fadeIn(1200)
 		$('.ajaxBusy').fadeIn(700)
