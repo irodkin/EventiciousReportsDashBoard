@@ -1,0 +1,6 @@
+-current_builds.each do |c_b|
+	%div{style: "display:inline-block;width:#{(1.0/current_builds.size)*100-1}%"}
+		%div= c_b[:job_title]
+		%img{title: c_b[:build]["status"], src: @status_images[c_b[:build]["status"]], style: "display:inline-block;"}
+		%div{style: "display:inline-block;"}= c_b[:build]["number"]
+		%a{href: c_b[:build]["link"], target: "_blank", style: "display:inline-block;"}= c_b[:build]["link_text"]

@@ -62,6 +62,7 @@ Rails.application.routes.draw do
   resources :jenkins do
     collection do
       get :builds
+      get :current_builds
     end
   end
   resources :testrunner do

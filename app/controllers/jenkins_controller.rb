@@ -1,6 +1,11 @@
 class JenkinsController < ApplicationController
 	def initialize
-		@status_images = {"ABORTED"=>"http://jenkins.mercury.office:8080/static/aaf3e3e1/images/16x16/aborted.png", "SUCCESS"=>"http://jenkins.mercury.office:8080/static/aaf3e3e1/images/16x16/blue.png", "FAILURE"=>"http://jenkins.mercury.office:8080/static/aaf3e3e1/images/16x16/red.png", "IN_PROGRESS"=>"http://jenkins.mercury.office:8080/static/aaf3e3e1/images/16x16/blue_anime.gif", "IN_QUEUE"=>"http://jenkins.mercury.office:8080/static/aaf3e3e1/images/16x16/hourglass.png"}
+		@status_images = {"ABORTED"=>"http://jenkins.mercury.office:8080/static/aaf3e3e1/images/16x16/aborted.png",
+		                  "SUCCESS"=>"http://jenkins.mercury.office:8080/static/aaf3e3e1/images/16x16/blue.png",
+		                  "FAILURE"=>"http://jenkins.mercury.office:8080/static/aaf3e3e1/images/16x16/red.png",
+		                  "IN_PROGRESS"=>"http://jenkins.mercury.office:8080/static/aaf3e3e1/images/16x16/blue_anime.gif",
+		                  "IN_QUEUE"=>"http://jenkins.mercury.office:8080/static/aaf3e3e1/images/16x16/hourglass.png",
+		                  "UNKNOWN"=>"questionmark.png"}
 	end
 	def builds
 		#RestClient::Exceptions::ReadTimeout
@@ -26,5 +31,26 @@ class JenkinsController < ApplicationController
 			builds << {"number"=>b["number"], "status"=>b["building"] ? "IN_PROGRESS" : b["result"], "params"=>params}
 		}
 		render partial: 'shared/buildstable', locals: {builds: builds}
+	end
+	def current_builds
+		current_builds = []
+		Job.all.each {|job|
+			job_title = job.title
+			begin
+				job_info = JSON.parse(RestClient::Request.execute(method: :get, url: "http://jenkins.mercury.office:8080/job/#{job_title}/api/json?pretty=true&tree=lastBuild[actions[parameters[*]],building,number,result,url,builtOn]{0,20},nextBuildNumber,inQueue", timeout:5))
+			rescue => e
+				puts e
+				build = {"number"=>e.message, "status"=>"UNKNOWN", "link"=>"http://jenkins.mercury.office:8080/job/#{job_title}", "link_text"=>"Job"}
+			else
+				if job_info["lastBuild"]["result"] && job_info["inQueue"]
+					#Nokogiri::XML(RestClient.get("http://jenkins.mercury.office:8080/queue/api/xml?tree=items[actions[parameters[*]],blocked,buildable,id,inQueueSince,stuck,task[name],why,pending]&xpath=/queue/item[task/name='#{params[:job]}']&wrapper=queue")).xpath('./queue/item').each {|i|
+					build = {"number"=>"##{job_info["nextBuildNumber"]}", "status"=>"IN_QUEUE", "link"=>"http://jenkins.mercury.office:8080/job/#{job_title}", "link_text"=>"Job"}
+				else
+					build = {"number"=>"##{job_info["lastBuild"]["number"]}", "status"=>job_info["lastBuild"]["building"] ? "IN_PROGRESS" : job_info["lastBuild"]["result"], "link"=>"http://jenkins.mercury.office:8080/job/#{job_title}/#{job_info["lastBuild"]["number"]}/parameters", "link_text"=>"Build parameters"}
+				end
+			end
+			current_builds << {job_title: job_title, build: build}
+		}
+		render partial: 'shared/currentbuilds', locals: {current_builds: current_builds}
 	end
 end
