@@ -59,6 +59,11 @@ Rails.application.routes.draw do
       get :get_report_table_body
     end
   end
+  resources :jenkins do
+    collection do
+      get :builds
+    end
+  end
   resources :testrunner do
     collection do
       get :custom
@@ -68,7 +73,6 @@ Rails.application.routes.draw do
       get :retry_failed
       get :retry_run_params
       get :retry_all
-      get :builds
     end
   end
   namespace :api do
