@@ -1,4 +1,7 @@
 class JenkinsController < ApplicationController
+	def initialize
+		@status_images = {"ABORTED"=>"http://jenkins.mercury.office:8080/static/aaf3e3e1/images/16x16/aborted.png", "SUCCESS"=>"http://jenkins.mercury.office:8080/static/aaf3e3e1/images/16x16/blue.png", "FAILURE"=>"http://jenkins.mercury.office:8080/static/aaf3e3e1/images/16x16/red.png", "IN_PROGRESS"=>"http://jenkins.mercury.office:8080/static/aaf3e3e1/images/16x16/blue_anime.gif", "IN_QUEUE"=>"http://jenkins.mercury.office:8080/static/aaf3e3e1/images/16x16/hourglass.png"}
+	end
 	def builds
 		#RestClient::Exceptions::ReadTimeout
 		job_info = JSON.parse(RestClient::Request.execute(method: :get, url: "http://jenkins.mercury.office:8080/job/#{params[:job]}/api/json?pretty=true&tree=builds[actions[parameters[*]],building,number,result,url,builtOn]{0,20},nextBuildNumber,inQueue", timeout:5))
