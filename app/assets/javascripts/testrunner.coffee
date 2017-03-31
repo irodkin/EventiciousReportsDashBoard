@@ -271,7 +271,7 @@ $(document).on "page:change", ()->
 					console.log "something going wrong"
 				success: (response)->
 					$('#current_job').text(response['job'])
-					$("#server .#{response['server']}").trigger('click')
+					$("#server ##{response['server']}").trigger('click')
 					if params['rerun'] == 'true'
 						$('#appId-toggle').toggles(false)
 						$('#appId').fadeIn(500)
