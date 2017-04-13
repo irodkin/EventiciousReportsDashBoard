@@ -38,7 +38,7 @@ class Api::ScenarioparserController < ApplicationController
     feature = Suite.find(params[:id])
     scenarios_id = Test.where(suite: feature.title).all.collect! { |st| st.id }
     if feature.destroy
-      Test.where(suite: feature.title).all.each { |s| s.destroy }
+      Test.where(suite: feature.title).find_each { |s| s.destroy }
       render json: {
                     :feature=>feature.title,
                     :scenarios=>scenarios_id,

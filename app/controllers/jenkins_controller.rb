@@ -34,7 +34,7 @@ class JenkinsController < ApplicationController
 	end
 	def current_builds
 		current_builds = []
-		Job.all.each {|job|
+		Job.find_each {|job|
 			job_title = job.title
 			begin
 				job_info = JSON.parse(RestClient::Request.execute(method: :get, url: "http://jenkins.mercury.office:8080/job/#{job_title}/api/json?pretty=true&tree=lastBuild[actions[parameters[*]],building,number,result,url,builtOn]{0,20},nextBuildNumber,inQueue", timeout:5))

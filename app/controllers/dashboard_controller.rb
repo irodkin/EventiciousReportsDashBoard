@@ -1,21 +1,21 @@
 class DashboardController < ApplicationController
   def index
     @title = "Last Reports"
-    @branches = find_by(:branch)
-    @platforms = find_by(:platform)
-    @app_types = find_by(:app_type)
-    #@api_versions = find_by(:api_version)
-    @locales = find_by(:locale)
-    @suites = find_by(:suite)
-    @servers = find_by(:server)
-    @users = find_by(:user)
-    @total_count = Report.all.size
+    @branches = group_by(:branch)
+    @platforms = group_by(:platform)
+    @app_types = group_by(:app_type)
+    #@api_versions = group_by(:api_version)
+    @locales = group_by(:locale)
+    @suites = group_by(:suite)
+    @servers = group_by(:server)
+    @users = group_by(:user)
+    @total_count = Report.count
     @total_results = total_results
     @result_per_run = result_per_run
     render 'dashboard/index'
   end
   def get_report_table_body
-    @reports = Report.order("date DESC")
+    @reports = Report.order(date: :desc)
     count = params[:filters].delete(:count).to_i
     params[:filters].each {|key,value|
       @reports = @reports.select {|r| r[key.to_sym].to_s.include?(value)}
@@ -36,49 +36,41 @@ class DashboardController < ApplicationController
 
   private
 
-  def find_by(how=:id)
-    result = Report.group(how.to_sym).count
-    result.each do |r|
-      if r[0].nil? || r[0] == "" || r[1] == 0
-        result.delete(r[0])
-      end
-    end
-    result
+  def group_by(how=:id)
+    Report.group(how).count.reject{|k,v| k==""}
   end
 
   def total_results
-    failed = 0
-    all = 0
+    #don't know what is faster or better - sum or manual sum
+    #failed = 0
+    failed = Report.sum(:failed)
+    #all = 0
+    all = Report.sum(:all)
     pending = 0
-    Report.all.each do |r|
-      all += r.all.to_i unless r.all.nil?
-      failed += r.failed.to_i unless r.failed.nil?
-      pending +=r.pending_tests.size unless r.pending_tests.nil?
+    Report.find_each do |r|
+      #all += r.all.to_i unless r.all.nil?
+      #failed += r.failed.to_i unless r.failed.nil?
+      pending += r.pending_tests.split("&&").size unless r.pending_tests.nil?
     end
-    {passed: all-failed, failed: failed, pending: pending}
+    {passed: all-failed-pending, failed: failed, pending: pending}
   end
 
   def result_per_run
     perfect = 0
     good = 0
     bad = 0
-    Report.all.each do |r|
+    Report.find_each do |r|
       unless r.failed.nil? && r.all.nil?
         if r.failed.to_f/r.all.to_f*100 > 25
-          bad+=1
+          bad += 1
         elsif r.failed.to_f/r.all.to_f*100 <= 25 && r.failed.to_f/r.all.to_f*100 < 100 && r.failed.to_f != 0
-          good+=1
+          good += 1
         else
-          perfect+=1
+          perfect += 1
         end
       end
     end
     {perfect: perfect, good: good, bad: bad}
-  end
-
-  def by_date(limit=5)
-    reports = Report.order("date DESC")
-    reports.first(limit)
   end
 
 end
