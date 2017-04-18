@@ -23,7 +23,7 @@ class TestrunnerController < ApplicationController
 			locale: report.locale,
 			suite: report.suite,
 			server: report.server,
-			job: report.job
+			job: report.job.title
 		},
 		status: 200
 	end
