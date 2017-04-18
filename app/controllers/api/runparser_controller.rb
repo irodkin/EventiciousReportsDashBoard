@@ -19,15 +19,17 @@ class Api::RunparserController < ApplicationController
       end
     end
 
+    job = Job.find_or_create_by(title: params[:job])
+    job_id = job.id
+
     r = Report.new(:date=>Time.now+14400,
                    :platform=>params[:platform],
                    :server=>params[:server],
                    :suite=>params[:suite],
                    :tests=>params[:tests],
                    :link=>params[:link],
-                   :buildurl=>params[:buildurl],
                    :build=>params[:build],
-                   :job=>params[:job],
+                   :job_id=>job_id,
                    :branch=>params[:branch],
                    :user=>params[:user],
                    :user_email=>params[:user_email],

@@ -15,7 +15,7 @@ class DashboardController < ApplicationController
     render 'dashboard/index'
   end
   def get_report_table_body
-    @reports = Report.order(date: :desc)
+    @reports = Report.includes(:job).order(date: :desc) #replace by join?
     count = params[:filters].delete(:count).to_i
     params[:filters].each {|key,value|
       @reports = @reports.select {|r| r[key.to_sym].to_s.include?(value)}

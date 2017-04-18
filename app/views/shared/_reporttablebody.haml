@@ -1,5 +1,5 @@
 -@reports.each do |r|
-	%tr{:recordId=>r.id}
+	%tr{recordId: r.id}
 		%td= r.date.strftime("%d %b, %H:%M")
 		%td= r.platform
 		%td= r.server
@@ -11,9 +11,9 @@
 		%td= r.suite
 		%td= r.tests.gsub(",", " ") unless r.tests.nil?
 		%td= r.user
-		%td{:style=>"text-align: center"}
+		%td{style: "text-align: center"}
 			%div
-				%a{:href=>r.link, :target=>"_blank"}
+				%a{href: r.link, target: "_blank"}
 					-unless r.failed.nil? && r.all.nil?
 					-passed = (r.all.to_i - r.failed.to_i - r.pending_tests.split("&&").length.to_i).to_i
 						-if passed.to_f/r.all.to_f < 0.75
@@ -24,10 +24,10 @@
 							-label_status_class = "label-success"
 						%span.label.result{:class=>"#{label_status_class}"}="#{passed}/#{r.all}"
 			%div
-				%a.label.label-info.rerun{:href=>"/testrunner?rerun=true&report_id=#{r.id}"}= "rerun"
-		%td= link_to "#{r.job} ##{r.build}", r.buildurl, :target => "_blank"
-		%td{:style=>"text-align: center"}
+				%a.label.label-info.rerun{href: "/testrunner?rerun=true&report_id=#{r.id}"}= "rerun"
+		%td= link_to "#{r.job.title} ##{r.build}", "#{ApplicationController::JENKINS_URL}job/#{r.job.title}/#{r.build}", target: "_blank"
+		%td{style: "text-align: center"}
 			%div
 				%span.label.label-danger.deleteButton= "delete"
 			%div
-				%a.label.label-info.retry{:href=>"/testrunner?retry=true&report_id=#{r.id}"}= "retry"
+				%a.label.label-info.retry{href: "/testrunner?retry=true&report_id=#{r.id}"}= "retry"
