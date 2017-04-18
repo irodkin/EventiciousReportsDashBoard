@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161012142357) do
+ActiveRecord::Schema.define(version: 20170418090804) do
 
   create_table "jobs", force: :cascade do |t|
     t.string   "title"
@@ -27,9 +27,7 @@ ActiveRecord::Schema.define(version: 20161012142357) do
     t.string   "link"
     t.string   "tests"
     t.string   "server"
-    t.string   "buildurl"
     t.string   "build"
-    t.string   "job"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
     t.string   "user"
@@ -42,7 +40,10 @@ ActiveRecord::Schema.define(version: 20161012142357) do
     t.string   "app_type"
     t.string   "locale"
     t.string   "api_version"
+    t.integer  "job_id"
   end
+
+  add_index "reports", ["job_id"], name: "index_reports_on_job_id"
 
   create_table "suites", force: :cascade do |t|
     t.string   "title"
