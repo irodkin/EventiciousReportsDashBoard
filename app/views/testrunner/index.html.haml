@@ -33,7 +33,7 @@
           -if @jobs.nil?
             %span#current_job= "No Jobs yet :( Add new, dude!"
           -else
-            %span#current_job= @jobs.first.title
+            %span#current_job= @jobs.last.title
           %span.caret
         %ul.dropdown-menu{"aria-labelledby"=>"jobDropdownMenu"}
           -@jobs.each do |j|
