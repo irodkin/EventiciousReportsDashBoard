@@ -3,62 +3,62 @@
 		.title-container
 			%h4= @title
 		.button-container
-			%button#refresh.btn.btn-success{:type=>'button'}= "Refresh"
+			%button#refresh.btn.btn-success{type: 'button'}= "Refresh"
 		.button-container
-			%button#reset_filters.btn.btn-success{:type=>'button'}= "Reset filters"
-		.select-count-container{:style=>'float:right'}
-			%label{:for=>'reports_number_to_display', :style=>'float:left;'}= "Number of reports to display:"
-			%input#reports_number_to_display{:style=>'color:black;float:left;width:50px'}
+			%button#reset_filters.btn.btn-success{type: 'button'}= "Reset filters"
+		.select-count-container{style: 'float:right'}
+			%label{for: 'reports_number_to_display', style: 'float:left;'}= "Number of reports to display:"
+			%input#reports_number_to_display{style: 'color:black;float:left;width:50px'}
 	%table.table
 		-# "api_versions",
 		-["platforms", "servers", "app_types", "locales", "branches", "suites", "users"].each do |param|
-			%datalist{:id=>"#{param}_list"}
+			%datalist{id: "#{param}_list"}
 				-instance_variable_get("@#{param}").each do |elem|
-					%option{:value=>elem.first}
-					-#, :label=>elem.second}
+					%option{value: elem.first}
+					-#, label: elem.second}
 		%thead
 			%tr
 				%th= "Date"
 				%th
 					Platform
 					%br
-					%input{:type=>'text', :id=>"platform_filter_input", :style=>'width:8ch', :list=>'platforms_list'}
+					%input{type: 'text', id: "platform_filter_input", style: 'width:8ch', list: 'platforms_list'}
 				%th
 					Server
 					%br
-					%input{:type=>'text', :id=>"server_filter_input", :style=>'width:11ch', :list=>'servers_list'}
+					%input{type: 'text', id: "server_filter_input", style: 'width:11ch', list: 'servers_list'}
 				-#%th
 					-#API_v
 					-#%br
-					-#%input{:type=>'text', :id=>"api_version_filter_input", :style=>'width:5ch', :list=>'api_versions_list'}
+					-#%input{type: 'text', id: "api_version_filter_input", style: 'width:5ch', list: 'api_versions_list'}
 				%th
 					AppId
 					%br
-					%input{:type=>'text', :id=>"appid_filter_input", :style=>'width:5ch'}
+					%input{type: 'text', id: "appid_filter_input", style: 'width:5ch'}
 				%th
 					App Type
 					%br
-					%input{:type=>'text', :id=>"app_type_filter_input", :style=>'width:8ch', :list=>'app_types_list'}
+					%input{type: 'text', id: "app_type_filter_input", style: 'width:8ch', list: 'app_types_list'}
 				%th
 					Locale
 					%br
-					%input{:type=>'text', :id=>"locale_filter_input", :style=>'width:6ch', :list=>'locales_list'}
+					%input{type: 'text', id: "locale_filter_input", style: 'width:6ch', list: 'locales_list'}
 				%th
 					Branch
 					%br
-					%input{:type=>'text', :id=>"branch_filter_input", :style=>'width:11ch', :list=>'branches_list'}
+					%input{type: 'text', id: "branch_filter_input", style: 'width:11ch', list: 'branches_list'}
 				%th
 					Suite
 					%br
-					%input{:type=>'text', :id=>"suite_filter_input", :style=>'width:11ch', :list=>'suites_list'}
+					%input{type: 'text', id: "suite_filter_input", style: 'width:11ch', list: 'suites_list'}
 				%th
 					Tests
 					%br
-					%input{:type=>'text', :id=>"tests_filter_input", :style=>'width:11ch'}
+					%input{type: 'text', id: "tests_filter_input", style: 'width:11ch'}
 				%th
 					User
 					%br
-					%input{:type=>'text', :id=>"user_filter_input", :style=>'width:11ch', :list=>'users_list'}
-				%th{:style=>"text-align: center"}= "Report"
+					%input{type: 'text', id: "user_filter_input", style: 'width:11ch', list: 'users_list'}
+				%th{style: "text-align: center"}= "Report"
 				%th= "Build"
 		%tbody

@@ -1,15 +1,15 @@
 %table
 	%tr
-		%th{style:"padding: 3px"}="Status"
-		%th{style:"padding: 3px"}="Number"
-		%th{style:"padding: 3px;padding-right: 150px"}= "Params"
+		%th{style: "padding: 3px"}="Status"
+		%th{style: "padding: 3px"}="Number"
+		%th{style: "padding: 3px;padding-right: 150px"}= "Params"
 	-builds.each do |b|
 		%tr
-			%td{title:b["status"], :style=>"text-align: center"}
-				%img{src:@status_images[b["status"]]}
-			%td{:style=>"text-align: center"}= b["number"]
+			%td{title: b["status"], style: "text-align: center"}
+				%img{src: @status_images[b["status"]]}
+			%td{style: "text-align: center"}= b["number"]
 			%td
 				%button.show_build_params= "Show"
-				%div.build_params{style:"display:none;"}
+				%div.build_params{style: "display:none;"}
 					-b["params"].each do |param|
 						%p= param

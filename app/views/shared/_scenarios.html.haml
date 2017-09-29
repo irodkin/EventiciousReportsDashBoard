@@ -1,17 +1,17 @@
 -if scenarios.empty? || edit
-  .addScenarioContainer
-    %h4= "Copy your scenario for #{suite_title} here"
-    %div
-      %textarea.parse_area= "@#{suite_tag}\nFeature: #{suite_title}"
-    %div{:style=>"text-align: right"}
-      %button#parse.btn.btn-success= "Parse"
+	.addScenarioContainer
+		%h4= "Copy your scenario for #{suite_title} here"
+		%div
+			%textarea.parse_area= "@#{suite_tag}\nFeature: #{suite_title}"
+		%div{style: "text-align: right"}
+			%button#parse.btn.btn-success= "Parse"
 -else
-  -scenarios.each do |s|
-    %div
-      -s.tags.split(",").each do |t|
-        %span.label.label-info.test= "@#{t}"
-      %span.badge.delete_scenario{:id=>s.id}= "delete"
-      %div
-        %span.keyword= "Scenario: "
-        %span.scenario_title= s.title
-      %div{:style=>"margin-left:10px; white-space: normal;"}= s.steps.html_safe
+	-scenarios.each do |s|
+		%div
+			-s.tags.split(",").each do |t|
+				%span.label.label-info.test= "@#{t}"
+			%span.badge.delete_scenario{id: s.id}= "delete"
+			%div
+				%span.keyword= "Scenario: "
+				%span.scenario_title= s.title
+			%div{style: "margin-left:10px; white-space: normal;"}= s.steps.html_safe

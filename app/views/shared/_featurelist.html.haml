@@ -1,11 +1,11 @@
 -suites.each do |f|
-  %div{:style=>"margin-bottom: 15px"}
-    %div
-      %span.label.label-info.test @#{f.tag}
-    %div.inline{:style=>"padding-top: 5px;"}
-      %a.list-group-item.list-group-item-info.feature= f.title
-    %div.inline.fixed{:style=>"padding-top: 5px;"}
-      .ticket
-        %span.label.label-info.add_scenarios{:id=>f.title}= "add tests"
-      .ticket
-        %span.badge.delete_feature{:id=>f.id}= "delete"
+	%div{style: "margin-bottom: 15px"}
+		%div
+			%span.label.label-info.test @#{f.tag}
+		%div.inline{style: "padding-top: 5px;"}
+			%a.list-group-item.list-group-item-info.feature= f.title
+		%div.inline.fixed{style: "padding-top: 5px;"}
+			.ticket
+				%span.label.label-info.add_scenarios{id: f.title}= "add tests"
+			.ticket
+				%span.badge.delete_feature{id: f.id}= "delete"

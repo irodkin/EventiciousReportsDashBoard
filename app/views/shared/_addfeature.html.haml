@@ -1,13 +1,13 @@
 %h4="Edit Suites"
 .list-group.inline.feature_container
-  #featurelist{:style=>"margin-bottom: 10px"}= render partial: 'shared/featurelist', locals: {suites: suites}
-  .addContainer
-    .input-group
-      %div
-        %input#tag.form-control.awesome-input{:style=>"width: 150px; margin-bottom: 7px;", :placeholder=>"tag here without @"}
-      %div
-        %input#title.form-control.awesome-input{:style=>"width: 150px; margin-bottom: 7px;", :placeholder=>"title here"}
-      %button#addNewFeature.btn.btn-success= "Add New Feature"
-  %button#addNewFeatureForm.btn.btn-info= "Add New Feature"
+	#featurelist{style: "margin-bottom: 10px"}= render partial: 'shared/featurelist', locals: {suites: suites}
+	.addContainer
+		.input-group
+			%div
+				%input#tag.form-control.awesome-input{style: "width: 150px; margin-bottom: 7px;", placeholder: "tag here without @"}
+			%div
+				%input#title.form-control.awesome-input{style: "width: 150px; margin-bottom: 7px;", placeholder: "title here"}
+			%button#addNewFeature.btn.btn-success= "Add New Feature"
+	%button#addNewFeatureForm.btn.btn-info= "Add New Feature"
 
 %div.inline.tests_container

@@ -1,34 +1,34 @@
-%img.ajaxBusy{:src=>asset_path("ajax_loader.gif")}
+%img.ajaxBusy{src: asset_path("ajax_loader.gif")}
 .container
-  #current_builds
-.container{:style=>"padding-bottom: 50px"}
-  = render 'shared/reporttable'
+	#current_builds
+.container{style: "padding-bottom: 50px"}
+	= render 'shared/reporttable'
 
-  .container
-    .raw
-      =pie_chart @branches
-    .raw
-      =pie_chart @platforms
-    .raw
-      =pie_chart @app_types
-    .raw
-      =pie_chart @locales
-    .raw
-      =pie_chart @suites
-    .raw
-      =pie_chart @servers
+	.container
+		.raw
+			=pie_chart @branches
+		.raw
+			=pie_chart @platforms
+		.raw
+			=pie_chart @app_types
+		.raw
+			=pie_chart @locales
+		.raw
+			=pie_chart @suites
+		.raw
+			=pie_chart @servers
 
-  .container
-    .charts_raw
-      %h4="Total tests run"
-      =pie_chart @total_results, height: "200px", colors: ["#5cb85c", "#d9534f", "#b1a0e3"]
-    .charts_raw
-      %h4="Run results"
-      =pie_chart @result_per_run, height: "200px", colors: ["#5cb85c", "#f0ad4e", "#d9534f"]
-    .charts_raw
-      %h4="Top users"
-      =pie_chart @users, height: "200px"
+	.container
+		.charts_raw
+			%h4="Total tests run"
+			=pie_chart @total_results, height: "200px", colors: ["#5cb85c", "#d9534f", "#b1a0e3"]
+		.charts_raw
+			%h4="Run results"
+			=pie_chart @result_per_run, height: "200px", colors: ["#5cb85c", "#f0ad4e", "#d9534f"]
+		.charts_raw
+			%h4="Top users"
+			=pie_chart @users, height: "200px"
 
 .navbar-fixed-bottom
-  %a.btn.btn-success{:href=>"/testrunner"}= "Run Tests"
-  %span.badge= @total_count
+	%a.btn.btn-success{href: "/testrunner"}= "Run Tests"
+	%span.badge= @total_count

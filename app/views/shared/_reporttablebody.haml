@@ -22,7 +22,7 @@
 							-label_status_class = "label-warning"
 						-else
 							-label_status_class = "label-success"
-						%span.label.result{:class=>"#{label_status_class}"}="#{passed}/#{r.all}"
+						%span.label.result{class: "#{label_status_class}"}="#{passed}/#{r.all}"
 			%div
 				%a.label.label-info.rerun{href: "/testrunner?rerun=true&report_id=#{r.id}"}= "rerun"
 		%td= link_to "#{r.job.title} ##{r.build}", "#{ApplicationController::JENKINS_URL}job/#{r.job.title}/#{r.build}", target: "_blank"

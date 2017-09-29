@@ -1,125 +1,125 @@
-%img.ajaxBusy{:src=>asset_path("ajax_loader.gif")}
-.alert.alert-success{:role=>"alert", :xmlns=>"http://www.w3.org/1999/html"}
-  %h4
-    %span= image_tag("tick.png", :class=>'tick')
-    Build #
-    %span.buildNumber 
-    Run!
-.alert.alert-danger{:role=>"alert"}
-  %strong= "Run Failed!"
-  %p
+%img.ajaxBusy{src: asset_path("ajax_loader.gif")}
+.alert.alert-success{role: "alert", xmlns: "http://www.w3.org/1999/html"}
+	%h4
+		%span= image_tag("tick.png", class: 'tick')
+		Build #
+		%span.buildNumber 
+		Run!
+.alert.alert-danger{role: "alert"}
+	%strong= "Run Failed!"
+	%p
 .container
-  #current_builds
+	#current_builds
 .container
-  .page-header
-    %ul.pager
-      %li.previous
-        %a{:href=>"/dashboard"}
-          %span{"aria-hidden"=>"true"}= "&larr;".html_safe
-          To Dashboard
-      %li.next
-        %a#signIn{:href=>"#"}= "Sign In"
-    %h1
-      Run Tests 
-      %small= "cause it's cool"
-  .params-container
-    %form{:action=>"#", :onsubmit=>"return false;"}
-      #platform
-        %span#IOS.label.label-success.activeDevice= "iOS"
-        %span#Android.label.label-success= "Android"
-      .dropdown{:style=>"display: inline-block"}
-        %h4= "Job"
-        %button#jobDropdownMenu.btn.btn-primary.dropdown-toggle{:type=>"button", "data-toggle"=>"dropdown", "aria-haspopup"=>"true", "aria-expanded"=>"true"}
-          -if @jobs.nil?
-            %span#current_job= "No Jobs yet :( Add new, dude!"
-          -else
-            %span#current_job= @jobs.last.title
-          %span.caret
-        %ul.dropdown-menu{"aria-labelledby"=>"jobDropdownMenu"}
-          -@jobs.each do |j|
-            %li
-              %a.select-job= j.title
-      %div{:style=>"display: inline-block"}
-        %button#addJob.btn{:type=>"button", :style=>"border-radius: 25px"}= "+"
-      %div
-        %div{:style=>"display: inline-block;margin-right: 50px;"}
-          %h4= "Server"
-          #server
-            %ul.nav.nav-pills
-              %li#Production.list-group-item-info.active
-                %a= "Production"
-              %li#Test.list-group-item-info
-                %a= "Test"
-        -#%div{:style=>"display: inline-block;"}
-        -#  %h4= "API version"
-        -#  #apiVersion
-        -#    %ul.nav.nav-pills
-        -#      %li#v4.list-group-item-info
-        -#        %a= "v4"
-        -#      %li#v5.list-group-item-info.active
-        -#        %a= "v5"
-      %h4= "Branch"
-      .input-group
-        %input#branch.form-control{:type=>"text", :style=>"border-radius: 7px;", :value=>"default", :placeholder=>"enter branch here...", "aria-describedby"=>"basic-addon3"}
-      %h4= "Application Type"
-      #appType
-        %ul.nav.nav-pills
-          %li#single.list-group-item-info.active
-            %a= "Branded"
-          %li#multi.list-group-item-info
-            %a= "Multi-event"
-          %li#pin.list-group-item-info
-            %a= "Pin Access"
-      %h4= "Locale"
-      #locale
-        %ul.nav.nav-pills
-          %li#ru.list-group-item-info.active
-            %a= "Russian"
-          %li#en.list-group-item-info
-            %a= "English"
-      %div
-        %h4= "Application Id"
-        #appId-toggle.toggle.toggle-light{:style=>"display: inline-block;padding-top: 14px;"}
-        %div{:style=>"display: inline-block;"}
-          .input-group
-            %input#appId.form-control{:type=>"text", :style=>"border-radius: 7px; display: none;", :placeholder=>"enter application Id here...", "aria-describedby"=>"basic-addon3"}
-      %h4= "Suites"
-      #suite
-        %ul.nav.nav-pills
-          -@feature.each do |f|
-            %li.list-group-item-info{:id=>"#{f.title}"}
-              %a= f.title
-          %li
-            %button#addSuite.btn{:type=>"button", :style=>"border-radius: 25px"}= "+"
-      #tests.tests
-      %h4
-        Iterations 
-        %small= "for MemoryLeaks tests only"
-      .input-group
-        %input#iterations.form-control{:type=>"text", :style=>"border-radius: 7px;", :value=>"0", "aria-describedby"=>"basic-addon3"}
-      %h4= "Rebuild App"
-      %div
-        #rebuildApp-toggle.toggle.toggle-light
-      .run_section
-        %div{:style=>"float:left;"}
-          %button#run.btn.btn-success.btn-run{:type=>"submit"}= "RUN!"
-  -#Modal Login
-  #login.modal.fade{:tabindex=>"-1", :role=>"dialog", "aria-labelledby"=>"myModalLabel"}
-    .modal-dialog{:role=>"document"}
-      .modal-content
-        .modal-header
-          %h4#myModalLabel.modal-title= "Use you Jenkins account"
-        .modal-body
-          .form-group
-            %label{:for=>"username"}= "Username"
-            %input#username.form-control{:type=>"text", :placeholder=>"Enter your username"}
-          .form-group
-            %label{:for=>"password"}= "Password"
-            %input#password.form-control{:type=>"password", :placeholder=>"Enter your password"}
-        .modal-footer
-          %button.btn.btn-default{:type=>"button", "data-dismiss"=>"modal"}= "Close"
-          %button#loginButton.btn.btn-primary.disabled{:type=>"button"}= "Login"
-  -#Modal Add Job
-  = render 'shared/addjob'
-  = render 'shared/editsuite', locals: {feature: @feature}
-  #builds{:style=>"float:right;max-width:400px"}
+	.page-header
+		%ul.pager
+			%li.previous
+				%a{href: "/dashboard"}
+					%span{'aria-hidden': "true"}= "&larr;".html_safe
+					To Dashboard
+			%li.next
+				%a#signIn{href: "#"}= "Sign In"
+		%h1
+			Run Tests 
+			%small= "cause it's cool"
+	.params-container
+		%form{action: "#", onsubmit: "return false;"}
+			#platform
+				%span#IOS.label.label-success.activeDevice= "iOS"
+				%span#Android.label.label-success= "Android"
+			.dropdown{style: "display: inline-block"}
+				%h4= "Job"
+				%button#jobDropdownMenu.btn.btn-primary.dropdown-toggle{type: "button", 'data-toggle': "dropdown", 'aria-haspopup': "true", 'aria-expanded': "true"}
+					-if @jobs.nil?
+						%span#current_job= "No Jobs yet :( Add new, dude!"
+					-else
+						%span#current_job= @jobs.last.title
+					%span.caret
+				%ul.dropdown-menu{'aria-labelledby': "jobDropdownMenu"}
+					-@jobs.each do |j|
+						%li
+							%a.select-job= j.title
+			%div{style: "display: inline-block"}
+				%button#addJob.btn{type: "button", style: "border-radius: 25px"}= "+"
+			%div
+				%div{style: "display: inline-block;margin-right: 50px;"}
+					%h4= "Server"
+					#server
+						%ul.nav.nav-pills
+							%li#Production.list-group-item-info.active
+								%a= "Production"
+							%li#Test.list-group-item-info
+								%a= "Test"
+				-#%div{style: "display: inline-block;"}
+				-#	%h4= "API version"
+				-#	#apiVersion
+				-#		%ul.nav.nav-pills
+				-#			%li#v4.list-group-item-info
+				-#				%a= "v5"
+				-#			%li#v5.list-group-item-info.active
+				-#				%a= "v6"
+			%h4= "Branch"
+			.input-group
+				%input#branch.form-control{type: "text", style: "border-radius: 7px;", value: "default", placeholder: "enter branch here...", 'aria-describedby': "basic-addon3"}
+			%h4= "Application Type"
+			#appType
+				%ul.nav.nav-pills
+					%li#single.list-group-item-info.active
+						%a= "Branded"
+					%li#multi.list-group-item-info
+						%a= "Multi-event"
+					%li#pin.list-group-item-info
+						%a= "Pin Access"
+			%h4= "Locale"
+			#locale
+				%ul.nav.nav-pills
+					%li#ru.list-group-item-info.active
+						%a= "Russian"
+					%li#en.list-group-item-info
+						%a= "English"
+			%div
+				%h4= "Application Id"
+				#appId-toggle.toggle.toggle-light{style: "display: inline-block;padding-top: 14px;"}
+				%div{style: "display: inline-block;"}
+					.input-group
+						%input#appId.form-control{type: "text", style: "border-radius: 7px; display: none;", placeholder: "enter application Id here...", 'aria-describedby': "basic-addon3"}
+			%h4= "Suites"
+			#suite
+				%ul.nav.nav-pills
+					-@feature.each do |f|
+						%li.list-group-item-info{id: "#{f.title}"}
+							%a= f.title
+					%li
+						%button#addSuite.btn{type: "button", style: "border-radius: 25px"}= "+"
+			#tests.tests
+			%h4
+				Iterations 
+				%small= "for MemoryLeaks tests only"
+			.input-group
+				%input#iterations.form-control{type: "text", style: "border-radius: 7px;", value: "0", 'aria-describedby': "basic-addon3"}
+			%h4= "Rebuild App"
+			%div
+				#rebuildApp-toggle.toggle.toggle-light
+			.run_section
+				%div{style: "float:left;"}
+					%button#run.btn.btn-success.btn-run{type: "submit"}= "RUN!"
+	-#Modal Login
+	#login.modal.fade{tabindex: "-1", role: "dialog", 'aria-labelledby': "myModalLabel"}
+		.modal-dialog{role: "document"}
+			.modal-content
+				.modal-header
+					%h4#myModalLabel.modal-title= "Use you Jenkins account"
+				.modal-body
+					.form-group
+						%label{for: "username"}= "Username"
+						%input#username.form-control{type: "text", placeholder: "Enter your username"}
+					.form-group
+						%label{for: "password"}= "Password"
+						%input#password.form-control{type: "password", placeholder: "Enter your password"}
+				.modal-footer
+					%button.btn.btn-default{type: "button", 'data-dismiss': "modal"}= "Close"
+					%button#loginButton.btn.btn-primary.disabled{type: "button"}= "Login"
+	-#Modal Add Job
+	= render 'shared/addjob'
+	= render 'shared/editsuite', locals: {feature: @feature}
+	#builds{style: "float:right;max-width:400px"}
