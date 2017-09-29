@@ -1,12 +1,15 @@
 %h4
 	Tests
-	%span.badge= tags.size
+	%span.badge= scenarios_with_tags.size
 .tag
 	%span.headTag.label.label-info{id: "#{head_tag}", class: "test-active"}= head_tag
--tags.each do |tag|
+-scenarios_with_tags.each do |scenarios_with_tag|
 	.tag.tooltips{href: "#"}
-		%span.label.label-info.scenario.test{id: "#{tag[1]}"}= tag[1]
+		%span.label.label-info.scenario.test{id: "#{scenarios_with_tag[:tag]}"}= scenarios_with_tag[:tag]
 		%section.tooltips-container
 			.test_container
-				-tag.first.each do |scenario|
-					= scenario.html_safe
+				-scenarios_with_tag[:scenarios].each do |scenario|
+					%div
+						%span{class: "keyword"}= "Scenario:"
+						%span{class: "scenario_title"}= scenario.title.html_safe
+					%div{style: "margin-left: 5px"}= scenario.steps.html_safe

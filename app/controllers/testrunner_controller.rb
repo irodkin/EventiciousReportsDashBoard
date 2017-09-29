@@ -2,13 +2,11 @@ class TestrunnerController < ApplicationController
 	def index
 		@jobs = Job.all
 		@feature = Suite.all
-		#@head_tag = Suite.first.tag unless Suite.first.nil?
-		#@tests = Test.where(suite: @feature.first).all
 	end
 	def get_scenario_of_feature
 		scenarios = Test.where(suite: params[:suite]).all
 		suite_title = params[:suite]
-		suite_tag = Suite.where(title: params[:suite]).first.tag
+		suite_tag = Suite.find_by(title: params[:suite]).tag
 		edit = params[:edit] == 'true' ? true : false
 		render partial: 'shared/scenarios',
 		       locals: {scenarios: scenarios,
@@ -31,11 +29,7 @@ class TestrunnerController < ApplicationController
 	end
 	def retry_all
 		report = Report.find(params[:report_id])
-		if report.tests.kind_of?(Array)
-			tests = report.tests.each {|t| t.delete("@")}
-		else
-			tests = report.tests.delete("@")
-		end
+		tests = report.tests.delete("@")
 		render json: {tests: tests},
 		status: 200
 	end
@@ -46,31 +40,14 @@ class TestrunnerController < ApplicationController
 		       status: 200
 	end
 	def tests
-		tests = Test.where(suite: params[:suite]).all
-		tags_arr = tests.collect {|t| t.tags}
-		split = []
-		to_delete = []
-		tags_arr.collect! do |t|
-			if t.split(",").size > 1
-				t.split(",").each {|t| split.push(t)}
-				to_delete.push t
-			end
-			t
-		end
-		to_delete.each {|d| tags_arr.delete(d)}
-		split.each {|s| tags_arr.push s}
-		scenarios = []
-		tags_arr.uniq!
-		tags_arr.each do |t|
-			scenarios_a = tests.find_all {|f| f.tags.split(",").include?(t)}
-			scenarios_b = []
-			scenarios_a.each {|s|
-				scenarios_b.push "<div><span class=\"keyword\">Scenario: </span><span class=\"scenario_title\">#{s.title}<span></div><div style=\"margin-left: 5px\">#{s.steps}</div>"
-			}
-			scenarios.push([scenarios_b, t])
-		end
-		head_tag = Suite.where(title: params[:suite]).first.tag
+		scenarios = Test.where(suite: params[:suite]).all
+		tags = scenarios.inject([]) {|all_tags, test| all_tags + test.tags.split(",")}.uniq
+		scenarios_with_tags = tags.collect {|tag|
+			scenarios_with_tag = scenarios.find_all {|f| f.tags.split(",").include?(tag)}
+			{tag: tag, scenarios: scenarios_with_tag}
+		}
+		head_tag = Suite.find_by(title: params[:suite]).tag
 		render partial: 'shared/tests',
-		       locals: {tags: scenarios, head_tag: head_tag}
+		       locals: {scenarios_with_tags: scenarios_with_tags, head_tag: head_tag}
 	end
 end
