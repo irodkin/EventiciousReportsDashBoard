@@ -2,5 +2,5 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
-  JENKINS_URL = "http://jenkins.mercury.office:8080/"
+  JENKINS_URL = "http://playground.mercury.office:8080/"
 end

@@ -12,7 +12,7 @@ class Api::TestrunController < ApplicationController
 
     testBranch = check_branch_exists(params[:branch], params[:job])
 
-    @client = JenkinsApi::Client.new(:server_ip => '192.168.162.78',
+    @client = JenkinsApi::Client.new(:server_ip => '192.168.163.68',
                                      :username => URI.decode_www_form_component(params[:username]),
                                      :password => URI.decode_www_form_component(params[:password]))
 
@@ -55,7 +55,7 @@ class Api::TestrunController < ApplicationController
     render json: {
       :job_params => job_params,
       :job_name => job_name,
-      :build=>current_build+1
+      :build=> current_build+1
     },
       status: return_code
   end
@@ -128,7 +128,7 @@ class Api::TestrunController < ApplicationController
     end
     #getting builds
     unless builds_in_queue_for_platform_with_rebuild
-      last_builds_for_platform.each {|key,value|
+      last_builds_for_platform.each {|key, value|
         if build_params_equal?(params, value)
           if value.xpath('.//result').text() == 'SUCCESS'
             where_run_without_rebuilding = key
