@@ -3,15 +3,15 @@ require 'gherkin3/parser'
 class Api::ScenarioparserController < ApplicationController
 
 	def get_tests
-		render json: {suite: Test.where(suite: params[:suite]).all},
-		       status: 200
+		render status: 200,
+		       json: {suite: Test.where(suite: params[:suite]).all}
 	end
 
 	def get_test
 		tests = Test.all
 		needed = tests.find {|t| t[:tags].to_s.split(",").include?(params[:tag])}
-		render json: {tests: needed},
-		       status: 200
+		render status: 200
+		       json: {tests: needed},
 	end
 
 	def add_feature
@@ -33,24 +33,24 @@ class Api::ScenarioparserController < ApplicationController
 		scenarios_id = Test.where(suite: feature.title).all.collect {|scenario| scenario.id}
 		if feature.destroy
 			Test.where(suite: feature.title).find_each {|scenario| scenario.destroy}
-			render json: {feature: feature.title,
+			render status: 200,
+			       json: {feature: feature.title,
 			              scenarios: scenarios_id,
-			              deleted: true},
-			       status: 200
+			              deleted: true}
 		else
-			render json: {deleted: false},
-			       status: 500
+			render status: 500,
+			       json: {deleted: false}
 		end
 	end
 
 	def delete_scenario
 		scenario = Test.find(params[:id])
 		if scenario.destroy
-			render json: {deleted: true},
-			       status: 200
+			render status: 200,
+			       json: {deleted: true}
 		else
-			render json: {deleted: false},
-			       status: 500
+			render status: 500,
+			       json: {deleted: false}
 		end
 	end
 
@@ -60,7 +60,8 @@ class Api::ScenarioparserController < ApplicationController
 		feauture_name = parsed_feature[:name]
 		scenarios = parsed_feature[:scenarioDefinitions].collect {|scenario|
 			tags = scenario[:tags].collect {|tag| tag[:name].delete('@')}.join(",")
-			steps = scenario[:steps].collect {|step| "<div><span class=\"keyword\">#{step[:keyword]}</span> #{step[:text]}</div>"}.join("")
+			steps = scenario[:steps].collect {|step|
+				"<div><span class=\"keyword\">#{step[:keyword]}</span> #{step[:text]}</div>"}.join("")
 			{suite: feauture_name,
 			 tags: tags,
 			 title: scenario[:name],

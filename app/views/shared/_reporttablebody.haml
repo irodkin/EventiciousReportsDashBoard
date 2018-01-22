@@ -25,7 +25,7 @@
 						%span.label.result{class: "#{label_status_class}"}="#{passed}/#{r.all}"
 			%div
 				%a.label.label-info.rerun{href: "/testrunner?rerun=true&report_id=#{r.id}"}= "rerun"
-		%td= link_to "#{r.job.title} ##{r.build}", "#{ApplicationController::JENKINS_URL}job/#{r.job.title}/#{r.build}", target: "_blank"
+		%td= link_to "#{r.job.title} ##{r.build}", "#{ApplicationController::JENKINS_URL}job/#{r.job.title.sub("/", "/job/")}/#{r.build}", target: "_blank"
 		%td{style: "text-align: center"}
 			%div
 				%span.label.label-danger.deleteButton= "delete"
